@@ -6,9 +6,6 @@ import { AnimateSharedLayout } from 'framer-motion';
 
 function CardTile(props) {
     const [expanded, setExpanded] = useState(false);
-    console.log("1234567", props);
-
-
     return (
         <>
             {/* <div>Hello world</div> */}
