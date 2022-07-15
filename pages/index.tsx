@@ -62,7 +62,22 @@ const Home: NextPage = () => {
         "/api/gotchiverse/stats/7/series",
         Fetcher
     );
-    let gotchiverseStats7dSeries = gotchiverseStats7dSeriesResponse.data;
+
+    let gotchiverseStates30dSeriesResponse = useSWR(
+        "/api/gotchiverse/stats/30/series",
+        Fetcher
+    );
+
+
+
+
+    let gotchiverseStats7dSeries = gotchiverseStats7dSeriesResponse.data; // gotchiverseStats 7 days data 
+
+    let gotchiverseStats30dSeries = gotchiverseStates30dSeriesResponse.data; // gotchiverseStats 30 days data
+
+
+    console.log(gotchiverseStats7dSeries, "hello world!");
+    console.log(gotchiverseStats30dSeries, "bye world");
 
     let activeWallets = useSWR("/api/alchemica/");
 
@@ -85,8 +100,26 @@ const Home: NextPage = () => {
     const [totalSupplyData, setTotalSupplyData] = useState();
 
     const [gotchisData, setGotchisData] = useState();
+
+    // ============================ graph below =====================
+
+    const [dataToBeDisplayed, setDataToBeDisplayed] = useState<string>("");
+
+
+    const [graphTitle, setGraphTitle] = useState<string>("");
+    
+    const [graphData7d, setGraphData7d] = useState<object>({});
+
+    const [graphData30d, setGraphData30d] = useState<object>({});
+    const date = new Date();
+
+    console.log(date.getMonth() + 1, "hello Month");
+    console.log(date.getDate() + 1, "hello Date");
+    console.log(typeof date.getDate())
     // set all the data on mount,
+
     useEffect(() => {
+
         function setData() {
             // setGLTRBurnedData(arrayOfGLTRBurnedData);
             // setActiveWalletsData(arrayOfActiveWalletsData);
@@ -95,10 +128,30 @@ const Home: NextPage = () => {
             // setUpgradesInitiatedData(arrayOfUpgradesInitiatedData);
             // setPoolsData(arrayOfPoolsData);
             // setTotalSupplyData(totalSupply);
+            setDataToBeDisplayed("installationsMintedTotal");
+            setGraphTitle("installationsMintedTotal")
+
         }
 
         setData();
     }, []);
+
+
+    useEffect(() => {
+        setGraphData30d(gotchiverseStats30dSeries);
+
+    }, [gotchiverseStats30dSeries]);
+
+    useEffect(() => {
+        setGraphData7d(gotchiverseStats7dSeries);
+        console.log(graphData7d, "hello world!!!");
+        
+    }, [gotchiverseStats7dSeries]);
+
+
+    
+
+
 
     return (
         <>
@@ -106,7 +159,10 @@ const Home: NextPage = () => {
                 <h2 className="title">Gotchiverse Economy</h2>
                 <Row>
                     <Col md="9">
-                        <ChartTest />
+                        {
+                            dataToBeDisplayed.length > 0 && graphData7d && graphData30d  && <ChartTest title = {graphTitle} data7d = {graphData7d} data30d ={graphData30d}/>
+                        }
+                        
                     </Col>
                     <Col md="3">
                         <LastSold2 />
@@ -157,7 +213,14 @@ const Home: NextPage = () => {
                                     data30d={
                                         gotchiverseStats30d.installationsMintedTotal
                                     }
-                                    title={"INSTALLATIONS MINTED"}
+                                    title={"installationsMintedTotal"}
+                                    setGraph = { (titleName : string ) => {
+                                        setDataToBeDisplayed(titleName);
+                                        console.log("ran");
+                                        console.log(dataToBeDisplayed);
+                                    }
+                                        
+                                    }
                                 />
                             </Col>
                         )}
@@ -172,6 +235,10 @@ const Home: NextPage = () => {
                                     data7d={gotchiverseStats7d.tilesMinted}
                                     data30d={gotchiverseStats30d.tilesMinted}
                                     title={"TILES MINTED"}
+                                    setGraph = { (titleName : string ) => {
+                                        setDataToBeDisplayed(titleName);
+                                    }}
+
                                 />
                             </Col>
                         )}
@@ -187,6 +254,10 @@ const Home: NextPage = () => {
                                     data7d={gotchiverseStats7d.gltrSpendTotal}
                                     data30d={gotchiverseStats30d.gltrSpendTotal}
                                     title={"GLTR BURNED"}
+                                    setGraph = { (titleName : string ) => {
+                                        setDataToBeDisplayed(titleName);
+                                    }
+                                }
                                 />
                             </Col>
                         )}

@@ -22,7 +22,7 @@ ChartJS.register(
     Legend
 );
 
-function UnflippedTile({ title, data, data1d, data7d, data30d }) {
+function UnflippedTile({ title, data, data1d, data7d, data30d, setGraph }) {
     const [expanded, setExpanded] = useState(true);
     const [dataToBeDisplayed, setDataToBeDisplayed] = useState(0);
     const [trendChange, setTrendChange] = useState(0);
@@ -85,6 +85,9 @@ function UnflippedTile({ title, data, data1d, data7d, data30d }) {
                         <div
                             className="wrapper"
                             onClick={(event) => {
+                                setGraph("installationsMintedTotal")
+                            
+                                console.log("Clicked here");
                                 setExpanded(false);
                                 event.stopPropagation();
                             }}
