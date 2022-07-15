@@ -5,11 +5,12 @@ import ChartTest from "./chartTest2";
 import Fetcher from "../fetcher";
 
 export interface GotchiverseStatsChart {
-    interval: Number;
+    title: string;
     field: string;
 }
 export default function GotchiverseStatsChart({
     field,
+    title,
 }: GotchiverseStatsChart) {
     const [interval, setInterval] = useState(7);
     let data: string[] = [];
@@ -31,7 +32,7 @@ export default function GotchiverseStatsChart({
 
     return (
         <div>
-            <ChartTest title="Test" data={data} />
+            <ChartTest title={title} data={data} />
             <Button onClick={() => setInterval(7)}>Show 7D</Button>
             <Button onClick={() => setInterval(30)}>Show 30D</Button>
         </div>

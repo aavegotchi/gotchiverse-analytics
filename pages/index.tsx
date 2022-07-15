@@ -143,7 +143,15 @@ const Home: NextPage = () => {
         <>
             <div className="mainWrapper">
                 <h2 className="title">Gotchiverse Economy</h2>
-                <GotchiverseStatsChart field="tilesMinted" />
+                <GotchiverseStatsChart
+                    title="Tiles minted"
+                    field="tilesMinted"
+                />
+
+                <GotchiverseStatsChart
+                    title="Installations minted"
+                    field="installationsMintedTotal"
+                />
                 <Row>
                     <Col md="9">
                         {/* {dataToBeDisplayed.length > 0 &&
