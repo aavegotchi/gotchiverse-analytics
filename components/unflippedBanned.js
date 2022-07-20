@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect} from "react";
 
 function UnflippedBanned({ title, data, data1d, data7d, data30d }) {
-  const [timeLine, setTimeLine] = useState(24);
+  const [timeLine, setTimeLine] = useState(100);
   const [dataToBeDisplayed, setDataToBeDisplayed ] = useState(0); 
   const [trendChange, setTrendChange] = useState(0);
 

@@ -79,7 +79,7 @@ interface ChartTestProps {
 }
 
 function ChartTest(props: ChartTestProps): JSX.Element {
-    const { title, data } = props;
+    const { title, data, fetchData} = props;
 
     const [titleName, setTitleName] = useState<string>("");
     const [chartData, setChartData] = useState<object>({
@@ -90,7 +90,7 @@ function ChartTest(props: ChartTestProps): JSX.Element {
 
     const featuresArray = ["installationsMintedTotal"];
 
-    console.log(featuresArray, "array here");
+    
     // setting up weekly data here
     // setting up monthly data here
 

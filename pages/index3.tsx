@@ -17,20 +17,10 @@ import { AnimateSharedLayout } from "framer-motion";
 import LastSold2 from "../components/lastSold2";
 import Image from "next/image";
 import TotalSupply from "../components/totalSupply";
-import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
 import { GrassCard } from "../components/grassCard";
 import { RugCard } from "../components/rugCard";
-import GraphSetButtons from "../components/GraphSetButtons";
-
-
-
-
-interface dataObject {
-    title: string;
-    dataField : string;
-}
 
 const Home: NextPage = () => {
     let alchemicaTotalResponse = useSWR("/api/alchemica/supply", Fetcher);
@@ -128,14 +118,6 @@ const Home: NextPage = () => {
     console.log(typeof date.getDate())
     // set all the data on mount,
 
-
-
-
-    const [graphObject, setGraphObject] = useState<dataObject>({
-        title : "installations minted",
-        dataField : "installationsMintedTotal"
-    })
-
     useEffect(() => {
 
         function setData() {
@@ -178,16 +160,12 @@ const Home: NextPage = () => {
                 <Row>
                     <Col md="9">
                         {
-                            graphObject && 
-                            <GotchiverseStatsChart 
-                            field = {graphObject.dataField}
-                            title = {graphObject.title}/>
+                            dataToBeDisplayed.length > 0 && graphData7d && graphData30d  && <ChartTest title = {graphTitle} data7d = {graphData7d} data30d = {graphData30d}/>
                         }
-
                         
                     </Col>
                     <Col md="3">
-                        <GraphSetButtons graphObject = {graphObject} setGraphObject = {setGraphObject}/>
+                        <LastSold2 />
                     </Col>
                 </Row>
                 {gotchiverseStats && (
@@ -328,8 +306,54 @@ const Home: NextPage = () => {
                     </Col>
                 </Row>
 
-
-                
+                <Row>
+                    {poolsData && (
+                        <Col>
+                            <PoolsUnflippedV2
+                                data={poolsData}
+                                title={"POOLS STAKED"}
+                            />
+                        </Col>
+                    )}
+                    {totalSupplyData && (
+                        <Col>
+                            <TotalSupply
+                                data={totalSupplyData}
+                                title={"POOLS STAKED"}
+                            />
+                            {/* alchemicaminted / total supply */}
+                        </Col>
+                    )}
+                    {/* <Col>
+          <UnflippedTile data  ={ burnedGLTRCurrentData } title = {"Channels"}/>
+          </Col> */}
+                </Row>
+                <Row>
+                    {GLTRBurnedData && (
+                        <Col>
+                            <UnflippedTile
+                                data={GLTRBurnedData}
+                                title={"GLTR STAKERS"}
+                            />
+                        </Col>
+                    )}
+                    {activeWalletsData && (
+                        <Col>
+                            <UnflippedTile
+                                data={activeWalletsData}
+                                title={"ACTIVE WALLETS"}
+                            />
+                        </Col>
+                    )}
+                    {GLTRBurnedData && (
+                        <Col>
+                            <UnflippedTile
+                                data={GLTRBurnedData}
+                                title={"EXTRACTORS"}
+                            />
+                        </Col>
+                    )}
+                </Row>
 
                 {gotchiStats && (
                     <>
