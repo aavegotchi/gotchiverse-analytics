@@ -58,7 +58,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: url(/static/images/GotchiverseBackground.png);
 
 
 }

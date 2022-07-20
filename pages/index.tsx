@@ -7,14 +7,11 @@ import { Card, Col, Row } from "react-bootstrap";
 import UnflippedTile from "../components/unflipped";
 import AlchemicaCard from "../components/alchemicaCard";
 
-import ChartTest from "../components/chartTest";
-import GotchiverseNews from "../components/gotchiverseNews";
+
+
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
-import CardTile from "../components/card";
-import LastSold from "../components/lastSold";
-import { AnimateSharedLayout } from "framer-motion";
-import LastSold2 from "../components/lastSold2";
+
 import Image from "next/image";
 import TotalSupply from "../components/totalSupply";
 import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
@@ -23,6 +20,7 @@ import Fetcher from "../fetcher";
 import { GrassCard } from "../components/grassCard";
 import { RugCard } from "../components/rugCard";
 import GraphSetButtons from "../components/GraphSetButtons";
+import DataCard from "../components/DataCard";
 
 
 
@@ -31,6 +29,8 @@ interface dataObject {
     title: string;
     dataField : string;
 }
+
+
 
 const Home: NextPage = () => {
     let alchemicaTotalResponse = useSWR("/api/alchemica/supply", Fetcher);
@@ -86,32 +86,20 @@ const Home: NextPage = () => {
     let gotchiverseStats30dSeries = gotchiverseStates30dSeriesResponse.data; // gotchiverseStats 30 days data
 
 
-    console.log(gotchiverseStats7dSeries, "hello world!");
-    console.log(gotchiverseStats30dSeries, "bye world");
-
     let activeWallets = useSWR("/api/alchemica/");
 
-    // NOTE: EVERYTHING is still in string , could change them to integers to process in "unflipped.js"
-    // setting data into arrays, [{24h}, {7d}, {30d}]
-    const [expanded, setExpanded] = useState(true);
 
-    const [GLTRBurnedData, setGLTRBurnedData] = useState();
+    console.log("gotchiverseStats (Total)", gotchiverseStats);
+    console.log("1d day series data here", gotchiverseStats1d);
+    console.log("g7 day series data here  ", gotchiverseStats7d);
+    console.log("30d day series data here", gotchiverseStats30d);
+    
 
-    const [activeWalletsData, setActiveWalletsData] = useState();
 
-    const [tilesMintedData, setTilesMintedData] = useState();
-
-    const [installationsMintedData, setInstallationsMintedData] = useState();
-
-    const [upgradesInitiatedData, setUpgradesInitiatedData] = useState();
-
-    const [poolsData, setPoolsData] = useState(null);
-
-    const [totalSupplyData, setTotalSupplyData] = useState();
-
-    const [gotchisData, setGotchisData] = useState();
-
+    
     // ============================ graph below =====================
+
+
 
     const [dataToBeDisplayed, setDataToBeDisplayed] = useState<string>("");
 
@@ -121,15 +109,7 @@ const Home: NextPage = () => {
     const [graphData7d, setGraphData7d] = useState<object>({});
 
     const [graphData30d, setGraphData30d] = useState<object>({});
-    const date = new Date();
-
-    console.log(date.getMonth() + 1, "hello Month");
-    console.log(date.getDate() + 1, "hello Date");
-    console.log(typeof date.getDate())
-    // set all the data on mount,
-
-
-
+ 
 
     const [graphObject, setGraphObject] = useState<dataObject>({
         title : "installations minted",
@@ -139,13 +119,7 @@ const Home: NextPage = () => {
     useEffect(() => {
 
         function setData() {
-            // setGLTRBurnedData(arrayOfGLTRBurnedData);
-            // setActiveWalletsData(arrayOfActiveWalletsData);
-            // setTilesMintedData(arrayOfTilesMintedData);
-            // setInstallationsMintedData(arrayOfInstallationsMintedTotalData);
-            // setUpgradesInitiatedData(arrayOfUpgradesInitiatedData);
-            // setPoolsData(arrayOfPoolsData);
-            // setTotalSupplyData(totalSupply);
+
             setDataToBeDisplayed("installationsMintedTotal");
             setGraphTitle("installationsMintedTotal")
 
@@ -167,7 +141,25 @@ const Home: NextPage = () => {
     }, [gotchiverseStats7dSeries]);
 
 
-    
+    // objects 
+
+    //======================== row 1 ==============================
+
+    const rowOneObjects : dataObject[] = [
+        {
+            title: "TILES MINTED",
+            dataField : "tilesMinted"
+        },
+        {
+            title: "INSTALLATIONS MINTED",
+            dataField: "installationsMintedTotal"
+        },
+        {
+            title: "INSTALLATIONS UPGRADED TOTAL",
+            dataField: "installationsUpgradedTotal"
+        }
+
+    ]
 
 
 
@@ -184,12 +176,12 @@ const Home: NextPage = () => {
                             title = {graphObject.title}/>
                         }
 
-                        
                     </Col>
                     <Col md="3">
                         <GraphSetButtons graphObject = {graphObject} setGraphObject = {setGraphObject}/>
                     </Col>
                 </Row>
+
                 {gotchiverseStats && (
                     <Row>
                         <Col>
@@ -216,6 +208,27 @@ const Home: NextPage = () => {
                         </Col>
                     </Row>
                 )}
+                <Row>
+                    {
+                        rowOneObjects.map((data, index) => {
+                            return (
+                                <Col>
+                                    <DataCard 
+                                    key = {index}
+                                    title = {data.title} 
+                                    dataField = {data.dataField}
+                                    />
+                                </Col>
+
+                            )
+
+                        })
+                    }
+                </Row>
+
+
+
+
                 <Row>
                     {gotchiverseStats &&
                         gotchiverseStats1d &&
