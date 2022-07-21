@@ -45,7 +45,7 @@ function AlchemicaCardData({title, dataField} : AlchemicaCardProps) {
                     {
                         coins.map((coin, index) => {
                             return (
-                                <div className = "body_data">
+                                <div className = "body_data" key = {index}>
                                     <div className = "coin_wrapper">
                                         <Image
                                         src={ `/static/images/${coin}.png`}
