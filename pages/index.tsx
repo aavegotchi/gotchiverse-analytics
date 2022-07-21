@@ -5,7 +5,7 @@ import { Card, Col, Row } from "react-bootstrap";
 
 // components here
 import UnflippedTile from "../components/unflipped";
-import AlchemicaCard from "../components/alchemicaCard";
+import AlchemicaCardData from "../components/AlchemicaCardData";
 
 
 
@@ -143,6 +143,22 @@ const Home: NextPage = () => {
 
     // objects 
 
+    // ======================= Alchemica stuff =====================
+
+    const alchemicaObjects: dataObject[] = [
+        {
+            title: "ALCHEMICA SPENT TILES",
+            dataField: "alchemicaSpendOnTiles"
+        },
+        {
+            title: "ALCHEMICA SPENT INSTALLATIONS",
+            dataField: "alchemicaSpendOnInstallations"
+        },
+        {
+            title: "ALCHEMICA SPENT UPGRADES",
+            dataField: "alchemicaSpendOnUpgrades"
+        }
+    ]
     //======================== row 1 ==============================
 
     const rowOneObjects : dataObject[] = [
@@ -179,10 +195,28 @@ const Home: NextPage = () => {
 
 
 
+
     return (
         <>
             <div className="mainWrapper">
                 <h2 className="title">Gotchiverse Economy</h2>
+                <Row>
+                    {
+                        alchemicaObjects.map((alchemica, index) => {
+
+                            return (
+                                <Col>
+                                <AlchemicaCardData 
+                                key = {index}
+                                title = {alchemica.title}
+                                dataField = {alchemica.dataField}
+                                />
+                                </Col>
+                            )
+                        })
+                    }
+
+                </Row>
                 <Row>
                     <Col md="9">
                         {
@@ -198,7 +232,7 @@ const Home: NextPage = () => {
                     </Col>
                 </Row>
 
-                {gotchiverseStats && (
+                {/* {gotchiverseStats && (
                     <Row>
                         <Col>
                             <AlchemicaCard
@@ -223,7 +257,7 @@ const Home: NextPage = () => {
                             />
                         </Col>
                     </Row>
-                )}
+                )} */}
                 <Row>
                     {
                         rowOneObjects.map((data, index) => {

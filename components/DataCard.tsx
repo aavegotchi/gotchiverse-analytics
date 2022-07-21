@@ -116,7 +116,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                             setTimeLine(0);
                         }}
                         disabled = {timeLine === 0}
-                        >24 h</button>
+                        >30 d</button>
                         <button className = "footer_button" onClick ={ () => {
                             setTimeLine(1);
                         }}
@@ -126,7 +126,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                             setTimeLine(2);
                         }}
                         disabled = {timeLine === 2}
-                        >30 d </button>
+                        >24 h </button>
                         <button className = "footer_button" onClick = { () => {
                             setTimeLine(3);
                         }}
