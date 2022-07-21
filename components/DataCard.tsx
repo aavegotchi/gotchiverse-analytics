@@ -15,6 +15,7 @@ function DataCard({ title, dataField }: DataCardProps) {
 
     const [timeLine, setTimeLine] = useState<number>(3);
     const [trend, setTrend] = useState<number>(0);
+    const [trendClass, setTrendClass] = useState<string>("body_trend_positive");
 
 
 
@@ -48,13 +49,34 @@ function DataCard({ title, dataField }: DataCardProps) {
             dataArray.forEach((element, index) => {
                 dataArray[index] = element.toString();
             })
-
         }
 
     }
 
     retrieveData();
 
+    useEffect(() => {
+        function calculateAndSetTrend() {
+            let className : string = "body_trend_";
+            // const amountTotal : number = parseInt(dataArray[3], 10);
+            // now - the amount at that time period ago 
+            const changes : number = (parseInt(dataArray[3], 10) - parseInt(dataArray[timeLine], 10)) / parseInt(dataArray[timeLine], 10)
+            setTrend(changes * 100);
+            if (changes >= 0) {
+                className = className + "positive";
+            } else {
+                className = className + "negative";
+            };
+
+            setTrendClass(className);
+
+        }
+
+        if (dataArray.length > 0) {
+            calculateAndSetTrend();
+        }
+
+    }, [timeLine]);
 
 
     if (dataArray.length === 0) {
@@ -70,7 +92,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                     <div className = "data_title">{title}</div>
                     <div className = "trend_wrapper">
                     <Image
-                    src={`/static/images/trending-up.png`}
+                    src={ trend >= 0 ? `/static/images/trending-up.png` :`/static/images/trending-downWithoutBorder.png`}
                     alt="trending"
                     width="62"
                     height="55"
@@ -80,8 +102,8 @@ function DataCard({ title, dataField }: DataCardProps) {
                 <div className = "body">
                     <div className = "body_data">{dataArray[timeLine]}</div>
                     <div className = "body_changeOverTime">
-                        <div className = "body_trend">
-                            +{trend}%
+                        <div className = {trendClass}>
+                            +{trend.toFixed(2)}%
                         </div>
                     </div>
 
@@ -182,10 +204,18 @@ function DataCard({ title, dataField }: DataCardProps) {
 
                     }
 
-                    .body_trend {
+                    .body_trend_positive {
                         width: 108px;
                         height: 36px;
                         background-color: #51FFA8;
+                        text-align: center;
+                        font-size: 25px;
+                    }
+
+                    .body_trend_negative {
+                        width: 108px;
+                        height: 36px;
+                        background-color: #FFC36B;
                         text-align: center;
                         font-size: 25px;
                     }

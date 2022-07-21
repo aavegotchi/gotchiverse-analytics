@@ -158,7 +158,23 @@ const Home: NextPage = () => {
             title: "INSTALLATIONS UPGRADED TOTAL",
             dataField: "installationsUpgradedTotal"
         }
+    ]
 
+    // =========================== row 2 =============================
+
+    const rowTwoObjects : dataObject[] = [
+        {
+            title: "GLTR SPENT ON CRAFTS",
+            dataField: "gltrSpendOnCrafts"
+        },
+        {
+            title: "GLTR SPENT ON UPGRADES",
+            dataField: "gltrSpendOnUpgrades"
+        },
+        {
+            title: "GLTR SPENT TOTAL",
+            dataField: "gltrSpendTotal"
+        }
     ]
 
 
@@ -225,6 +241,23 @@ const Home: NextPage = () => {
                         })
                     }
                 </Row>
+                {/* <Row>
+                {
+                    rowTwoObjects.map((data, index) => {
+                        return (
+                            <Col>
+                                <DataCard 
+                                key = {index}
+                                title = {data.title} 
+                                dataField = {data.dataField}
+                                />
+                            </Col>
+
+                        )
+                    })
+                }
+
+                </Row> */}
 
 
 
