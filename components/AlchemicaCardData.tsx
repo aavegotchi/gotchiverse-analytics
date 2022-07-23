@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import Fetcher from "../fetcher";
 import Image from "next/image";
+import SuffixShortener from "./helperFunctions/SuffixShortener";
 
 interface AlchemicaCardProps {
     title: string;
@@ -25,6 +26,8 @@ function AlchemicaCardData({title, dataField} : AlchemicaCardProps) {
 
         if (gotchisResponse.data) {
             data = gotchisResponse.data[dataField];
+            console.log("DATA GOTTEN!", data);
+
         }
 
     };
@@ -56,11 +59,11 @@ function AlchemicaCardData({title, dataField} : AlchemicaCardProps) {
                                         <div className = "coinName">
                                             {coin}
                                         </div>
-
                                     </div>
                                     <div className = "body_numeric_data">
-                                        12345
-
+                                        {/* {Math.floor((parseInt(data[index])/1*10**15))} */}
+                                        
+                                        {SuffixShortener(parseInt(data[index]))}
                                     </div>
                                 </div>
                             )

@@ -9,7 +9,9 @@ interface DataCardProps {
     title: string;
     dataField: string;
 
-}
+};
+
+const buttons : number[] = [30, 7, 24, 100];
 
 function DataCard({ title, dataField }: DataCardProps) {
 
@@ -110,9 +112,32 @@ function DataCard({ title, dataField }: DataCardProps) {
                 </div>
                 <div className = "footer">
                     <div className = "buttons">
+                        {
+                            buttons.map((buttonTimeLine , index) => {
+                                
+
+
+                                return (
+                                    <button className = "footer_button" 
+                                    key = {index}
+                                    onClick = {() => {
+                                        setTimeLine(index);
+                                    }}
+                                    disabled = {timeLine === index}
+                                    >
+                                    {
+                                        index === 3 ? "total" : 
+                                        index === 2? `${buttonTimeLine} h` :
+                                        `${buttonTimeLine} d`
+                                    }
+                                    </button>
+                                )
+                            })
+
+                        }
 
                     
-                        <button className = "footer_button" onClick = {() => {
+                        {/* <button className = "footer_button" onClick = {() => {
                             setTimeLine(0);
                         }}
                         disabled = {timeLine === 0}
@@ -131,7 +156,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                             setTimeLine(3);
                         }}
                         disabled = {timeLine === 3}
-                        >total</button>
+                        >total</button> */}
                     </div>
                 </div>
 
