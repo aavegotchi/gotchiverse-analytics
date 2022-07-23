@@ -5,7 +5,7 @@ import { Card, Col, Row } from "react-bootstrap";
 
 // components here
 import UnflippedTile from "../components/unflipped";
-import AlchemicaCard from "../components/alchemicaCard";
+import AlchemicaCard from "../components/AlchemicaCardData";
 
 import ChartTest from "../components/chartTest";
 import GotchiverseNews from "../components/gotchiverseNews";

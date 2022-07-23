@@ -11,7 +11,7 @@ import AlchemicaCardData from "../components/AlchemicaCardData";
 
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
-
+import StakingPools from "../components/StakingPools";
 import Image from "next/image";
 import TotalSupply from "../components/totalSupply";
 import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
@@ -218,7 +218,7 @@ const Home: NextPage = () => {
 
                 </Row>
                 <Row>
-                    <Col md="9">
+                    <Col md="8">
                         {
                             graphObject && 
                             <GotchiverseStatsChart 
@@ -227,8 +227,14 @@ const Home: NextPage = () => {
                         }
 
                     </Col>
-                    <Col md="3">
-                        <GraphSetButtons graphObject = {graphObject} setGraphObject = {setGraphObject}/>
+                    <Col md="4">
+                        <div className = "pools_wrapper">
+                            <StakingPools />
+                            <StakingPools />
+
+                        </div>
+
+                        {/* <GraphSetButtons graphObject = {graphObject} setGraphObject = {setGraphObject}/> */}
                     </Col>
                 </Row>
 
@@ -471,17 +477,6 @@ const Home: NextPage = () => {
             </div>
             <style jsx>
                 {`
-                    .rowWrapper {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        width: 100%;
-                    }
-
-                    .oneCard {
-                        flex: 1;
-                        margin: 2px;
-                    }
 
                     .title {
                         width: 85%;
@@ -491,13 +486,13 @@ const Home: NextPage = () => {
                         line-height: 42.73px;
                         color: black;
                     }
-                    .image__Wrapper {
-                        border-radius: 5px;
-                        overflow: hidden;
-                        position: relative;
-                        height: 100%;
-                        width: 100%;
+
+                    .pools_wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
                     }
+
 
                     .mainWrapper {
                         width: 1100px;
@@ -507,6 +502,8 @@ const Home: NextPage = () => {
                         justify-content: center;
                         align-items: center;
                     }
+
+
 
                     @media (max-width: 600px) {
                         .mainWrapper {
