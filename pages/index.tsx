@@ -6,7 +6,7 @@ import { Card, Col, Row } from "react-bootstrap";
 // components here
 import UnflippedTile from "../components/unflipped";
 import AlchemicaCardData from "../components/AlchemicaCardData";
-
+import DataCardLazyLoad from "../components/DataCardLazyLoad";
 
 
 import UnflippedBanned from "../components/unflippedBanned";
@@ -270,6 +270,24 @@ const Home: NextPage = () => {
                             return (
                                 <Col>
                                     <DataCard 
+                                    key = {index}
+                                    title = {data.title} 
+                                    dataField = {data.dataField}
+                                    />
+                                </Col>
+
+                            )
+
+                        })
+                    }
+                </Row>
+
+                <Row>
+                    {
+                        rowOneObjects.map((data, index) => {
+                            return (
+                                <Col>
+                                    <DataCardLazyLoad 
                                     key = {index}
                                     title = {data.title} 
                                     dataField = {data.dataField}

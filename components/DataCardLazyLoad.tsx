@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import {useState, useEffect} from "react";
 import Image from "next/image";
@@ -13,7 +15,9 @@ interface DataCardProps {
 
 const buttons : number[] = [30, 7, 24, 100];
 
-function DataCard({ title, dataField }: DataCardProps) {
+function DataCardLazyLoad({ title, dataField }: DataCardProps) {
+
+    console.log("data card 2");
 
     const [timeLine, setTimeLine] = useState<number>(3);
     const [displayData, setDisplayData] = useState<number>(0);
@@ -21,46 +25,89 @@ function DataCard({ title, dataField }: DataCardProps) {
     const [trendClass, setTrendClass] = useState<string>("body_trend_positive");
 
     let dataArray: string[] = [];
+    let dataDisplayed : string = "";
 
-    const retrieveData = () => {
-        let gotchiverseStats7dResponse = useSWR(
-            "/api/gotchiverse/stats/7",
-            Fetcher
-        );
-
-        let gotchiverseStats1dResponse = useSWR(
-            "/api/gotchiverse/stats/1",
-            Fetcher
-        );
-
-        let gotchiverseStats30dResponse = useSWR(
-            "/api/gotchiverse/stats/30",
-            Fetcher
-        );
+    const retrieveDataTotal = () => {
 
         let gotchivereStatsResponse = useSWR(
             "/api/gotchiverse/stats", 
             Fetcher
         );
 
-        if (gotchivereStatsResponse.data && gotchiverseStats30dResponse.data && gotchiverseStats1dResponse.data && gotchiverseStats7dResponse.data) {
-            console.log(gotchivereStatsResponse.data, "collected");
-            dataArray = [gotchiverseStats1dResponse.data[dataField], gotchiverseStats7dResponse.data[dataField], gotchiverseStats30dResponse.data[dataField], gotchivereStatsResponse.data[dataField]];
-            dataArray.forEach((element, index) => {
-                dataArray[index] = element.toString();
-            })
+        if (gotchivereStatsResponse.data) {
+            
+            dataArray[3] = gotchivereStatsResponse.data[dataField];
+            console.log(dataArray, "total");
         }
 
     }
 
-    retrieveData();
+    const retrieveData30 = () => {
+        let gotchivereStatsResponse30 = useSWR(
+            "/api/gotchiverse/stats/30", 
+            Fetcher
+        );
 
+        if (gotchivereStatsResponse30.data) {
+            
+            dataArray[2] = gotchivereStatsResponse30.data[dataField];
+            console.log(dataArray, "30", gotchivereStatsResponse30.data[dataField]);
+        }
 
+    }
 
+    const retrieveData7 = () => {
+        let gotchivereStatsResponse7 = useSWR(
+            "/api/gotchiverse/stats/7", 
+            Fetcher
+        );
 
+        if (gotchivereStatsResponse7.data) {
+            
+            dataArray[1] = gotchivereStatsResponse7.data[dataField];
+            console.log(dataArray, "7", gotchivereStatsResponse7.data[dataField]);
+        }
+
+    }
+
+    const retrieveData1 = () => {
+        let gotchivereStatsResponse1 = useSWR(
+            "/api/gotchiverse/stats/1", 
+            Fetcher
+        );
+
+        if (gotchivereStatsResponse1.data) {
+            
+            dataArray[0] = gotchivereStatsResponse1.data[dataField];
+            console.log(dataArray, "1", gotchivereStatsResponse1.data[dataField]);
+        }
+    }
+
+    retrieveDataTotal();
+    retrieveData30();
+    retrieveData7();
+    retrieveData1();
+    
 
 
     useEffect(() => {
+
+        // function fetchData() {
+        //     let dataFetchURL : string = "/api/gotchiverse/stats";
+        //     if (timeLine === 0) { 
+        //         dataFetchURL = dataFetchURL + "/30";
+        //     } else if (timeLine === 1) {
+        //         dataFetchURL = dataFetchURL + "/7";
+        //     } else if (timeLine === 2) {
+        //         dataFetchURL = dataFetchURL + "/1";
+        //     }
+
+        //     let gotchiverseResponse = useSWR(dataFetchURL, Fetcher);
+
+        //     if (gotchiverseResponse.data) {
+        //         dataDisplayed = gotchiverseResponse.data[dataField];
+        //     }
+        // }
 
         
 
@@ -68,7 +115,10 @@ function DataCard({ title, dataField }: DataCardProps) {
             let className : string = "body_trend_";
             // const amountTotal : number = parseInt(dataArray[3], 10);
             // now - the amount at that time period ago 
-            const changes : number = (parseInt(dataArray[3], 10) - parseInt(dataArray[timeLine], 10)) / parseInt(dataArray[timeLine], 10)
+            let changes : number = 0 ;
+            if (dataArray.length === 4) {
+                changes = (parseInt(dataArray[3], 10) - parseInt(dataArray[timeLine], 10)) / parseInt(dataArray[timeLine], 10);
+            }
             setTrend(changes * 100);
             if (changes >= 0) {
                 className = className + "positive";
@@ -82,6 +132,7 @@ function DataCard({ title, dataField }: DataCardProps) {
 
         if (dataArray.length > 0) {
             calculateAndSetTrend();
+
         }
 
 
@@ -131,20 +182,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                                     key = {index}
                                     onClick = {() => {
                                         setTimeLine(index);
-                                        // let dataFetchURL : string = "/api/gotchiverse/stats";
-                                        // if (index == 0) {
-                                        //     dataFetchURL = dataFetchURL + "/30";
-                                        // } else if (index == 1) {
-                                        //     dataFetchURL = dataFetchURL + "/7";
-                                        // } else if (index === 2) {
-                                        //     dataFetchURL = dataFetchURL + "/1";
-                                        // }
 
-                                        // let gotchiverseResponse = useSWR(dataFetchURL, Fetcher);
-
-                                        // if (gotchiverseResponse.data) {
-                                        //     setDisplayData(parseInt(gotchiverseResponse.data[dataField]));
-                                        // }
 
 
                                     }}
@@ -324,4 +362,4 @@ function DataCard({ title, dataField }: DataCardProps) {
 };
 
 
-export default DataCard;
+export default DataCardLazyLoad;
