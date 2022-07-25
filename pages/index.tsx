@@ -22,6 +22,7 @@ import { GrassCard } from "../components/grassCard";
 import { RugCard } from "../components/rugCard";
 import GraphSetButtons from "../components/GraphSetButtons";
 import DataCard from "../components/DataCard";
+import SmallDataCard from "../components/SmallDataCard";
 
 
 
@@ -94,6 +95,15 @@ const Home: NextPage = () => {
     console.log("1d day series data here", gotchiverseStats1d);
     console.log("g7 day series data here  ", gotchiverseStats7d);
     console.log("30d day series data here", gotchiverseStats30d);
+
+
+
+
+    let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
+    console.log(gotchisRes, "gotchisResponseHere");
+
+    let gotchisRes7 = useSWR("/api/gotchis/stats/7", Fetcher);
+    console.log(gotchisRes7, "gotchisResponseHere7");
     
 
 
@@ -180,6 +190,28 @@ const Home: NextPage = () => {
         {
             title: "GLTR SPENT TOTAL",
             dataField: "gltrSpendTotal"
+        }
+    ]
+
+    // ====================== gotchiObjects =================================
+
+    const gotchisObjects : dataObject[] = [
+        {
+            title: "GOTCHIS BORROWED",
+            dataField: "aavegotchisBorrowed"
+
+        },
+        {
+            title: "GOTCHIS CLAIMED",
+            dataField: "aavegotchisClaimed"
+        },
+        {
+            title: "GOTCHIS SACRIFICED",
+            dataField: "aavegotchisSacrificed"
+        },
+        {
+            title: "GOTCHIS CHANNELED",
+            dataField: "aavegotchisChanneled"
         }
     ]
 
@@ -425,6 +457,21 @@ const Home: NextPage = () => {
                 {gotchiStats && (
                     <>
                         <h2 className="title">Gotchi Utiliziation</h2>
+                        <Row>
+                            {
+                                gotchisObjects.map((gotchiObject, index) => {
+
+                                    return (
+                                        <Col key = {index}>
+                                            <SmallDataCard 
+                                            title = {gotchiObject.title}
+                                            dataField = {gotchiObject.dataField}
+                                            />
+                                        </Col>
+                                    )
+                                })
+                            }
+                        </Row>
                         <Row>
                             <Col>
                                 {/* <Card>Number of Gotchis summoned</Card> */}
