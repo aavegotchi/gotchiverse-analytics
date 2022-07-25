@@ -111,6 +111,8 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                 .title {
                     display: flex;
                     justify-content: space-around;
+                    padding-top: 15px;
+                    padding-left: 10px;
 
 
                 }
@@ -119,6 +121,7 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     font-size: 32px;
                     font-weight: 800;
                     padding-left: 15px;
+                    line-height: 100%;
                     
                 }
 
@@ -128,6 +131,7 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                 }
 
                 .body {
+                    padding-top: 10px;
                     display: flex;
                     flex-direction: column;
                     padding-left: 25px;
@@ -138,7 +142,8 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     font-size: 50px;
                     font-weight: 800;
                     vertical-align: top;
-                    
+                    line-height: 100%;
+                    margin-bottom: 15px;
                 }
 
                 .trend_data {
