@@ -9,7 +9,9 @@ import Fetcher from "../fetcher";
 interface SmallDataCardProps {
     title: string;
     dataField: string;
-}
+};
+
+const buttons : number[] = [30, 7, 24, 100];
 
 function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
@@ -65,6 +67,37 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     </div>
 
                 </div>
+                <div className = "body">
+                    <div className = "body_data">
+                        12345
+                    </div>
+                    <div className = "trend_data">
+                        +10%
+                    </div>
+                </div>
+                <div className = "footer">
+                    <div className = "buttons">
+                        {
+                            buttons.map((buttonTimeLine, index) => {
+
+
+                                return (
+                                    <button 
+                                    className = "footer_button"
+                                    key = {index}
+                                    
+                                    >
+                                        time
+
+                                    </button>
+                                )
+                            })
+                        }
+
+                    </div>
+
+                </div>
+                
             </div>
 
             <style jsx>
@@ -72,13 +105,96 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
                 .wrapper {
                     border: 1px solid black;
+                    height: 300px;
                 }
 
                 .title {
                     display: flex;
                     justify-content: space-around;
 
+
                 }
+
+                .title_name {
+                    font-size: 32px;
+                    font-weight: 800;
+                    padding-left: 15px;
+                    
+                }
+
+                .title_trend {
+                    padding-top: 15px;
+                    padding-right: 15px;
+                }
+
+                .body {
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 25px;
+                    
+                }
+
+                .body_data {
+                    font-size: 50px;
+                    font-weight: 800;
+                    vertical-align: top;
+                    
+                }
+
+                .trend_data {
+                    width: 108px;
+                    height: 36px;
+                    background-color: #51FFA8;
+                    text-align: center;
+                    font-size: 25px;
+                }
+
+                .footer {
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex: 1;
+                    margin-top: 20px;
+                }
+
+                .buttons {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    width: 80%;
+                    
+
+                }
+
+                .footer_button {
+                    box-sizing: border-box;
+                    
+                    height: 40px;
+                    flex: 1;
+                    margin: 5px;
+                    background: #B8B8B8;
+                    border: 1px solid #666666;
+                    background: transparent;
+                    text-align: center;
+                    color: #666666;
+                    font-size: 22px;
+                    font-weight: 800;
+                    line-height: 20.44px;
+
+                    transition: 0.5s;
+                    padding: 2px;
+
+                }
+
+                .footer_button:disabled {
+                    border: 1px solid #FA34F3;
+                    color: #FA34F3;
+                    pointer-events: none;
+
+                }
+
+
 
                 
                 `}
