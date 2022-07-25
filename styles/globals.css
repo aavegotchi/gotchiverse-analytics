@@ -58,20 +58,18 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: url(/static/images/GotchiverseBackground.png);
 
 
 }
 
 .row {
-  margin-top: 3px;
+  margin-top: 15px;
 
   /* height: 82vh; */
   overflow: auto;
-
-
-
   width: 100%;
+
 
   
 

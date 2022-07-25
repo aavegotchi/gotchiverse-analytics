@@ -75,11 +75,10 @@ function GraphSetButtons({graphObject, setGraphObject}: setPropsType) {
                 datas.map((data, index) => {
 
                     return (
-                        <div>
+                        <div key = {index} >
                             {
                             graphObject && 
                             <ToggleButton 
-                            key = {index}
                             title = {data.title} 
                             dataField = {data.dataField}
                             graphObject = {graphObject}
