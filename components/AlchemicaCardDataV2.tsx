@@ -34,9 +34,8 @@ function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
         }
 
     };
-    console.log(ethers.BigNumber.from("42"));
 
-    let a : object = ethers.BigNumber.from("42");
+
     
     setData();
 
@@ -69,7 +68,7 @@ function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
                                         {data.length > 0 && data[index].slice(0, -18)}
                                         
 
-                                    </div>``
+                                    </div>
                                 </div>
                             )
                         })
@@ -132,11 +131,9 @@ function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
                 }
 
                 .body_numeric_data {
-
+                    
                     margin-left: 20px;
                     font-size: 32px;
-                    
-
                 }
 
 
