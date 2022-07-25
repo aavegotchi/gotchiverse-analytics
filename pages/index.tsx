@@ -6,6 +6,7 @@ import { Card, Col, Row } from "react-bootstrap";
 // components here
 import UnflippedTile from "../components/unflipped";
 import AlchemicaCardData from "../components/AlchemicaCardData";
+import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
 import DataCardLazyLoad from "../components/DataCardLazyLoad";
 
 
@@ -206,7 +207,7 @@ const Home: NextPage = () => {
 
                             return (
                                 <Col>
-                                <AlchemicaCardData 
+                                <AlchemicaCardDataV2
                                 key = {index}
                                 title = {alchemica.title}
                                 dataField = {alchemica.dataField}
