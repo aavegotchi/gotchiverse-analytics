@@ -13,6 +13,8 @@ interface SmallDataCardProps {
 
 function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
+    const [trend , setTrend] = useState(0);
+
     let dataArray: string[] = [];
 
     let gotchiverseStatsResponse7 = useSWR(
@@ -48,11 +50,17 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
         <section>
             <div className = "wrapper">
                 <div className = "title">
-                    <div>
+                    <div className = "title_name">
                         {title}
 
                     </div>
-                    <div>
+                    <div className = "title_trend">
+                        <Image 
+                        src={ trend >= 0 ? `/static/images/trending-up.png` :`/static/images/trending-downWithoutBorder.png`}
+                        alt="trending"
+                        width="62"
+                        height="55"
+                        />
 
                     </div>
 
@@ -64,6 +72,12 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
                 .wrapper {
                     border: 1px solid black;
+                }
+
+                .title {
+                    display: flex;
+                    justify-content: space-around;
+
                 }
 
                 
