@@ -16,20 +16,31 @@ export default function GotchiverseStatsChart({
     const [interval, setInterval] = useState(7);
     let data: string[] = [];
 
-    const showInterval = () => {
-        let gotchiverseStats7dResponse = useSWR(
-            `/api/gotchiverse/stats/${interval}/series`,
-            Fetcher
-        );
+    let gotchiverseStats7dResponse = useSWR(
+        `/api/gotchiverse/stats/${interval}/series`,
+        Fetcher
+    );
 
-        if (gotchiverseStats7dResponse.data) {
-            data = gotchiverseStats7dResponse.data.map((e: any) => {
-                return e.data[field];
-            });
-        }
-    };
+    if (gotchiverseStats7dResponse.data) {
+        data = gotchiverseStats7dResponse.data.map((e: any) => {
+            return e.data[field];
+        });
+    }
 
-    showInterval();
+    // const showInterval = () => {
+    //     let gotchiverseStats7dResponse = useSWR(
+    //         `/api/gotchiverse/stats/${interval}/series`,
+    //         Fetcher
+    //     );
+
+    //     if (gotchiverseStats7dResponse.data) {
+    //         data = gotchiverseStats7dResponse.data.map((e: any) => {
+    //             return e.data[field];
+    //         });
+    //     }
+    // };
+
+    // showInterval();
 
     return (
         <div className = "wrapper">

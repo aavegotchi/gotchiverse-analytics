@@ -27,66 +27,95 @@ function DataCardLazyLoad({ title, dataField }: DataCardProps) {
     let dataArray: string[] = [];
     let dataDisplayed : string = "";
 
-    const retrieveDataTotal = () => {
+    let gotchiverseStats7dResponse = useSWR(
+        "/api/gotchiverse/stats/7",
+        Fetcher
+    );
 
-        let gotchivereStatsResponse = useSWR(
-            "/api/gotchiverse/stats", 
-            Fetcher
-        );
+    let gotchiverseStats1dResponse = useSWR(
+        "/api/gotchiverse/stats/1",
+        Fetcher
+    );
 
-        if (gotchivereStatsResponse.data) {
+    let gotchiverseStats30dResponse = useSWR(
+        "/api/gotchiverse/stats/30",
+        Fetcher
+    );
+
+    let gotchivereStatsResponse = useSWR(
+        "/api/gotchiverse/stats", 
+        Fetcher
+    );
+
+    if (gotchivereStatsResponse.data && gotchiverseStats30dResponse.data && gotchiverseStats1dResponse.data && gotchiverseStats7dResponse.data) {
+        console.log(gotchivereStatsResponse.data, "collected");
+        dataArray = [gotchiverseStats1dResponse.data[dataField], gotchiverseStats7dResponse.data[dataField], gotchiverseStats30dResponse.data[dataField], gotchivereStatsResponse.data[dataField]];
+        dataArray.forEach((element, index) => {
+            dataArray[index] = element.toString();
+        })
+    };
+
+    
+    // const retrieveDataTotal = () => {
+
+    //     let gotchivereStatsResponse = useSWR(
+    //         "/api/gotchiverse/stats", 
+    //         Fetcher
+    //     );
+
+    //     if (gotchivereStatsResponse.data) {
             
-            dataArray[3] = gotchivereStatsResponse.data[dataField];
-            console.log(dataArray, "total");
-        }
+    //         dataArray[3] = gotchivereStatsResponse.data[dataField];
+    //         console.log(dataArray, "total");
+    //     }
 
-    }
+    // }
 
-    const retrieveData30 = () => {
-        let gotchivereStatsResponse30 = useSWR(
-            "/api/gotchiverse/stats/30", 
-            Fetcher
-        );
+    // const retrieveData30 = () => {
+    //     let gotchivereStatsResponse30 = useSWR(
+    //         "/api/gotchiverse/stats/30", 
+    //         Fetcher
+    //     );
 
-        if (gotchivereStatsResponse30.data) {
+    //     if (gotchivereStatsResponse30.data) {
             
-            dataArray[2] = gotchivereStatsResponse30.data[dataField];
-            console.log(dataArray, "30", gotchivereStatsResponse30.data[dataField]);
-        }
+    //         dataArray[2] = gotchivereStatsResponse30.data[dataField];
+    //         console.log(dataArray, "30", gotchivereStatsResponse30.data[dataField]);
+    //     }
 
-    }
+    // }
 
-    const retrieveData7 = () => {
-        let gotchivereStatsResponse7 = useSWR(
-            "/api/gotchiverse/stats/7", 
-            Fetcher
-        );
+    // const retrieveData7 = () => {
+    //     let gotchivereStatsResponse7 = useSWR(
+    //         "/api/gotchiverse/stats/7", 
+    //         Fetcher
+    //     );
 
-        if (gotchivereStatsResponse7.data) {
+    //     if (gotchivereStatsResponse7.data) {
             
-            dataArray[1] = gotchivereStatsResponse7.data[dataField];
-            console.log(dataArray, "7", gotchivereStatsResponse7.data[dataField]);
-        }
+    //         dataArray[1] = gotchivereStatsResponse7.data[dataField];
+    //         console.log(dataArray, "7", gotchivereStatsResponse7.data[dataField]);
+    //     }
 
-    }
+    // }
 
-    const retrieveData1 = () => {
-        let gotchivereStatsResponse1 = useSWR(
-            "/api/gotchiverse/stats/1", 
-            Fetcher
-        );
+    // const retrieveData1 = () => {
+    //     let gotchivereStatsResponse1 = useSWR(
+    //         "/api/gotchiverse/stats/1", 
+    //         Fetcher
+    //     );
 
-        if (gotchivereStatsResponse1.data) {
+    //     if (gotchivereStatsResponse1.data) {
             
-            dataArray[0] = gotchivereStatsResponse1.data[dataField];
-            console.log(dataArray, "1", gotchivereStatsResponse1.data[dataField]);
-        }
-    }
+    //         dataArray[0] = gotchivereStatsResponse1.data[dataField];
+    //         console.log(dataArray, "1", gotchivereStatsResponse1.data[dataField]);
+    //     }
+    // }
 
-    retrieveDataTotal();
-    retrieveData30();
-    retrieveData7();
-    retrieveData1();
+    // retrieveDataTotal();
+    // retrieveData30();
+    // retrieveData7();
+    // retrieveData1();
     
 
 

@@ -21,23 +21,24 @@ const coins : string[] = [
 function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
 
     let data : string[] = [];
-
-    const setData = () => {
-        let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
+    let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
 
 
-        if (gotchisResponse.data) {
-            data = gotchisResponse.data[dataField];
-            console.log("DATA GOTTEN!", data);
-            console.log(typeof data[0]);
+    if (gotchisResponse.data) {
+        data = gotchisResponse.data[dataField];
+    }
 
-        }
-
-    };
+    // const setData = () => {
+    //     let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
 
 
-    
-    setData();
+    //     if (gotchisResponse.data) {
+    //         data = gotchisResponse.data[dataField];
+    //     }
+
+
+    // };
+    // setData();
 
     return (
 

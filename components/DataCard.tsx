@@ -22,38 +22,67 @@ function DataCard({ title, dataField }: DataCardProps) {
 
     let dataArray: string[] = [];
 
-    const retrieveData = () => {
-        let gotchiverseStats7dResponse = useSWR(
-            "/api/gotchiverse/stats/7",
-            Fetcher
-        );
+    let gotchiverseStats7dResponse = useSWR(
+        "/api/gotchiverse/stats/7",
+        Fetcher
+    );
 
-        let gotchiverseStats1dResponse = useSWR(
-            "/api/gotchiverse/stats/1",
-            Fetcher
-        );
+    let gotchiverseStats1dResponse = useSWR(
+        "/api/gotchiverse/stats/1",
+        Fetcher
+    );
 
-        let gotchiverseStats30dResponse = useSWR(
-            "/api/gotchiverse/stats/30",
-            Fetcher
-        );
+    let gotchiverseStats30dResponse = useSWR(
+        "/api/gotchiverse/stats/30",
+        Fetcher
+    );
 
-        let gotchivereStatsResponse = useSWR(
-            "/api/gotchiverse/stats", 
-            Fetcher
-        );
+    let gotchivereStatsResponse = useSWR(
+        "/api/gotchiverse/stats", 
+        Fetcher
+    );
 
-        if (gotchivereStatsResponse.data && gotchiverseStats30dResponse.data && gotchiverseStats1dResponse.data && gotchiverseStats7dResponse.data) {
-            console.log(gotchivereStatsResponse.data, "collected");
-            dataArray = [gotchiverseStats1dResponse.data[dataField], gotchiverseStats7dResponse.data[dataField], gotchiverseStats30dResponse.data[dataField], gotchivereStatsResponse.data[dataField]];
-            dataArray.forEach((element, index) => {
-                dataArray[index] = element.toString();
-            })
-        }
-
+    if (gotchivereStatsResponse.data && gotchiverseStats30dResponse.data && gotchiverseStats1dResponse.data && gotchiverseStats7dResponse.data) {
+        console.log(gotchivereStatsResponse.data, "collected");
+        dataArray = [gotchiverseStats1dResponse.data[dataField], gotchiverseStats7dResponse.data[dataField], gotchiverseStats30dResponse.data[dataField], gotchivereStatsResponse.data[dataField]];
+        dataArray.forEach((element, index) => {
+            dataArray[index] = element.toString();
+        })
     }
 
-    retrieveData();
+
+    // const retrieveData = () => {
+    //     let gotchiverseStats7dResponse = useSWR(
+    //         "/api/gotchiverse/stats/7",
+    //         Fetcher
+    //     );
+
+    //     let gotchiverseStats1dResponse = useSWR(
+    //         "/api/gotchiverse/stats/1",
+    //         Fetcher
+    //     );
+
+    //     let gotchiverseStats30dResponse = useSWR(
+    //         "/api/gotchiverse/stats/30",
+    //         Fetcher
+    //     );
+
+    //     let gotchivereStatsResponse = useSWR(
+    //         "/api/gotchiverse/stats", 
+    //         Fetcher
+    //     );
+
+    //     if (gotchivereStatsResponse.data && gotchiverseStats30dResponse.data && gotchiverseStats1dResponse.data && gotchiverseStats7dResponse.data) {
+    //         console.log(gotchivereStatsResponse.data, "collected");
+    //         dataArray = [gotchiverseStats1dResponse.data[dataField], gotchiverseStats7dResponse.data[dataField], gotchiverseStats30dResponse.data[dataField], gotchivereStatsResponse.data[dataField]];
+    //         dataArray.forEach((element, index) => {
+    //             dataArray[index] = element.toString();
+    //         })
+    //     }
+
+    // }
+
+    // retrieveData();
 
 
 

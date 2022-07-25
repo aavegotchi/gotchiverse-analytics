@@ -130,17 +130,6 @@ const Home: NextPage = () => {
     }, []);
 
 
-    useEffect(() => {
-        setGraphData30d(gotchiverseStats30dSeries);
-
-    }, [gotchiverseStats30dSeries]);
-
-    useEffect(() => {
-        setGraphData7d(gotchiverseStats7dSeries);
-        console.log(graphData7d, "hello world!!!");
-        
-    }, [gotchiverseStats7dSeries]);
-
 
     // objects 
 
@@ -206,9 +195,8 @@ const Home: NextPage = () => {
                         alchemicaObjects.map((alchemica, index) => {
 
                             return (
-                                <Col>
+                                <Col key = {index}>
                                 <AlchemicaCardDataV2
-                                key = {index}
                                 title = {alchemica.title}
                                 dataField = {alchemica.dataField}
                                 />
@@ -269,9 +257,8 @@ const Home: NextPage = () => {
                     {
                         rowOneObjects.map((data, index) => {
                             return (
-                                <Col>
+                                <Col key = {index}>
                                     <DataCard 
-                                    key = {index}
                                     title = {data.title} 
                                     dataField = {data.dataField}
                                     />
@@ -287,9 +274,8 @@ const Home: NextPage = () => {
                     {
                         rowOneObjects.map((data, index) => {
                             return (
-                                <Col>
+                                <Col key = {index}>
                                     <DataCardLazyLoad 
-                                    key = {index}
                                     title = {data.title} 
                                     dataField = {data.dataField}
                                     />

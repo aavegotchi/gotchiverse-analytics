@@ -20,19 +20,27 @@ function AlchemicaCardData({title, dataField} : AlchemicaCardProps) {
 
     let data : string[] = [];
 
-    const setData = () => {
-        let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
+    // const fetchData = () => {
+    //     let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
 
 
-        if (gotchisResponse.data) {
-            data = gotchisResponse.data[dataField];
-            console.log("DATA GOTTEN!", data);
+    //     if (gotchisResponse.data) {
+    //         data = gotchisResponse.data[dataField];
+    //         console.log("DATA GOTTEN!", data);
 
-        }
+    //     }
 
-    };
+    // };
 
-    setData();
+    let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
+    
+    if (gotchisResponse.data) {
+        data = gotchisResponse.data[dataField];
+        console.log("DATA GOTTEN!", data);
+
+    }
+
+    // fetchData();
 
     console.log(data, "datas Logged");
 

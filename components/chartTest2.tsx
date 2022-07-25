@@ -9,8 +9,8 @@ export default function ChartTest({ title, data }: ChartTestProps) {
         <div>
             <div>{title}</div>
             <div>
-                {data.map((e) => (
-                    <div>{e}</div>
+                {data.map((e, index) => (
+                    <div key = {index}>{e}</div>
                 ))}
             </div>
         </div>
