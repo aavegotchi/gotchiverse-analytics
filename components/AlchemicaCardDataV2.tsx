@@ -46,6 +46,7 @@ function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
             <div className = "wrapper">
                 <div className = "title">
                     {title}
+                    
 
                 </div>
                 <div className = "body">
@@ -65,7 +66,7 @@ function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
                                         </div>
                                     </div>
                                     <div className = "body_numeric_data">
-                                        {data[index].slice(0, -18)}
+                                        {data.length > 0 && data[index].slice(0, -18)}
                                         
 
                                     </div>``

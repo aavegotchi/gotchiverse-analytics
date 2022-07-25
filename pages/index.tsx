@@ -148,15 +148,15 @@ const Home: NextPage = () => {
 
     const alchemicaObjects: dataObject[] = [
         {
-            title: "ALCHEMICA SPENT TILES",
+            title: "ALCHEMICA SPENT ON TILES",
             dataField: "alchemicaSpendOnTiles"
         },
         {
-            title: "ALCHEMICA SPENT INSTALLATIONS",
+            title: "ALCHEMICA SPENT ON INSTALLATIONS",
             dataField: "alchemicaSpendOnInstallations"
         },
         {
-            title: "ALCHEMICA SPENT UPGRADES",
+            title: "ALCHEMICA SPENT ON UPGRADES",
             dataField: "alchemicaSpendOnUpgrades"
         }
     ]
