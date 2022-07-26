@@ -110,10 +110,9 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
 
                                 return (
-                                        <Tippy content = "Unavailable">
+                                        <Tippy content = "Unavailable" key = {index}>
                                             <button 
                                             className = "footer_button"
-                                            key = {index}
                                             disabled = {timeLine === index}
                                             
                                             >
