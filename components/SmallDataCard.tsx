@@ -4,6 +4,9 @@ import { useState, useEffect} from "react";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
 
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+
 
 
 interface SmallDataCardProps {
@@ -42,12 +45,14 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
 
     if (gotchiverseStatsResponse.data && gotchiverseStatsResponse30.data && gotchiverseStatsResponse1.data && gotchiverseStatsResponse7.data) {
-        dataArray = [gotchiverseStatsResponse1.data[dataField], gotchiverseStatsResponse7.data.data[dataField], gotchiverseStatsResponse30.data[dataField], gotchivereStatsResponse.data[dataField]];
+        dataArray = [gotchiverseStatsResponse1.data[dataField], gotchiverseStatsResponse7.data.data[dataField], gotchiverseStatsResponse30.data[dataField], gotchiverseStatsResponse.data[dataField]];
         dataArray.forEach((element, index) => {
             dataArray[index] = element.toString();
         })
     }
     console.log("here", dataArray, gotchiverseStatsResponse);
+
+
 
     return(
 
@@ -71,17 +76,32 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                 </div>
                 <div className = "body">
                     {
+                        title === "GOTCHIS CHANNELED" ? 
+                        <Tippy placement = {'left'} content = "Under construction">
+                            <div className = "under_construction">
+                                000
+                            </div>
+                        </Tippy>
+                        :
+                        <div className = "body_data">
+                            {gotchiverseStatsResponse.data && gotchiverseStatsResponse.data[dataField]}
+
+                        </div>
+
 
                     }
-                    <div className = {title === "GOTCHIS CHANNELED" ? "under_construction" : "body_data"}>
+                    {/* <div className = {title === "GOTCHIS CHANNELED" ? "under_construction" : "body_data"}>
+
                         {
 
                             title === "GOTCHIS CHANNELED" ?  "000" : gotchiverseStatsResponse.data && gotchiverseStatsResponse.data[dataField]
                         }
-                    </div>
-                    <div className = "trend_data">
-                        --%
-                    </div>
+                    </div> */}
+                    <Tippy content = "Under construction">
+                        <div className = "trend_data">
+                            --%
+                        </div>
+                    </Tippy>
                 </div>
                 <div className = "footer">
                     <div className = "buttons">
@@ -90,20 +110,23 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
 
                                 return (
-                                    <button 
-                                    className = "footer_button"
-                                    key = {index}
-                                    disabled = {timeLine === index}
-                                    
-                                    >
-                                        {
-                                            index === 3 ? "total":
-                                            index === 2 ? `${buttonTimeLine} h` :
-                                            `${buttonTimeLine} d`
+                                        <Tippy content = "Unavailable">
+                                            <button 
+                                            className = "footer_button"
+                                            key = {index}
+                                            disabled = {timeLine === index}
+                                            
+                                            >
+                                                {
+                                                    index === 3 ? "total":
+                                                    index === 2 ? `${buttonTimeLine} h` :
+                                                    `${buttonTimeLine} d`
 
-                                        }
+                                                }
 
-                                    </button>
+                                            </button>
+                                        </Tippy>
+
                                 )
                             })
                         }
@@ -116,6 +139,7 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
             <style jsx>
                 {`
+
 
                 .wrapper {
                     border: 1px solid black;
@@ -178,6 +202,7 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     font-weight: 800;
                     color: grey;
                     padding: 2px;
+                    cursor: pointer;
                 }
 
                 .footer {
