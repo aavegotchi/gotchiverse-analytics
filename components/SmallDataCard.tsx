@@ -16,6 +16,7 @@ const buttons : number[] = [30, 7, 24, 100];
 function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
     const [trend , setTrend] = useState(0);
+    const [timeLine, setTimeLine] = useState(3);
 
     let dataArray: string[] = [];
 
@@ -34,18 +35,19 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
         Fetcher
     );
 
-    let gotchivereStatsResponse = useSWR(
-        "/api/gotchiverse/stats", 
+    let gotchiverseStatsResponse = useSWR(
+        "/api/gotchis/stats", 
         Fetcher
     );
 
 
-    if (gotchivereStatsResponse.data && gotchiverseStatsResponse30.data && gotchiverseStatsResponse1.data && gotchiverseStatsResponse7.data) {
+    if (gotchiverseStatsResponse.data && gotchiverseStatsResponse30.data && gotchiverseStatsResponse1.data && gotchiverseStatsResponse7.data) {
         dataArray = [gotchiverseStatsResponse1.data[dataField], gotchiverseStatsResponse7.data.data[dataField], gotchiverseStatsResponse30.data[dataField], gotchivereStatsResponse.data[dataField]];
         dataArray.forEach((element, index) => {
             dataArray[index] = element.toString();
         })
     }
+    console.log("here", dataArray, gotchiverseStatsResponse);
 
     return(
 
@@ -68,11 +70,17 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
 
                 </div>
                 <div className = "body">
-                    <div className = "body_data">
-                        12345
+                    {
+
+                    }
+                    <div className = {title === "GOTCHIS CHANNELED" ? "under_construction" : "body_data"}>
+                        {
+
+                            title === "GOTCHIS CHANNELED" ?  "000" : gotchiverseStatsResponse.data && gotchiverseStatsResponse.data[dataField]
+                        }
                     </div>
                     <div className = "trend_data">
-                        +10%
+                        --%
                     </div>
                 </div>
                 <div className = "footer">
@@ -85,9 +93,15 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                                     <button 
                                     className = "footer_button"
                                     key = {index}
+                                    disabled = {timeLine === index}
                                     
                                     >
-                                        time
+                                        {
+                                            index === 3 ? "total":
+                                            index === 2 ? `${buttonTimeLine} h` :
+                                            `${buttonTimeLine} d`
+
+                                        }
 
                                     </button>
                                 )
@@ -146,12 +160,24 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     margin-bottom: 15px;
                 }
 
+                .under_construction {
+                    font-size: 50px;
+                    font-weight: 800;
+                    line-height: 100%;
+                    margin-bottom: 15px;
+                    color: grey;
+                    cursor: pointer;
+                }
+
                 .trend_data {
                     width: 108px;
                     height: 36px;
                     background-color: #51FFA8;
                     text-align: center;
-                    font-size: 25px;
+                    font-size: 18px;
+                    font-weight: 800;
+                    color: grey;
+                    padding: 2px;
                 }
 
                 .footer {
@@ -167,7 +193,7 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     display: flex;
                     justify-content: space-around;
                     align-items: center;
-                    width: 80%;
+                    width: 90%;
                     
 
                 }
@@ -186,7 +212,7 @@ function SmallDataCard({title, dataField} : SmallDataCardProps) {
                     font-size: 22px;
                     font-weight: 800;
                     line-height: 20.44px;
-
+                    width: 50px;
                     transition: 0.5s;
                     padding: 2px;
 
