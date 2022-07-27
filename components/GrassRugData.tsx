@@ -5,42 +5,34 @@ import { Card, Col, Row } from "react-bootstrap";
 import GrassRugDataCard from "./GrassRugDataCard";
 
 interface GrassRugDataProps {
-    queryURL : string;
+  queryURL: string;
 }
 
+interface ResponseItem {
+  name: string;
+  amount: string;
+}
 
-function GrassRugData({queryURL} : GrassRugDataProps) {
+function GrassRugData({ queryURL }: GrassRugDataProps) {
+  let dataArray: ResponseItem[] = [];
 
-    let dataArray : string[] = [];
+  let response = useSWR(queryURL, Fetcher);
+  if (response.data) {
+    dataArray = response.data;
+  }
 
-
-    let response = useSWR(queryURL, Fetcher);
-    if (response.data) {
-        console.log(response, "hello");
-
-    }
-    
-
-    return (
-        <Row>
-            <Col>
-            <GrassRugDataCard />
+  return (
+    <Row>
+      {dataArray &&
+        dataArray.map(() => {
+          return (
+            <Col md={3}>
+              <GrassRugDataCard />
             </Col>
-            <Col>
-            <GrassRugDataCard />
-            </Col>
-            <Col>
-            <GrassRugDataCard />
-            </Col>
-            <Col>
-            <GrassRugDataCard />
-            </Col>
-
-        </Row>
-    )
-
-
-};
-
+          );
+        })}
+    </Row>
+  );
+}
 
 export default GrassRugData;
