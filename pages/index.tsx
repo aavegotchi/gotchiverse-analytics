@@ -8,7 +8,7 @@ import UnflippedTile from "../components/unflipped";
 import AlchemicaCardData from "../components/AlchemicaCardData";
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
 import DataCardLazyLoad from "../components/DataCardLazyLoad";
-
+import GrassRugData from "../components/GrassRugData";
 
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
@@ -283,36 +283,50 @@ const Home: NextPage = () => {
                     }
                 </Row>
 
-                {gotchiStats && (
-                    <>
-                        <h2 className="title">Gotchi Utiliziation</h2>
-                        <Row>
-                            {
-                                gotchisObjects.map((gotchiObject, index) => {
 
-                                    return (
-                                        <Col key = {index}>
-                                            <SmallDataCard 
-                                            title = {gotchiObject.title}
-                                            dataField = {gotchiObject.dataField}
-                                            />
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                        <Row>
-                            <Col md={3}>
-                                <GrassCard
-                                    types={grassResponse.data}
-                                ></GrassCard>
-                            </Col>
-                            <Col md={3}>
-                                <RugCard types={rugResponse.data}></RugCard>
-                            </Col>
-                        </Row>
-                    </>
-                )}
+                <h2 className="title">Gotchi Utiliziation</h2>
+                <Row>
+                    {
+                        gotchisObjects.map((gotchiObject, index) => {
+
+                            return (
+                                <Col key = {index}>
+                                    <SmallDataCard 
+                                    title = {gotchiObject.title}
+                                    dataField = {gotchiObject.dataField}
+                                    />
+                                </Col>
+                            )
+                        })
+                    }
+                </Row>
+                <h2 className = "title">Grass</h2>
+                
+                <GrassRugData queryURL = {"/api/grass"} />
+
+                <Row>
+                    <Col md={3}>
+                        <GrassCard
+                            types={grassResponse.data}
+                        ></GrassCard>
+                    </Col>
+                    <Col md={3}>
+                        <RugCard types={rugResponse.data}></RugCard>
+                    </Col>
+                </Row>
+
+                <h2 className = "title">Rugs</h2>
+                <Row>
+                    <Col md={3}>
+                        <GrassCard
+                            types={grassResponse.data}
+                        ></GrassCard>
+                    </Col>
+                    <Col md={3}>
+                        <RugCard types={rugResponse.data}></RugCard>
+                    </Col>
+                </Row>
+
             </div>
             <style jsx>
                 {`
