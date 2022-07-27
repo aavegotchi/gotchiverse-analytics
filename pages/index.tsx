@@ -24,15 +24,10 @@ import GraphSetButtons from "../components/GraphSetButtons";
 import DataCard from "../components/DataCard";
 import SmallDataCard from "../components/SmallDataCard";
 
-
-
-
 interface dataObject {
     title: string;
-    dataField : string;
+    dataField: string;
 }
-
-
 
 const Home: NextPage = () => {
     let alchemicaTotalResponse = useSWR("/api/alchemica/supply", Fetcher);
@@ -80,24 +75,16 @@ const Home: NextPage = () => {
         Fetcher
     );
 
-
-
-
-    let gotchiverseStats7dSeries = gotchiverseStats7dSeriesResponse.data; // gotchiverseStats 7 days data 
+    let gotchiverseStats7dSeries = gotchiverseStats7dSeriesResponse.data; // gotchiverseStats 7 days data
 
     let gotchiverseStats30dSeries = gotchiverseStates30dSeriesResponse.data; // gotchiverseStats 30 days data
 
-
     let activeWallets = useSWR("/api/alchemica/");
-
 
     console.log("gotchiverseStats (Total)", gotchiverseStats);
     console.log("1d day series data here", gotchiverseStats1d);
     console.log("g7 day series data here  ", gotchiverseStats7d);
     console.log("30d day series data here", gotchiverseStats30d);
-
-
-
 
     let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
 
@@ -105,206 +92,176 @@ const Home: NextPage = () => {
 
     // ============================ graph below =====================
 
-
-
     const [dataToBeDisplayed, setDataToBeDisplayed] = useState<string>("");
 
-
     const [graphTitle, setGraphTitle] = useState<string>("");
-    
+
     const [graphData7d, setGraphData7d] = useState<object>({});
 
     const [graphData30d, setGraphData30d] = useState<object>({});
- 
 
     const [graphObject, setGraphObject] = useState<dataObject>({
-        title : "installations minted",
-        dataField : "installationsMintedTotal"
-    })
+        title: "installations minted",
+        dataField: "installationsMintedTotal",
+    });
 
     useEffect(() => {
-
         function setData() {
-
             setDataToBeDisplayed("installationsMintedTotal");
-            setGraphTitle("installationsMintedTotal")
-
+            setGraphTitle("installationsMintedTotal");
         }
 
         setData();
     }, []);
 
-
-
-    // objects 
+    // objects
 
     // ======================= Alchemica stuff =====================
 
     const alchemicaObjects: dataObject[] = [
         {
             title: "ALCHEMICA SPENT ON TILES",
-            dataField: "alchemicaSpendOnTiles"
+            dataField: "alchemicaSpendOnTiles",
         },
         {
             title: "ALCHEMICA SPENT ON INSTALLATIONS",
-            dataField: "alchemicaSpendOnInstallations"
+            dataField: "alchemicaSpendOnInstallations",
         },
         {
             title: "ALCHEMICA SPENT ON UPGRADES",
-            dataField: "alchemicaSpendOnUpgrades"
-        }
-    ]
+            dataField: "alchemicaSpendOnUpgrades",
+        },
+    ];
     //======================== row 1 ==============================
 
-    const rowOneObjects : dataObject[] = [
+    const rowOneObjects: dataObject[] = [
         {
             title: "TILES MINTED",
-            dataField : "tilesMinted"
+            dataField: "tilesMinted",
         },
         {
             title: "INSTALLATIONS MINTED",
-            dataField: "installationsMintedTotal"
+            dataField: "installationsMintedTotal",
         },
         {
             title: "INSTALLATIONS UPGRADED TOTAL",
-            dataField: "installationsUpgradedTotal"
-        }
-    ]
+            dataField: "installationsUpgradedTotal",
+        },
+    ];
 
     // =========================== row 2 =============================
 
-    const rowTwoObjects : dataObject[] = [
+    const rowTwoObjects: dataObject[] = [
         {
             title: "GLTR SPENT ON CRAFTS",
-            dataField: "gltrSpendOnCrafts"
+            dataField: "gltrSpendOnCrafts",
         },
         {
             title: "GLTR SPENT ON UPGRADES",
-            dataField: "gltrSpendOnUpgrades"
+            dataField: "gltrSpendOnUpgrades",
         },
         {
             title: "GLTR SPENT TOTAL",
-            dataField: "gltrSpendTotal"
-        }
-    ]
+            dataField: "gltrSpendTotal",
+        },
+    ];
 
     // ====================== gotchiObjects =================================
 
-    const gotchisObjects : dataObject[] = [
+    const gotchisObjects: dataObject[] = [
         {
             title: "GOTCHIS BORROWED",
-            dataField: "aavegotchisBorrowed"
-
+            dataField: "aavegotchisBorrowed",
         },
         {
             title: "GOTCHIS CLAIMED",
-            dataField: "aavegotchisClaimed"
+            dataField: "aavegotchisClaimed",
         },
         {
             title: "GOTCHIS SACRIFICED",
-            dataField: "aavegotchisSacrificed"
+            dataField: "aavegotchisSacrificed",
         },
         {
             title: "GOTCHIS CHANNELED",
-            dataField: "aavegotchisChanneled"
-        }
-    ]
+            dataField: "aavegotchisChanneled",
+        },
+    ];
 
     // ================== last row ==============================
-
 
     console.log(grassResponse, "grass response");
     console.log(rugResponse, "rug Response");
 
-    const grassRow : dataObject[] = [
+    const grassRow: dataObject[] = [
         {
             title: "LE PURPLE GRASS",
-            dataField: ""
-        }
-
+            dataField: "",
+        },
     ];
-
-
-
 
     return (
         <>
             <div className="mainWrapper">
                 <h2 className="title">Gotchiverse Economy</h2>
                 <Row>
-                    {
-                        alchemicaObjects.map((alchemica, index) => {
-
-                            return (
-                                <Col key = {index}>
+                    {alchemicaObjects.map((alchemica, index) => {
+                        return (
+                            <Col key={index}>
                                 <AlchemicaCardDataV2
-                                title = {alchemica.title}
-                                dataField = {alchemica.dataField}
+                                    title={alchemica.title}
+                                    dataField={alchemica.dataField}
                                 />
-                                </Col>
-                            )
-                        })
-                    }
-
+                            </Col>
+                        );
+                    })}
                 </Row>
                 <Row>
                     <Col md="8">
-                        {
-                            graphObject && 
-                            <GotchiverseStatsChart 
-                            field = {graphObject.dataField}
-                            title = {graphObject.title}/>
-                        }
-
+                        {graphObject && (
+                            <GotchiverseStatsChart
+                                field={graphObject.dataField}
+                                title={graphObject.title}
+                            />
+                        )}
                     </Col>
                     <Col md="4">
-                        <div className = "pools_wrapper">
+                        <div className="pools_wrapper">
                             <StakingPools />
                             <StakingPools />
-
                         </div>
-
                     </Col>
                 </Row>
                 <Row>
-                    {
-                        rowOneObjects.map((data, index) => {
-                            return (
-                                <Col key = {index}>
-                                    <DataCard 
-                                    title = {data.title} 
-                                    dataField = {data.dataField}
-                                    />
-                                </Col>
-
-                            )
-
-                        })
-                    }
+                    {rowOneObjects.map((data, index) => {
+                        return (
+                            <Col key={index}>
+                                <DataCard
+                                    title={data.title}
+                                    dataField={data.dataField}
+                                />
+                            </Col>
+                        );
+                    })}
                 </Row>
-
 
                 <h2 className="title">Gotchi Utiliziation</h2>
                 <Row>
-                    {
-                        gotchisObjects.map((gotchiObject, index) => {
-
-                            return (
-                                <Col key = {index}>
-                                    <SmallDataCard 
-                                    title = {gotchiObject.title}
-                                    dataField = {gotchiObject.dataField}
-                                    />
-                                </Col>
-                            )
-                        })
-                    }
+                    {gotchisObjects.map((gotchiObject, index) => {
+                        return (
+                            <Col key={index}>
+                                <SmallDataCard
+                                    title={gotchiObject.title}
+                                    dataField={gotchiObject.dataField}
+                                />
+                            </Col>
+                        );
+                    })}
                 </Row>
-                <h2 className = "title">Grass</h2>
-                
-                <GrassRugData queryURL = {"/api/grass"} />
+                <h2 className="title">Grass</h2>
 
-                <Row>
+                <GrassRugData queryURL={"/api/grass"} />
+
+                {/* <Row>
                     <Col md={3}>
                         <GrassCard
                             types={grassResponse.data}
@@ -313,24 +270,21 @@ const Home: NextPage = () => {
                     <Col md={3}>
                         <RugCard types={rugResponse.data}></RugCard>
                     </Col>
-                </Row>
+                </Row> */}
 
-                <h2 className = "title">Rugs</h2>
-                <Row>
+                <h2 className="title">Rugs</h2>
+                <GrassRugData queryURL={"/api/rugs"} />
+                {/* <Row>
                     <Col md={3}>
-                        <GrassCard
-                            types={grassResponse.data}
-                        ></GrassCard>
+                        <GrassCard types={grassResponse.data}></GrassCard>
                     </Col>
                     <Col md={3}>
                         <RugCard types={rugResponse.data}></RugCard>
                     </Col>
-                </Row>
-
+                </Row> */}
             </div>
             <style jsx>
                 {`
-
                     .title {
                         width: 85%;
                         text-align: left;
@@ -346,7 +300,6 @@ const Home: NextPage = () => {
                         gap: 15px;
                     }
 
-
                     .mainWrapper {
                         width: 1100px;
 
@@ -355,8 +308,6 @@ const Home: NextPage = () => {
                         justify-content: center;
                         align-items: center;
                     }
-
-
 
                     @media (max-width: 600px) {
                         .mainWrapper {
