@@ -24,10 +24,13 @@ function GrassRugData({ queryURL }: GrassRugDataProps) {
   return (
     <Row>
       {dataArray &&
-        dataArray.map(() => {
+        dataArray.map((responseItem, index) => {
           return (
-            <Col md={3}>
-              <GrassRugDataCard />
+            <Col md={3} key={index}>
+              <GrassRugDataCard
+                title={responseItem.name}
+                data={responseItem.amount}
+              />
             </Col>
           );
         })}
