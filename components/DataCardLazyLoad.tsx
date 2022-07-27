@@ -17,7 +17,7 @@ const buttons : number[] = [30, 7, 24, 100];
 
 function DataCardLazyLoad({ title, dataField }: DataCardProps) {
 
-    console.log("data card 2");
+
 
     const [timeLine, setTimeLine] = useState<number>(3);
     const [displayData, setDisplayData] = useState<number>(0);

@@ -8,7 +8,7 @@ import UnflippedTile from "../components/unflipped";
 import AlchemicaCardData from "../components/AlchemicaCardData";
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
 import DataCardLazyLoad from "../components/DataCardLazyLoad";
-
+import GrassRugData from "../components/GrassRugData";
 
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
@@ -22,6 +22,7 @@ import { GrassCard } from "../components/grassCard";
 import { RugCard } from "../components/rugCard";
 import GraphSetButtons from "../components/GraphSetButtons";
 import DataCard from "../components/DataCard";
+import SmallDataCard from "../components/SmallDataCard";
 
 
 
@@ -94,10 +95,14 @@ const Home: NextPage = () => {
     console.log("1d day series data here", gotchiverseStats1d);
     console.log("g7 day series data here  ", gotchiverseStats7d);
     console.log("30d day series data here", gotchiverseStats30d);
-    
 
 
-    
+
+
+    let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
+
+    let gotchisRes7 = useSWR("/api/gotchis/stats/7", Fetcher);
+
     // ============================ graph below =====================
 
 
@@ -183,6 +188,42 @@ const Home: NextPage = () => {
         }
     ]
 
+    // ====================== gotchiObjects =================================
+
+    const gotchisObjects : dataObject[] = [
+        {
+            title: "GOTCHIS BORROWED",
+            dataField: "aavegotchisBorrowed"
+
+        },
+        {
+            title: "GOTCHIS CLAIMED",
+            dataField: "aavegotchisClaimed"
+        },
+        {
+            title: "GOTCHIS SACRIFICED",
+            dataField: "aavegotchisSacrificed"
+        },
+        {
+            title: "GOTCHIS CHANNELED",
+            dataField: "aavegotchisChanneled"
+        }
+    ]
+
+    // ================== last row ==============================
+
+
+    console.log(grassResponse, "grass response");
+    console.log(rugResponse, "rug Response");
+
+    const grassRow : dataObject[] = [
+        {
+            title: "LE PURPLE GRASS",
+            dataField: ""
+        }
+
+    ];
+
 
 
 
@@ -223,36 +264,8 @@ const Home: NextPage = () => {
 
                         </div>
 
-                        {/* <GraphSetButtons graphObject = {graphObject} setGraphObject = {setGraphObject}/> */}
                     </Col>
                 </Row>
-
-                {/* {gotchiverseStats && (
-                    <Row>
-                        <Col>
-                            <AlchemicaCard
-                                title={"TILES"}
-                                values={gotchiverseStats.alchemicaSpendOnTiles}
-                            />
-                        </Col>
-                        <Col>
-                            <AlchemicaCard
-                                title={"INSTALLATIONS"}
-                                values={
-                                    gotchiverseStats.alchemicaSpendOnInstallations
-                                }
-                            />
-                        </Col>
-                        <Col>
-                            <AlchemicaCard
-                                title={"UPGRADES"}
-                                values={
-                                    gotchiverseStats.alchemicaSpendOnUpgrades
-                                }
-                            />
-                        </Col>
-                    </Row>
-                )} */}
                 <Row>
                     {
                         rowOneObjects.map((data, index) => {
@@ -270,215 +283,50 @@ const Home: NextPage = () => {
                     }
                 </Row>
 
+
+                <h2 className="title">Gotchi Utiliziation</h2>
                 <Row>
                     {
-                        rowOneObjects.map((data, index) => {
+                        gotchisObjects.map((gotchiObject, index) => {
+
                             return (
                                 <Col key = {index}>
-                                    <DataCardLazyLoad 
-                                    title = {data.title} 
-                                    dataField = {data.dataField}
+                                    <SmallDataCard 
+                                    title = {gotchiObject.title}
+                                    dataField = {gotchiObject.dataField}
                                     />
                                 </Col>
-
                             )
-
                         })
                     }
                 </Row>
-                {/* <Row>
-                {
-                    rowTwoObjects.map((data, index) => {
-                        return (
-                            <Col>
-                                <DataCard 
-                                key = {index}
-                                title = {data.title} 
-                                dataField = {data.dataField}
-                                />
-                            </Col>
-
-                        )
-                    })
-                }
-
-                </Row> */}
-
-
-
-
-                <Row>
-                    {gotchiverseStats &&
-                        gotchiverseStats1d &&
-                        gotchiverseStats7d &&
-                        gotchiverseStats30d && (
-                            <Col>
-                                <UnflippedTile
-                                    data={
-                                        gotchiverseStats.installationsMintedTotal
-                                    }
-                                    data1d={
-                                        gotchiverseStats1d.installationsMintedTotal
-                                    }
-                                    data7d={
-                                        gotchiverseStats7d.installationsMintedTotal
-                                    }
-                                    data30d={
-                                        gotchiverseStats30d.installationsMintedTotal
-                                    }
-                                    title={"installationsMintedTotal"}
-                                    setGraph = { (titleName : string ) => {
-                                        setDataToBeDisplayed(titleName);
-                                        console.log("ran");
-                                        console.log(dataToBeDisplayed);
-                                    }
-                                        
-                                    }
-                                />
-                            </Col>
-                        )}
-                    {gotchiverseStats &&
-                        gotchiverseStats1d &&
-                        gotchiverseStats7d &&
-                        gotchiverseStats30d && (
-                            <Col>
-                                <UnflippedTile
-                                    data={gotchiverseStats.tilesMinted}
-                                    data1d={gotchiverseStats1d.tilesMinted}
-                                    data7d={gotchiverseStats7d.tilesMinted}
-                                    data30d={gotchiverseStats30d.tilesMinted}
-                                    title={"TILES MINTED"}
-                                    setGraph = { (titleName : string ) => {
-                                        setDataToBeDisplayed(titleName);
-                                    }}
-
-                                />
-                            </Col>
-                        )}
-
-                    {gotchiverseStats &&
-                        gotchiverseStats1d &&
-                        gotchiverseStats7d &&
-                        gotchiverseStats30d && (
-                            <Col>
-                                <UnflippedTile
-                                    data={gotchiverseStats.gltrSpendTotal}
-                                    data1d={gotchiverseStats1d.gltrSpendTotal}
-                                    data7d={gotchiverseStats7d.gltrSpendTotal}
-                                    data30d={gotchiverseStats30d.gltrSpendTotal}
-                                    title={"GLTR BURNED"}
-                                    setGraph = { (titleName : string ) => {
-                                        setDataToBeDisplayed(titleName);
-                                    }
-                                }
-                                />
-                            </Col>
-                        )}
-                </Row>
-
-                <Row>
-                    <Col>
-                        {/* <Card>Number of players banned vs total players</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"PLAYERS"}
-                        />
-                    </Col>
-                    <Col>
-                        {/* <Card>Amount of Alchemica Sold by banned players</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"BANNED PLAYERS"}
-                        />
-                    </Col>
-                    <Col>
-                        {/* <Card>Number of players banned</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"ALCHEMICA SOLD BY BANNED PLAYERS"}
-                        />
-                    </Col>
-                    <Col>
-                        {/* <Card>Number of players banned</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"UNBANNED PLAYERS"}
-                        />
-                    </Col>
-                </Row>
-
-
+                <h2 className = "title">Grass</h2>
                 
+                <GrassRugData queryURL = {"/api/grass"} />
 
-                {gotchiStats && (
-                    <>
-                        <h2 className="title">Gotchi Utiliziation</h2>
-                        <Row>
-                            <Col>
-                                {/* <Card>Number of Gotchis summoned</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisClaimed}
-                                    data1d={gotchiStats.aavegotchisClaimed}
-                                    data7d={gotchiStats.aavegotchisClaimed}
-                                    data30d={gotchiStats.aavegotchisClaimed}
-                                    title={"GOTCHIS SUMMONED"}
-                                />
-                            </Col>
-                            <Col>
-                                {/* <Card>Number of Gotchis sacrificed</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisSacrificed}
-                                    data1d={gotchiStats.aavegotchisSacrificed}
-                                    data7d={gotchiStats.aavegotchisSacrificed}
-                                    data30d={gotchiStats.aavegotchisSacrificed}
-                                    title={"GOTCHIS SACRIFICED"}
-                                />
-                            </Col>
-                            <Col>
-                                {/* <Card>Number of Gotchis borrowed (24h, 7d, 30d)</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisBorrowed}
-                                    data1d={gotchiStats.aavegotchisBorrowed}
-                                    data7d={gotchiStats.aavegotchisBorrowed}
-                                    data30d={gotchiStats.aavegotchisBorrowed}
-                                    title={"GOTCHIS BORROWED"}
-                                />
-                            </Col>
-                            <Col>
-                                {/* <Card>Number of Gotchis channeled (24h, 7d, 30d)</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisBorrowed}
-                                    data1d={gotchiStats.aavegotchisBorrowed}
-                                    data7d={gotchiStats.aavegotchisBorrowed}
-                                    data30d={gotchiStats.aavegotchisBorrowed}
-                                    title={"GOTCHIS SACRIFICED FILLER"}
-                                />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col md={3}>
-                                <GrassCard
-                                    types={grassResponse.data}
-                                ></GrassCard>
-                            </Col>
-                            <Col md={3}>
-                                <RugCard types={rugResponse.data}></RugCard>
-                            </Col>
-                        </Row>
-                    </>
-                )}
+                <Row>
+                    <Col md={3}>
+                        <GrassCard
+                            types={grassResponse.data}
+                        ></GrassCard>
+                    </Col>
+                    <Col md={3}>
+                        <RugCard types={rugResponse.data}></RugCard>
+                    </Col>
+                </Row>
+
+                <h2 className = "title">Rugs</h2>
+                <Row>
+                    <Col md={3}>
+                        <GrassCard
+                            types={grassResponse.data}
+                        ></GrassCard>
+                    </Col>
+                    <Col md={3}>
+                        <RugCard types={rugResponse.data}></RugCard>
+                    </Col>
+                </Row>
+
             </div>
             <style jsx>
                 {`

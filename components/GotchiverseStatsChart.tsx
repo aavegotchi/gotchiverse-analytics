@@ -43,11 +43,15 @@ export default function GotchiverseStatsChart({
     // showInterval();
 
     return (
-        <div className = "wrapper">
+        <div className="wrapper">
             <Chart title={title} data={data} />
             <div>
-                <button className = "button" onClick={() => setInterval(7)}>Show 7D</button >
-                <button  className = "button" onClick={() => setInterval(30)}>Show 30D</button >
+                <button className="button" onClick={() => setInterval(7)}>
+                    Show 7D
+                </button>
+                <button className="button" onClick={() => setInterval(30)}>
+                    Show 30D
+                </button>
             </div>
             <style jsx>
                 {`
