@@ -100,14 +100,9 @@ const Home: NextPage = () => {
 
 
     let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
-    console.log(gotchisRes, "gotchisResponseHere");
 
     let gotchisRes7 = useSWR("/api/gotchis/stats/7", Fetcher);
-    console.log(gotchisRes7, "gotchisResponseHere7");
-    
 
-
-    
     // ============================ graph below =====================
 
 
@@ -215,6 +210,20 @@ const Home: NextPage = () => {
         }
     ]
 
+    // ================== last row ==============================
+
+
+    console.log(grassResponse, "grass response");
+    console.log(rugResponse, "rug Response");
+
+    const grassRow : dataObject[] = [
+        {
+            title: "LE PURPLE GRASS",
+            dataField: ""
+        }
+
+    ];
+
 
 
 
@@ -255,36 +264,8 @@ const Home: NextPage = () => {
 
                         </div>
 
-                        {/* <GraphSetButtons graphObject = {graphObject} setGraphObject = {setGraphObject}/> */}
                     </Col>
                 </Row>
-
-                {/* {gotchiverseStats && (
-                    <Row>
-                        <Col>
-                            <AlchemicaCard
-                                title={"TILES"}
-                                values={gotchiverseStats.alchemicaSpendOnTiles}
-                            />
-                        </Col>
-                        <Col>
-                            <AlchemicaCard
-                                title={"INSTALLATIONS"}
-                                values={
-                                    gotchiverseStats.alchemicaSpendOnInstallations
-                                }
-                            />
-                        </Col>
-                        <Col>
-                            <AlchemicaCard
-                                title={"UPGRADES"}
-                                values={
-                                    gotchiverseStats.alchemicaSpendOnUpgrades
-                                }
-                            />
-                        </Col>
-                    </Row>
-                )} */}
                 <Row>
                     {
                         rowOneObjects.map((data, index) => {
@@ -301,158 +282,6 @@ const Home: NextPage = () => {
                         })
                     }
                 </Row>
-
-                <Row>
-                    {
-                        rowOneObjects.map((data, index) => {
-                            return (
-                                <Col key = {index}>
-                                    <DataCardLazyLoad 
-                                    title = {data.title} 
-                                    dataField = {data.dataField}
-                                    />
-                                </Col>
-
-                            )
-
-                        })
-                    }
-                </Row>
-                {/* <Row>
-                {
-                    rowTwoObjects.map((data, index) => {
-                        return (
-                            <Col>
-                                <DataCard 
-                                key = {index}
-                                title = {data.title} 
-                                dataField = {data.dataField}
-                                />
-                            </Col>
-
-                        )
-                    })
-                }
-
-                </Row> */}
-
-
-
-
-                <Row>
-                    {gotchiverseStats &&
-                        gotchiverseStats1d &&
-                        gotchiverseStats7d &&
-                        gotchiverseStats30d && (
-                            <Col>
-                                <UnflippedTile
-                                    data={
-                                        gotchiverseStats.installationsMintedTotal
-                                    }
-                                    data1d={
-                                        gotchiverseStats1d.installationsMintedTotal
-                                    }
-                                    data7d={
-                                        gotchiverseStats7d.installationsMintedTotal
-                                    }
-                                    data30d={
-                                        gotchiverseStats30d.installationsMintedTotal
-                                    }
-                                    title={"installationsMintedTotal"}
-                                    setGraph = { (titleName : string ) => {
-                                        setDataToBeDisplayed(titleName);
-                                        console.log("ran");
-                                        console.log(dataToBeDisplayed);
-                                    }
-                                        
-                                    }
-                                />
-                            </Col>
-                        )}
-                    {gotchiverseStats &&
-                        gotchiverseStats1d &&
-                        gotchiverseStats7d &&
-                        gotchiverseStats30d && (
-                            <Col>
-                                <UnflippedTile
-                                    data={gotchiverseStats.tilesMinted}
-                                    data1d={gotchiverseStats1d.tilesMinted}
-                                    data7d={gotchiverseStats7d.tilesMinted}
-                                    data30d={gotchiverseStats30d.tilesMinted}
-                                    title={"TILES MINTED"}
-                                    setGraph = { (titleName : string ) => {
-                                        setDataToBeDisplayed(titleName);
-                                    }}
-
-                                />
-                            </Col>
-                        )}
-
-                    {gotchiverseStats &&
-                        gotchiverseStats1d &&
-                        gotchiverseStats7d &&
-                        gotchiverseStats30d && (
-                            <Col>
-                                <UnflippedTile
-                                    data={gotchiverseStats.gltrSpendTotal}
-                                    data1d={gotchiverseStats1d.gltrSpendTotal}
-                                    data7d={gotchiverseStats7d.gltrSpendTotal}
-                                    data30d={gotchiverseStats30d.gltrSpendTotal}
-                                    title={"GLTR BURNED"}
-                                    setGraph = { (titleName : string ) => {
-                                        setDataToBeDisplayed(titleName);
-                                    }
-                                }
-                                />
-                            </Col>
-                        )}
-                </Row>
-
-                <Row>
-                    <Col>
-                        {/* <Card>Number of players banned vs total players</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"PLAYERS"}
-                        />
-                    </Col>
-                    <Col>
-                        {/* <Card>Amount of Alchemica Sold by banned players</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"BANNED PLAYERS"}
-                        />
-                    </Col>
-                    <Col>
-                        {/* <Card>Number of players banned</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"ALCHEMICA SOLD BY BANNED PLAYERS"}
-                        />
-                    </Col>
-                    <Col>
-                        {/* <Card>Number of players banned</Card> */}
-                        <UnflippedBanned
-                            data={100}
-                            data1d={1}
-                            data7d={7}
-                            data30d={30}
-                            title={"UNBANNED PLAYERS"}
-                        />
-                    </Col>
-                </Row>
-
-
-                
 
                 {gotchiStats && (
                     <>
@@ -471,48 +300,6 @@ const Home: NextPage = () => {
                                     )
                                 })
                             }
-                        </Row>
-                        <Row>
-                            <Col>
-                                {/* <Card>Number of Gotchis summoned</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisClaimed}
-                                    data1d={gotchiStats.aavegotchisClaimed}
-                                    data7d={gotchiStats.aavegotchisClaimed}
-                                    data30d={gotchiStats.aavegotchisClaimed}
-                                    title={"GOTCHIS SUMMONED"}
-                                />
-                            </Col>
-                            <Col>
-                                {/* <Card>Number of Gotchis sacrificed</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisSacrificed}
-                                    data1d={gotchiStats.aavegotchisSacrificed}
-                                    data7d={gotchiStats.aavegotchisSacrificed}
-                                    data30d={gotchiStats.aavegotchisSacrificed}
-                                    title={"GOTCHIS SACRIFICED"}
-                                />
-                            </Col>
-                            <Col>
-                                {/* <Card>Number of Gotchis borrowed (24h, 7d, 30d)</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisBorrowed}
-                                    data1d={gotchiStats.aavegotchisBorrowed}
-                                    data7d={gotchiStats.aavegotchisBorrowed}
-                                    data30d={gotchiStats.aavegotchisBorrowed}
-                                    title={"GOTCHIS BORROWED"}
-                                />
-                            </Col>
-                            <Col>
-                                {/* <Card>Number of Gotchis channeled (24h, 7d, 30d)</Card> */}
-                                <UnflippedBanned
-                                    data={gotchiStats.aavegotchisBorrowed}
-                                    data1d={gotchiStats.aavegotchisBorrowed}
-                                    data7d={gotchiStats.aavegotchisBorrowed}
-                                    data30d={gotchiStats.aavegotchisBorrowed}
-                                    title={"GOTCHIS SACRIFICED FILLER"}
-                                />
-                            </Col>
                         </Row>
                         <Row>
                             <Col md={3}>
