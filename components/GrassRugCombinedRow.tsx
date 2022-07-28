@@ -4,21 +4,18 @@ import Fetcher from "../fetcher";
 import { Card, Col, Row } from "react-bootstrap";
 import GrassRugDataCard from "./GrassRugDataCard";
 
-interface GrassRugDataProps {
-    queryURL: string;
-}
-
 interface ResponseItem {
     name: string;
     amount: string;
 }
 
-function GrassRugData({ queryURL }: GrassRugDataProps) {
+function GrassRugCombinedRow() {
     let dataArray: ResponseItem[] = [];
 
-    let response = useSWR(queryURL, Fetcher);
-    if (response.data) {
-        dataArray = response.data;
+    let grassResponse = useSWR("/api/grass", Fetcher);
+    let rugsResponse = useSWR("/api/rugs", Fetcher);
+    if (grassResponse.data && rugsResponse.data) {
+        dataArray = grassResponse.data.concat(rugsResponse.data);
     }
 
     return (
@@ -26,7 +23,7 @@ function GrassRugData({ queryURL }: GrassRugDataProps) {
             {dataArray &&
                 dataArray.map((responseItem, index) => {
                     return (
-                        <Col md={6} key={index}>
+                        <Col md={3} key={index}>
                             <GrassRugDataCard
                                 title={responseItem.name}
                                 data={responseItem.amount}
@@ -38,4 +35,4 @@ function GrassRugData({ queryURL }: GrassRugDataProps) {
     );
 }
 
-export default GrassRugData;
+export default GrassRugCombinedRow;
