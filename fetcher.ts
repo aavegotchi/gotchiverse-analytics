@@ -8,7 +8,7 @@ import { INTERVAL_ALL, INTERVAL_DAY } from "./api/helper/constats";
 import { getRugs } from "./api/rugs";
 import { getStatsDiff } from "./api/stats";
 
-export default async function Fetcher(url) {
+export default async function Fetcher(url: string) {
     let urlParts = url.split("/");
     let asTimeSeries = false;
     if (urlParts[5] == "series") {
@@ -58,12 +58,19 @@ export default async function Fetcher(url) {
     return result;
 }
 
-function getCategoryMethod(category, attribute) {
+function getCategoryMethod(category: string, attribute: string) {
     if (category == "alchemica" && attribute == "supply") {
         return getAlchemicaTotalSupplyDiff;
     } else if (category == "gotchiverse" && attribute == "stats") {
         return getStatsDiff;
+    } else if (category == "gotchis" && attribute == "stats") {
+        return getGotchis;
     }
 
     return false;
+}
+
+function getFakeGotchis(block: number | string = "latest") {
+    
+
 }
