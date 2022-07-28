@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { useState, useEffect } from "react";
+import { Card, Col, Row } from "react-bootstrap";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 

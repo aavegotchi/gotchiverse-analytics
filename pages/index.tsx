@@ -9,6 +9,7 @@ import AlchemicaCardData from "../components/AlchemicaCardData";
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
 import DataCardLazyLoad from "../components/DataCardLazyLoad";
 import GrassRugData from "../components/GrassRugData";
+import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
 
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
@@ -257,9 +258,12 @@ const Home: NextPage = () => {
                         );
                     })}
                 </Row>
-                <h2 className="title">Grass</h2>
-
-                <GrassRugData queryURL={"/api/grass"} />
+                <h2 className="title">Grass and Rugs</h2>
+                {/* <div className="wrapper_helper">
+                    <GrassRugData queryURL={"/api/grass"} />
+                    <GrassRugData queryURL={"/api/rugs"} />
+                </div> */}
+                <GrassRugCombinedRow />
 
                 {/* <Row>
                     <Col md={3}>
@@ -272,8 +276,8 @@ const Home: NextPage = () => {
                     </Col>
                 </Row> */}
 
-                <h2 className="title">Rugs</h2>
-                <GrassRugData queryURL={"/api/rugs"} />
+                {/* <h2 className="title">Rugs</h2>
+                <GrassRugData queryURL={"/api/rugs"} /> */}
                 {/* <Row>
                     <Col md={3}>
                         <GrassCard types={grassResponse.data}></GrassCard>
@@ -307,6 +311,12 @@ const Home: NextPage = () => {
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
+                    }
+
+                    .wrapper_helper {
+                        display: flex;
+                        justify-content: space-around;
+                        gap: 22px;
                     }
 
                     @media (max-width: 600px) {
