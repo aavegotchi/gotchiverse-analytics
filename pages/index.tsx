@@ -10,6 +10,7 @@ import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
 import DataCardLazyLoad from "../components/DataCardLazyLoad";
 import GrassRugData from "../components/GrassRugData";
 import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
+import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
 
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
@@ -286,6 +287,10 @@ const Home: NextPage = () => {
                         <RugCard types={rugResponse.data}></RugCard>
                     </Col>
                 </Row> */}
+                <h2 className="title">Fake Gotchis Owner Graph</h2>
+                <Row>
+                    <FakeGotchisDonutChart />
+                </Row>
             </div>
             <style jsx>
                 {`
