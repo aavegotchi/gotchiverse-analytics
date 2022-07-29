@@ -67,6 +67,9 @@ const Home: NextPage = () => {
     let gotchiverseStats1d = gotchiverseStats1dResponse.data;
     let gotchiverseStats30d = gotchiverseStats30dResponse.data;
 
+    let fakeGotchisResponse = useSWR("/api/fakeGotchis", Fetcher);
+    console.log(fakeGotchisResponse, "Fake Gotchi");
+
     let gotchiverseStats7dSeriesResponse = useSWR(
         "/api/gotchiverse/stats/7/series",
         Fetcher

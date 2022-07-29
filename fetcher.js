@@ -4,6 +4,7 @@ import {
 } from "./api/alchemica";
 import { getGotchis } from "./api/gochis";
 import { getGrass } from "./api/grass";
+import { getFakeGotchis } from "./api/fakegotchis";
 import { INTERVAL_ALL, INTERVAL_DAY } from "./api/helper/constats";
 import { getRugs } from "./api/rugs";
 import { getStatsDiff } from "./api/stats";
@@ -31,6 +32,11 @@ export default async function Fetcher(url) {
 
     if (url == "/api/rugs") {
         return getRugs();
+    }
+
+    if (url == "/api/fakeGotchis") {
+        
+        return getFakeGotchis();
     }
 
     if (urlParts[1] !== "api") {
