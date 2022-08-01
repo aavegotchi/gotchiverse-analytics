@@ -21,3 +21,8 @@ export const aavegotchiSvgSubgraph = apollo.createApolloFetch({
 export const gltrStakingSubgraph = apollo.createApolloFetch({
     uri: "https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-gltr-staking",
 });
+
+
+export const fakeGotchiSubgraph = apollo.createApolloFetch({
+    uri: "https://api.thegraph.com/subgraphs/name/froid1911/fakegotchi",
+});
