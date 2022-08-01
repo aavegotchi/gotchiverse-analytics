@@ -2,7 +2,7 @@ import {
     getAlchemicaTotalSupplyDiff,
     getAlchemicaTotalSupplyFromBlock,
 } from "./api/alchemica";
-import { getGotchis } from "./api/gochis";
+import { getGotchis, getGotchisDiff } from "./api/gochis";
 import { getGrass } from "./api/grass";
 import { getFakeGotchis } from "./api/fakegotchis";
 import { INTERVAL_ALL, INTERVAL_DAY } from "./api/helper/constats";
@@ -35,7 +35,6 @@ export default async function Fetcher(url) {
     }
 
     if (url == "/api/fakeGotchis") {
-        
         return getFakeGotchis();
     }
 
@@ -69,6 +68,8 @@ function getCategoryMethod(category, attribute) {
         return getAlchemicaTotalSupplyDiff;
     } else if (category == "gotchiverse" && attribute == "stats") {
         return getStatsDiff;
+    } else if (category == "gotchis" && attribute == "stats") {
+        return getGotchisDiff;
     }
 
     return false;

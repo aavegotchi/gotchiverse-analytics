@@ -20,30 +20,30 @@ function SmallDataCard({ title, dataField }: SmallDataCardProps) {
 
     let dataArray: string[] = [];
 
-    let gotchiverseStatsResponse7 = useSWR("/api/gotchis/stats/7", Fetcher);
+    // let gotchiverseStatsResponse7 = useSWR("/api/gotchis/stats/7", Fetcher);
 
-    let gotchiverseStatsResponse1 = useSWR("/api/gotchis/stats/1", Fetcher);
+    // let gotchiverseStatsResponse1 = useSWR("/api/gotchis/stats/1", Fetcher);
 
-    let gotchiverseStatsResponse30 = useSWR("/api/gotchis/stats/30", Fetcher);
+    // let gotchiverseStatsResponse30 = useSWR("/api/gotchis/stats/30", Fetcher);
 
     let gotchiverseStatsResponse = useSWR("/api/gotchis/stats", Fetcher);
 
-    if (
-        gotchiverseStatsResponse.data &&
-        gotchiverseStatsResponse30.data &&
-        gotchiverseStatsResponse1.data &&
-        gotchiverseStatsResponse7.data
-    ) {
-        dataArray = [
-            gotchiverseStatsResponse1.data[dataField],
-            gotchiverseStatsResponse7.data.data[dataField],
-            gotchiverseStatsResponse30.data[dataField],
-            gotchiverseStatsResponse.data[dataField],
-        ];
-        dataArray.forEach((element, index) => {
-            dataArray[index] = element.toString();
-        });
-    }
+    // if (
+    //     gotchiverseStatsResponse.data &&
+    //     gotchiverseStatsResponse30.data &&
+    //     gotchiverseStatsResponse1.data &&
+    //     gotchiverseStatsResponse7.data
+    // ) {
+    //     dataArray = [
+    //         gotchiverseStatsResponse1.data[dataField],
+    //         gotchiverseStatsResponse7.data.data[dataField],
+    //         gotchiverseStatsResponse30.data[dataField],
+    //         gotchiverseStatsResponse.data[dataField],
+    //     ];
+    //     dataArray.forEach((element, index) => {
+    //         dataArray[index] = element.toString();
+    //     });
+    // }
 
     return (
         <section>
