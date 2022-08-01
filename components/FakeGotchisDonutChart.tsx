@@ -53,6 +53,12 @@ function FakeGotchisDonutChart() {
                             {fakeGotchisResponse.data &&
                                 fakeGotchisResponse.data.map(
                                     (data: dataObject, index: number) => {
+                                        if (
+                                            data.id ===
+                                            "0x0000000000000000000000000000000000000000"
+                                        ) {
+                                            return;
+                                        }
                                         return (
                                             <FakeGotchisOwnerList
                                                 key={index}
