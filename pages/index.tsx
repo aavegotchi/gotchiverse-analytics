@@ -91,9 +91,9 @@ const Home: NextPage = () => {
     console.log("g7 day series data here  ", gotchiverseStats7d);
     console.log("30d day series data here", gotchiverseStats30d);
 
-    let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
+    // let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
 
-    let gotchisRes7 = useSWR("/api/gotchis/stats/7", Fetcher);
+    // let gotchisRes7 = useSWR("/api/gotchis/stats/7", Fetcher);
 
     // ============================ graph below =====================
 
