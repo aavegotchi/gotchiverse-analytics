@@ -9,7 +9,7 @@ interface DataCardProps {
     dataField: string;
 }
 
-const buttons: number[] = [30, 7, 24, 100];
+const buttons: number[] = [24, 7, 30, 100];
 
 function DataCard({ title, dataField }: DataCardProps) {
     const [timeLine, setTimeLine] = useState<number>(3);
@@ -42,7 +42,6 @@ function DataCard({ title, dataField }: DataCardProps) {
         gotchiverseStats1dResponse.data &&
         gotchiverseStats7dResponse.data
     ) {
-        console.log(gotchivereStatsResponse.data, "collected");
         dataArray = [
             gotchiverseStats1dResponse.data[dataField],
             gotchiverseStats7dResponse.data[dataField],
@@ -93,10 +92,16 @@ function DataCard({ title, dataField }: DataCardProps) {
             // const amountTotal : number = parseInt(dataArray[3], 10);
             // now - the amount at that time period ago
             const changes: number =
+                parseInt(dataArray[timeLine], 10) /
                 (parseInt(dataArray[3], 10) -
-                    parseInt(dataArray[timeLine], 10)) /
-                parseInt(dataArray[timeLine], 10);
-            setTrend(changes * 100);
+                    parseInt(dataArray[timeLine], 10));
+
+            if (isFinite(changes * 100)) {
+                setTrend(changes * 100);
+            } else {
+                setTrend(0);
+            }
+
             if (changes >= 0) {
                 className = className + "positive";
             } else {
@@ -166,7 +171,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                                 >
                                     {index === 3
                                         ? "total"
-                                        : index === 2
+                                        : index === 0
                                         ? `${buttonTimeLine} h`
                                         : `${buttonTimeLine} d`}
                                 </button>
