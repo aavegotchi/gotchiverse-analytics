@@ -13,19 +13,13 @@ import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
 import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
 import GotchisStats from "../components/GotchisStats";
 
-import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
 import StakingPools from "../components/StakingPools";
-import Image from "next/image";
 import TotalSupply from "../components/totalSupply";
 import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
-import { GrassCard } from "../components/grassCard";
-import { RugCard } from "../components/rugCard";
-import GraphSetButtons from "../components/GraphSetButtons";
 import DataCard from "../components/DataCard";
-import SmallDataCard from "../components/SmallDataCard";
 
 interface dataObject {
     title: string;
@@ -163,39 +157,6 @@ const Home: NextPage = () => {
         },
     ];
 
-    // ====================== gotchiObjects =================================
-
-    const gotchisObjects: dataObject[] = [
-        {
-            title: "GOTCHIS BORROWED",
-            dataField: "aavegotchisBorrowed",
-        },
-        {
-            title: "GOTCHIS CLAIMED",
-            dataField: "aavegotchisClaimed",
-        },
-        {
-            title: "GOTCHIS SACRIFICED",
-            dataField: "aavegotchisSacrificed",
-        },
-        {
-            title: "GOTCHIS CHANNELED",
-            dataField: "aavegotchisChanneled",
-        },
-    ];
-
-    // ================== last row ==============================
-
-    console.log(grassResponse, "grass response");
-    console.log(rugResponse, "rug Response");
-
-    const grassRow: dataObject[] = [
-        {
-            title: "LE PURPLE GRASS",
-            dataField: "",
-        },
-    ];
-
     return (
         <>
             <div className="mainWrapper">
@@ -242,47 +203,9 @@ const Home: NextPage = () => {
                 </Row>
 
                 <h2 className="title">Gotchi Utiliziation</h2>
-                {/* <Row>
-                    {gotchisObjects.map((gotchiObject, index) => {
-                        return (
-                            <Col key={index}>
-                                <SmallDataCard
-                                    title={gotchiObject.title}
-                                    dataField={gotchiObject.dataField}
-                                />
-                            </Col>
-                        );
-                    })}
-                </Row> */}
                 <GotchisStats />
                 <h2 className="title">Grass and Rugs</h2>
-                {/* <div className="wrapper_helper">
-                    <GrassRugData queryURL={"/api/grass"} />
-                    <GrassRugData queryURL={"/api/rugs"} />
-                </div> */}
                 <GrassRugCombinedRow />
-
-                {/* <Row>
-                    <Col md={3}>
-                        <GrassCard
-                            types={grassResponse.data}
-                        ></GrassCard>
-                    </Col>
-                    <Col md={3}>
-                        <RugCard types={rugResponse.data}></RugCard>
-                    </Col>
-                </Row> */}
-
-                {/* <h2 className="title">Rugs</h2>
-                <GrassRugData queryURL={"/api/rugs"} /> */}
-                {/* <Row>
-                    <Col md={3}>
-                        <GrassCard types={grassResponse.data}></GrassCard>
-                    </Col>
-                    <Col md={3}>
-                        <RugCard types={rugResponse.data}></RugCard>
-                    </Col>
-                </Row> */}
                 <h2 className="title">Fake Gotchis Owner Graph</h2>
                 <Row>
                     <FakeGotchisDonutChart />
