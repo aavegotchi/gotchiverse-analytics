@@ -11,6 +11,7 @@ import DataCardLazyLoad from "../components/DataCardLazyLoad";
 import GrassRugData from "../components/GrassRugData";
 import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
 import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
+import GotchisStats from "../components/GotchisStats";
 
 import UnflippedBanned from "../components/unflippedBanned";
 import PoolsUnflippedV2 from "../components/poolsUnflipped2";
@@ -85,15 +86,6 @@ const Home: NextPage = () => {
     let gotchiverseStats30dSeries = gotchiverseStates30dSeriesResponse.data; // gotchiverseStats 30 days data
 
     let activeWallets = useSWR("/api/alchemica/");
-
-    console.log("gotchiverseStats (Total)", gotchiverseStats);
-    console.log("1d day series data here", gotchiverseStats1d);
-    console.log("g7 day series data here  ", gotchiverseStats7d);
-    console.log("30d day series data here", gotchiverseStats30d);
-
-    // let gotchisRes = useSWR("/api/gotchis/stats", Fetcher);
-
-    // let gotchisRes7 = useSWR("/api/gotchis/stats/7", Fetcher);
 
     // ============================ graph below =====================
 
@@ -250,7 +242,7 @@ const Home: NextPage = () => {
                 </Row>
 
                 <h2 className="title">Gotchi Utiliziation</h2>
-                <Row>
+                {/* <Row>
                     {gotchisObjects.map((gotchiObject, index) => {
                         return (
                             <Col key={index}>
@@ -261,7 +253,8 @@ const Home: NextPage = () => {
                             </Col>
                         );
                     })}
-                </Row>
+                </Row> */}
+                <GotchisStats />
                 <h2 className="title">Grass and Rugs</h2>
                 {/* <div className="wrapper_helper">
                     <GrassRugData queryURL={"/api/grass"} />
