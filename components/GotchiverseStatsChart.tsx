@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import useSWR from "swr";
-import ChartTest from "./chartTest2";
 import Fetcher from "../fetcher";
 import Chart from "./Chart";
 

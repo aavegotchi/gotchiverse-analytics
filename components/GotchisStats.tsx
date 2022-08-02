@@ -3,6 +3,7 @@ import useSWR from "swr";
 import Fetcher from "../fetcher";
 import { Row, Col } from "react-bootstrap";
 import SmallDataCardEditedV2 from "./SmallDataCardEditedV2";
+import SmallUnderConstruction from "./SmallUnderConstruction";
 
 interface dataObject {
     title: string;
@@ -64,7 +65,13 @@ function GotchisStats() {
         <Row>
             {gotchisObjects.map((gotchiObject, index) => {
                 if (gotchiObject.dataField === "aavegotchisChanneled") {
-                    return <Col key={index}>under construction</Col>;
+                    return (
+                        <Col key={index}>
+                            <SmallUnderConstruction
+                                title={gotchiObject.title}
+                            />
+                        </Col>
+                    );
                 }
                 return (
                     gotchiObject.data && (
