@@ -94,7 +94,7 @@ const Home: NextPage = () => {
     const [graphData30d, setGraphData30d] = useState<object>({});
 
     const [graphObject, setGraphObject] = useState<dataObject>({
-        title: "installations minted",
+        title: "INSTALLATIONS MINTED",
         dataField: "installationsMintedTotal",
     });
 
