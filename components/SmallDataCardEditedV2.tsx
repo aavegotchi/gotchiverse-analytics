@@ -201,17 +201,17 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                         display: flex;
                         justify-content: space-around;
                         align-items: center;
-                        width: 90%;
+                        width: 100%;
+                        border-bottom: 3px solid #d9d9d9;
                     }
 
                     .footer_button {
-                        box-sizing: border-box;
-
                         height: 40px;
                         flex: 1;
-                        margin: 5px;
+                        margin: 5px 5px 0px 5px;
                         background: #b8b8b8;
                         border: 1px solid #666666;
+                        border-bottom: 3px solid #666666;
                         background: transparent;
                         text-align: center;
                         color: #666666;
@@ -225,6 +225,7 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
 
                     .footer_button:disabled {
                         border: 1px solid #fa34f3;
+                        border-bottom: 4px solid #fa34f3;
                         color: #fa34f3;
                         pointer-events: none;
                     }
