@@ -1,54 +1,45 @@
 import Image from "next/image";
 import React from "react";
 import { useState, useEffect } from "react";
-import useSWR from "swr";
-import Fetcher from "../fetcher";
-
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
 
 interface SmallDataCardEditedV2Props {
     title: string;
-    dataField: string;
-    data: any[];
+    data: number[];
 }
 
 const buttons: number[] = [30, 7, 24, 100];
 
-function SmallDataCardEditedV2({
-    title,
-    dataField,
-    data,
-}: SmallDataCardEditedV2Props) {
-    const [trend, setTrend] = useState(0);
-    const [timeLine, setTimeLine] = useState(3);
-    console.log(data, "data received");
-    let dataArray: string[] = [];
+function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
+    const [trend, setTrend] = useState<number>(0);
+    const [timeLine, setTimeLine] = useState<number>(3);
+    const [trendClass, setTrendClass] = useState<string>("body_trend_positive");
 
-    // let gotchiverseStatsResponse7 = useSWR("/api/gotchis/stats/7", Fetcher);
+    useEffect(() => {
+        function calculateAndSetTrend() {
+            let className: string = "body_trend_";
+            console.log(data, "data here");
+            const changes: number =
+                (data[timeLine] / (data[3] - data[timeLine])) * 100;
 
-    // let gotchiverseStatsResponse1 = useSWR("/api/gotchis/stats/1", Fetcher);
+            if (isFinite(changes)) {
+                setTrend(parseFloat(changes.toFixed(2)));
+            } else {
+                setTrend(0);
+            }
 
-    // let gotchiverseStatsResponse30 = useSWR("/api/gotchis/stats/30", Fetcher);
+            if (changes >= 0) {
+                className = className + "positive";
+            } else {
+                className = className + "negative";
+            }
 
-    let gotchiverseStatsResponse = useSWR("/api/gotchis/stats", Fetcher);
+            setTrendClass(className);
+        }
 
-    // if (
-    //     gotchiverseStatsResponse.data &&
-    //     gotchiverseStatsResponse30.data &&
-    //     gotchiverseStatsResponse1.data &&
-    //     gotchiverseStatsResponse7.data
-    // ) {
-    //     dataArray = [
-    //         gotchiverseStatsResponse1.data[dataField],
-    //         gotchiverseStatsResponse7.data.data[dataField],
-    //         gotchiverseStatsResponse30.data[dataField],
-    //         gotchiverseStatsResponse.data[dataField],
-    //     ];
-    //     dataArray.forEach((element, index) => {
-    //         dataArray[index] = element.toString();
-    //     });
-    // }
+        if (data) {
+            calculateAndSetTrend();
+        }
+    }, [timeLine]);
 
     return (
         <section>
@@ -69,43 +60,29 @@ function SmallDataCardEditedV2({
                     </div>
                 </div>
                 <div className="body">
-                    {title === "GOTCHIS CHANNELED" ? (
-                        <Tippy placement={"left"} content="Under construction">
-                            <div className="under_construction">000</div>
-                        </Tippy>
-                    ) : (
-                        <div className="body_data">
-                            {gotchiverseStatsResponse.data &&
-                                gotchiverseStatsResponse.data[dataField]}
-                        </div>
-                    )}
-                    {/* <div className = {title === "GOTCHIS CHANNELED" ? "under_construction" : "body_data"}>
+                    <div className="body_data">{data && data[timeLine]}</div>
 
-                        {
-
-                            title === "GOTCHIS CHANNELED" ?  "000" : gotchiverseStatsResponse.data && gotchiverseStatsResponse.data[dataField]
-                        }
-                    </div> */}
-                    <Tippy content="Under construction">
-                        <div className="trend_data">--%</div>
-                    </Tippy>
+                    <div className={trendClass}>{trend}%</div>
                 </div>
+
                 <div className="footer">
                     <div className="buttons">
                         {buttons.map((buttonTimeLine, index) => {
                             return (
-                                <Tippy content="Unavailable" key={index}>
-                                    <button
-                                        className="footer_button"
-                                        disabled={timeLine === index}
-                                    >
-                                        {index === 3
-                                            ? "total"
-                                            : index === 2
-                                            ? `${buttonTimeLine} h`
-                                            : `${buttonTimeLine} d`}
-                                    </button>
-                                </Tippy>
+                                <button
+                                    className="footer_button"
+                                    disabled={timeLine === index}
+                                    onClick={() => {
+                                        setTimeLine(index);
+                                    }}
+                                    key={index}
+                                >
+                                    {index === 3
+                                        ? "total"
+                                        : index === 2
+                                        ? `${buttonTimeLine} h`
+                                        : `${buttonTimeLine} d`}
+                                </button>
                             );
                         })}
                     </div>
@@ -151,6 +128,22 @@ function SmallDataCardEditedV2({
                         vertical-align: top;
                         line-height: 100%;
                         margin-bottom: 15px;
+                    }
+
+                    .body_trend_positive {
+                        width: 108px;
+                        height: 36px;
+                        background-color: #51ffa8;
+                        text-align: center;
+                        font-size: 25px;
+                    }
+
+                    .body_trend_negative {
+                        width: 108px;
+                        height: 36px;
+                        background-color: #ffc36b;
+                        text-align: center;
+                        font-size: 25px;
                     }
 
                     .under_construction {
