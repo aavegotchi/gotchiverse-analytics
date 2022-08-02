@@ -46,23 +46,25 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
             <div className="wrapper">
                 <div className="title">
                     <div className="title_name">{title}</div>
-                    <div className="title_trend">
-                        <Image
-                            src={
-                                trend >= 0
-                                    ? `/static/images/trending-up.png`
-                                    : `/static/images/trending-downWithoutBorder.png`
-                            }
-                            alt="trending"
-                            width="62"
-                            height="55"
-                        />
-                    </div>
+                    <div className="question">?</div>
                 </div>
                 <div className="body">
                     <div className="body_data">{data && data[timeLine]}</div>
-
-                    <div className={trendClass}>{trend}%</div>
+                    <div className="body_trend_changes">
+                        <div className={trendClass}>{trend}%</div>
+                        <div className="title_trend">
+                            <Image
+                                src={
+                                    trend >= 0
+                                        ? `/static/images/trending-up.png`
+                                        : `/static/images/trending-downWithoutBorder.png`
+                                }
+                                alt="trending"
+                                width="50"
+                                height="50"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="footer">
@@ -104,15 +106,30 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                     }
 
                     .title_name {
-                        font-size: 32px;
+                        font-size: 31px;
                         font-weight: 800;
                         padding-left: 15px;
                         line-height: 100%;
                     }
 
                     .title_trend {
-                        padding-top: 15px;
-                        padding-right: 15px;
+                        padding-right: 30px;
+                    }
+
+                    .question {
+                        margin-right: 20px;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 50%;
+                        background: transparent;
+                        border: 1px solid grey;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: grey;
+                        font-size: 20px;
+                        font-weight: 800;
+                        cursor: pointer;
                     }
 
                     .body {
@@ -144,6 +161,11 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                         background-color: #ffc36b;
                         text-align: center;
                         font-size: 25px;
+                    }
+
+                    .body_trend_changes {
+                        display: flex;
+                        justify-content: space-between;
                     }
 
                     .under_construction {

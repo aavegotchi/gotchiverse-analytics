@@ -54,6 +54,8 @@ const Home: NextPage = () => {
         Fetcher
     );
 
+    console.log(gotchiverseStats, "gotchiStats");
+
     let gotchisResponse = useSWR("/api/gotchis/stats", Fetcher);
     let grassResponse = useSWR("/api/grass", Fetcher);
     let rugResponse = useSWR("/api/rugs", Fetcher);
