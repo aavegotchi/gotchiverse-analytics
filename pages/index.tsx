@@ -20,6 +20,7 @@ import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
 import DataCard from "../components/DataCard";
+import AlchemicaBarChart from "../components/AlchemicaBarChart";
 
 interface dataObject {
     title: string;
@@ -177,6 +178,11 @@ const Home: NextPage = () => {
                 </Row>
                 <Row>
                     <Col md="8">
+                        <AlchemicaBarChart />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="8">
                         {graphObject && (
                             <GotchiverseStatsChart
                                 field={graphObject.dataField}
@@ -191,6 +197,7 @@ const Home: NextPage = () => {
                         </div>
                     </Col>
                 </Row>
+
                 <Row>
                     {rowOneObjects.map((data, index) => {
                         return (
