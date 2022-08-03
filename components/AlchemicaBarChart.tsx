@@ -2,7 +2,6 @@ import { BigNumber } from "ethers";
 import { alchemicaSubgraphClient } from "../graph/clients";
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
-import AlchemicaChart from "./AlchemicaChart";
 import BarChart from "./charts/BarChart";
 
 interface ERC20Contract {
