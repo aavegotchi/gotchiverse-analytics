@@ -1,30 +1,7 @@
-import useSWR from "swr";
-import Fetcher from "../fetcher";
-import Image from "next/image";
-import SuffixShortener from "./helperFunctions/SuffixShortener";
-import ethers, { BigNumber } from "ethers";
+import { BigNumber } from "ethers";
 import { alchemicaSubgraphClient } from "../graph/clients";
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
-import { ChartData } from "chart.js";
-import { BigDecimal } from "@graphprotocol/graph-ts";
-
-const coins: string[] = ["FUD", "FOMO", "ALPHA", "KEK"];
-
-enum AlchemicaToken {
-    "FUD",
-    "FOMO",
-    "ALPHA",
-    "KEK",
-}
-
-interface AlchemicaValues {
-    FUD: BigNumber;
-    FOMO: BigNumber;
-    ALPHA: BigNumber;
-    KEK: BigNumber;
-}
 
 interface ERC20Contract {
     symbol: string;
