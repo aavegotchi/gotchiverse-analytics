@@ -83,13 +83,13 @@ function AlchemicaBarChart() {
                 <div className="body">
                     {totalSupplyAlchemica && (
                         <>
-                            Total Supply in Mio:{" "}
+                            Total Supply{" "}
                             {JSON.stringify(
                                 totalSupplyAlchemica.map((e) => e.toNumber())
                             )}
                         </>
                     )}
-                    Minted in Mio:{" "}
+                    Minted{" "}
                     {JSON.stringify(mintedAlchemica.map((e) => e.toNumber()))}
                 </div>
             </div>
