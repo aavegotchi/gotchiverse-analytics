@@ -46,7 +46,7 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
             <div className="wrapper">
                 <div className="title">
                     <div className="title_name">{title}</div>
-                    <div className="question">?</div>
+                    {/* <div className="question">?</div> */}
                 </div>
                 <div className="body">
                     <div className="body_data">{data && data[timeLine]}</div>
@@ -96,6 +96,7 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                     .wrapper {
                         border: 1px solid black;
                         height: 300px;
+                        background: white;
                     }
 
                     .title {
@@ -110,6 +111,7 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                         font-weight: 800;
                         padding-left: 15px;
                         line-height: 100%;
+                        padding-right: 60px;
                     }
 
                     .title_trend {
