@@ -222,7 +222,9 @@ const Home: NextPage = () => {
                     })}
                 </Row>
                 <Row>
-                    <AlchemicaBarChart />
+                    <Col md="8">
+                        <AlchemicaBarChart />
+                    </Col>
                 </Row>
                 <Row>
                     <Col md="8">
@@ -240,6 +242,7 @@ const Home: NextPage = () => {
                         </div>
                     </Col>
                 </Row>
+
                 <Row>
                     {rowOneObjects.map((data, index) => {
                         return (
