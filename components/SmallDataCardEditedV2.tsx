@@ -7,7 +7,7 @@ interface SmallDataCardEditedV2Props {
     data: number[];
 }
 
-const buttons: number[] = [30, 7, 24, 100];
+const buttons: number[] = [24, 7, 30, 100];
 
 function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
     const [trend, setTrend] = useState<number>(0);
@@ -81,7 +81,7 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                                 >
                                     {index === 3
                                         ? "total"
-                                        : index === 2
+                                        : index === 0
                                         ? `${buttonTimeLine} h`
                                         : `${buttonTimeLine} d`}
                                 </button>
