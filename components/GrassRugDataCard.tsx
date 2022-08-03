@@ -21,22 +21,10 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
             <div className="wrapper">
                 <div className="title">
                     <div className="title_name">{title}</div>
-                    <div className="title_trend">
-                        <Image
-                            src={
-                                trend >= 0
-                                    ? `/static/images/trending-up.png`
-                                    : `/static/images/trending-downWithoutBorder.png`
-                            }
-                            alt="trending"
-                            width="62"
-                            height="55"
-                        />
-                    </div>
                 </div>
                 <div className="body">
                     <div className="body_data">{data ? data : "Loading"}</div>
-                    <Tippy content="Under construction">
+                    <Tippy content="Unavailable">
                         <div className="trend_data">--%</div>
                     </Tippy>
                 </div>
@@ -67,6 +55,7 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
                         border: 1px solid black;
                         width: 100%;
                         height: 300px;
+                        background-color: white;
                     }
 
                     .title {
@@ -81,6 +70,7 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
                         font-weight: 800;
                         padding-left: 15px;
                         line-height: 100%;
+                        padding-right: 60px;
                     }
 
                     .title_trend {
