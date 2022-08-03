@@ -3,6 +3,7 @@ import { alchemicaSubgraphClient } from "../graph/clients";
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 import AlchemicaChart from "./AlchemicaChart";
+import BarChart from "./charts/BarChart";
 
 interface ERC20Contract {
     symbol: string;
@@ -11,7 +12,18 @@ interface ERC20Contract {
     };
 }
 
+interface data {
+    label: string;
+    data: number[];
+    fill: boolean;
+    borderColor: string;
+    backgroundColor: string;
+    tension: number;
+}
+
 function AlchemicaBarChart() {
+    let datasets: data[] = [];
+    let totalNumbAlchemica: number[] = [];
     const tokens = ["FUD", "FOMO", "ALPHA", "KEK"];
     const mintedAlchemica = [
         BigNumber.from("100000000000"),
@@ -20,15 +32,24 @@ function AlchemicaBarChart() {
         BigNumber.from("10000000000"),
     ];
 
-    const numbAlchemica = [
-        BigNumber.from("100000000000").toNumber(),
-        BigNumber.from("50000000000").toNumber(),
-        BigNumber.from("25000000000").toNumber(),
-        BigNumber.from("10000000000").toNumber(),
-    ];
+    const getAlchemicaNumb = () => {
+        let result: number[] = [];
 
-    let totalNumbAlchemica: number[] = [];
-    console.log(numbAlchemica, "numbAlchemica");
+        mintedAlchemica.forEach((bigNum, index) => {
+            result[index] = bigNum.toNumber();
+        });
+
+        return result;
+    };
+
+    const getTotalSupplyAlchemicaNumb = () => {
+        let result: number[] = [];
+
+        totalSupplyAlchemica?.forEach((bigNumber, index) => {
+            result[index] = bigNumber.toNumber();
+        });
+        return result;
+    };
 
     const [totalSupplyAlchemica, setTotalSupplyAlchemica] =
         useState<Array<BigNumber> | null>(null);
@@ -71,6 +92,32 @@ function AlchemicaBarChart() {
         });
     }
 
+    const numbAlchemica = getAlchemicaNumb();
+    if (totalSupplyAlchemica) {
+        totalNumbAlchemica = getTotalSupplyAlchemicaNumb();
+    }
+
+    if (numbAlchemica && totalSupplyAlchemica) {
+        datasets = [
+            {
+                label: "Total Alchemica Minted",
+                data: numbAlchemica,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "#622FEE",
+                tension: 0.1,
+            },
+            {
+                label: "Total Supply Of Alchemica",
+                data: totalNumbAlchemica,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "#FA34F3",
+                tension: 0.1,
+            },
+        ];
+    }
+
     return (
         <section>
             <div className="wrapper">
@@ -87,11 +134,8 @@ function AlchemicaBarChart() {
                     Minted{" "}
                     {JSON.stringify(mintedAlchemica.map((e) => e.toNumber()))} */}
                     <div className="body_graph_wrapper">
-                        {totalNumbAlchemica && mintedAlchemica && (
-                            <AlchemicaChart
-                                mintedAlchemica={numbAlchemica}
-                                totalSupplyAlchemica={totalNumbAlchemica}
-                            />
+                        {datasets && mintedAlchemica && (
+                            <BarChart labels={tokens} dataSets={datasets} />
                         )}
                     </div>
                 </div>

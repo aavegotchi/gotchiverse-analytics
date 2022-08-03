@@ -1,14 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import findTitle from "./helperFunctions/titleSetHelper";
 import "chart.js/auto";
-import createDates from "./helperFunctions/dateCreater";
 import { Line, Bar } from "react-chartjs-2";
 import { BigNumber } from "ethers";
 
 interface ChartProps {
-    mintedAlchemica: number[];
-    totalSupplyAlchemica: number[];
+    labels: string[];
+    dataSets: data[];
 }
 
 interface graphData {
@@ -25,10 +23,7 @@ interface data {
     tension: number;
 }
 
-export default function AlchemicaChart({
-    mintedAlchemica,
-    totalSupplyAlchemica,
-}: ChartProps) {
+export default function AlchemicaChart({ labels, dataSets }: ChartProps) {
     const [chartOptions, setChartOptions] = useState<object>({
         responsive: true,
         plugins: {
@@ -45,7 +40,7 @@ export default function AlchemicaChart({
         labels: [],
         datasets: [
             {
-                label: "change to line bar later ",
+                label: "Loading...",
                 data: [],
                 fill: false,
                 borderColor: "rgb(75, 192, 192)",
@@ -54,8 +49,6 @@ export default function AlchemicaChart({
             },
         ],
     });
-
-    const [weeklyDates, monthlyDates] = createDates();
 
     const logNumbers = (num: number[]) => {
         const data = [];
@@ -67,28 +60,13 @@ export default function AlchemicaChart({
         return data;
     };
 
+    console.log("hello here", labels, dataSets);
+
     useEffect(() => {
         function createData() {
             setChartData({
-                labels: ["FUD", "FOMO", "ALPHA", "KEK"],
-                datasets: [
-                    {
-                        label: "Total Alchemica Minted",
-                        data: mintedAlchemica,
-                        fill: false,
-                        borderColor: "rgb(75, 192, 192)",
-                        backgroundColor: "#622FEE",
-                        tension: 0.1,
-                    },
-                    {
-                        label: "Total Supply Of Alchemica",
-                        data: totalSupplyAlchemica,
-                        fill: false,
-                        borderColor: "rgb(75, 192, 192)",
-                        backgroundColor: "#FA34F3",
-                        tension: 0.1,
-                    },
-                ],
+                labels: labels,
+                datasets: dataSets,
             });
             setChartOptions({
                 layout: {
@@ -132,12 +110,14 @@ export default function AlchemicaChart({
         }
 
         createData();
-    }, []);
+    }, [labels, dataSets]);
 
     return (
         <section>
             <div className="chart_wrapper">
-                <Bar data={chartData} options={chartOptions} />
+                {dataSets && labels && (
+                    <Bar data={chartData} options={chartOptions} />
+                )}
             </div>
             <style jsx>
                 {`
