@@ -43,7 +43,7 @@ function AlchemicaBarChart() {
     ];
 
     const [totalSupplyAlchemica, setTotalSupplyAlchemica] =
-        useState(mintedAlchemica);
+        useState<Array<BigNumber> | null>(null);
 
     let fetchTotalSupply = async () => {
         const result = await alchemicaSubgraphClient.query({
@@ -66,12 +66,14 @@ function AlchemicaBarChart() {
                     .totalSupply.value.split(".")[0]
             )
         );
-        console.log(newData);
+
         setTotalSupplyAlchemica(newData);
     };
 
     useEffect(() => {
-        fetchTotalSupply();
+        if (!totalSupplyAlchemica) {
+            fetchTotalSupply();
+        }
     });
 
     return (
@@ -79,9 +81,13 @@ function AlchemicaBarChart() {
             <div className="wrapper">
                 <div className="title">Alchmica minted vs. Total supply</div>
                 <div className="body">
-                    Total Supply in Mio:{" "}
-                    {JSON.stringify(
-                        totalSupplyAlchemica.map((e) => e.toNumber())
+                    {totalSupplyAlchemica && (
+                        <>
+                            Total Supply in Mio:{" "}
+                            {JSON.stringify(
+                                totalSupplyAlchemica.map((e) => e.toNumber())
+                            )}
+                        </>
                     )}
                     Minted in Mio:{" "}
                     {JSON.stringify(mintedAlchemica.map((e) => e.toNumber()))}
