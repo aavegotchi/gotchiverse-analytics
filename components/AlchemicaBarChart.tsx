@@ -21,8 +21,6 @@ interface data {
 }
 
 function AlchemicaBarChart() {
-    let datasets: data[] = [];
-    let totalNumbAlchemica: number[] = [];
     const tokens = ["FUD", "FOMO", "ALPHA", "KEK"];
     const mintedAlchemica = [
         BigNumber.from("100000000000"),
@@ -31,27 +29,10 @@ function AlchemicaBarChart() {
         BigNumber.from("10000000000"),
     ];
 
-    const getAlchemicaNumb = () => {
-        let result: number[] = [];
-
-        mintedAlchemica.forEach((bigNum, index) => {
-            result[index] = bigNum.toNumber();
-        });
-
-        return result;
-    };
-
-    const getTotalSupplyAlchemicaNumb = () => {
-        let result: number[] = [];
-
-        totalSupplyAlchemica?.forEach((bigNumber, index) => {
-            result[index] = bigNumber.toNumber();
-        });
-        return result;
-    };
-
     const [totalSupplyAlchemica, setTotalSupplyAlchemica] =
         useState<Array<BigNumber> | null>(null);
+
+    const [datasets, setDatasets] = useState<Array<data>>([]);
 
     let fetchTotalSupply = async () => {
         const result = await alchemicaSubgraphClient.query({
@@ -74,7 +55,6 @@ function AlchemicaBarChart() {
                     .totalSupply.value.split(".")[0]
             )
         );
-        console.log("newDataaae", newData);
 
         setTotalSupplyAlchemica(newData);
     };
@@ -85,53 +65,34 @@ function AlchemicaBarChart() {
         }
     });
 
-    if (totalSupplyAlchemica) {
-        totalSupplyAlchemica.forEach((data, index) => {
-            totalNumbAlchemica[index] = data.toNumber();
-        });
-    }
-
-    const numbAlchemica = getAlchemicaNumb();
-    if (totalSupplyAlchemica) {
-        totalNumbAlchemica = getTotalSupplyAlchemicaNumb();
-    }
-
-    if (numbAlchemica && totalSupplyAlchemica) {
-        datasets = [
-            {
-                label: "Total Alchemica Minted",
-                data: numbAlchemica,
-                fill: false,
-                borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "#622FEE",
-                tension: 0.1,
-            },
-            {
-                label: "Total Supply Of Alchemica",
-                data: totalNumbAlchemica,
-                fill: false,
-                borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "#FA34F3",
-                tension: 0.1,
-            },
-        ];
-    }
+    useEffect(() => {
+        if (totalSupplyAlchemica) {
+            setDatasets([
+                {
+                    label: "Total Alchemica Minted",
+                    data: mintedAlchemica.map((e) => e.toNumber()),
+                    fill: false,
+                    borderColor: "rgb(75, 192, 192)",
+                    backgroundColor: "#622FEE",
+                    tension: 0.1,
+                },
+                {
+                    label: "Total Supply Of Alchemica",
+                    data: totalSupplyAlchemica.map((e) => e.toNumber()),
+                    fill: false,
+                    borderColor: "rgb(75, 192, 192)",
+                    backgroundColor: "#FA34F3",
+                    tension: 0.1,
+                },
+            ]);
+        }
+    }, [totalSupplyAlchemica]);
 
     return (
         <section>
             <div className="wrapper">
                 <div className="title">Alchmica minted vs. Total supply</div>
                 <div className="body">
-                    {/* {totalSupplyAlchemica && (
-                        <>
-                            Total Supply{" "}
-                            {JSON.stringify(
-                                totalSupplyAlchemica.map((e) => e.toNumber())
-                            )}
-                        </>
-                    )}
-                    Minted{" "}
-                    {JSON.stringify(mintedAlchemica.map((e) => e.toNumber()))} */}
                     <div className="body_graph_wrapper">
                         {datasets && mintedAlchemica && (
                             <BarChart labels={tokens} dataSets={datasets} />

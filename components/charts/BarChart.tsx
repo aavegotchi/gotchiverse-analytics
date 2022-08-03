@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "chart.js/auto";
-import { Line, Bar } from "react-chartjs-2";
-import { BigNumber } from "ethers";
+import { Bar } from "react-chartjs-2";
 
 interface ChartProps {
     labels: string[];
@@ -49,18 +48,6 @@ export default function AlchemicaChart({ labels, dataSets }: ChartProps) {
             },
         ],
     });
-
-    const logNumbers = (num: number[]) => {
-        const data = [];
-
-        for (let i = 0; i < num.length; ++i) {
-            data.push(Math.log10(num[i]));
-        }
-
-        return data;
-    };
-
-    console.log("hello here", labels, dataSets);
 
     useEffect(() => {
         function createData() {
