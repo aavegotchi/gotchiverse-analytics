@@ -25,6 +25,7 @@ import { RugCard } from "../components/rugCard";
 import GraphSetButtons from "../components/GraphSetButtons";
 import DataCard from "../components/DataCard";
 import SmallDataCard from "../components/SmallDataCard";
+import AlchemicaBarChart from "../components/AlchemicaBarChart";
 
 interface dataObject {
     title: string;
@@ -219,6 +220,9 @@ const Home: NextPage = () => {
                             </Col>
                         );
                     })}
+                </Row>
+                <Row>
+                    <AlchemicaBarChart />
                 </Row>
                 <Row>
                     <Col md="8">
