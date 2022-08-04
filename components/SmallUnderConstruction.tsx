@@ -55,6 +55,7 @@ function SmallUnderConstruction({ title }: SmallUnderConstruction) {
                     .wrapper {
                         border: 1px solid black;
                         height: 300px;
+                        background-color: white;
                     }
 
                     .blur_wrapper {

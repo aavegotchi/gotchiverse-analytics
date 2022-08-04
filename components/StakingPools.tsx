@@ -148,6 +148,7 @@ function StakingPools() {
                         background: white;
                         width: 100%;
                         border: 1px solid black;
+                        height: 250px;
                     }
 
                     .circularBarWrapper {

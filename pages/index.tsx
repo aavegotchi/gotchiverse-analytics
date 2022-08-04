@@ -143,23 +143,6 @@ const Home: NextPage = () => {
         },
     ];
 
-    // =========================== row 2 =============================
-
-    const rowTwoObjects: dataObject[] = [
-        {
-            title: "GLTR SPENT ON CRAFTS",
-            dataField: "gltrSpendOnCrafts",
-        },
-        {
-            title: "GLTR SPENT ON UPGRADES",
-            dataField: "gltrSpendOnUpgrades",
-        },
-        {
-            title: "GLTR SPENT TOTAL",
-            dataField: "gltrSpendTotal",
-        },
-    ];
-
     return (
         <>
             <div className="mainWrapper">
@@ -179,16 +162,6 @@ const Home: NextPage = () => {
                 <Row>
                     <Col md="8">
                         <AlchemicaBarChart />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md="8">
-                        {graphObject && (
-                            <GotchiverseStatsChart
-                                field={graphObject.dataField}
-                                title={graphObject.title}
-                            />
-                        )}
                     </Col>
                     <Col md="4">
                         <div className="pools_wrapper">
