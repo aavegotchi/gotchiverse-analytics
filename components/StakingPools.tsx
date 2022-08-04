@@ -162,6 +162,7 @@ function StakingPools(): JSX.Element {
                                     <a
                                         target="_blank"
                                         href={data[currentViewIndex].url}
+                                        rel="noreferrer"
                                     >
                                         <CircularProgressbar
                                             value={
