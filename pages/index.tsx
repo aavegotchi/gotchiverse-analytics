@@ -98,10 +98,7 @@ const Home: NextPage = () => {
                         <AlchemicaBarChart />
                     </Col>
                     <Col md="4">
-                        <div className="pools_wrapper">
-                            <StakingPools />
-                            <StakingPools />
-                        </div>
+                        <StakingPools />
                     </Col>
                 </Row>
 
@@ -136,6 +133,10 @@ const Home: NextPage = () => {
                         font-weight: 400;
                         line-height: 42.73px;
                         color: black;
+                    }
+
+                    .debug {
+                        height: 100%;
                     }
 
                     .pools_wrapper {

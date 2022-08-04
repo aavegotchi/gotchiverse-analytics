@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { gltrStakingSubgraphClient } from "../graph/clients";
 import { gql } from "@apollo/client";
 import { BigNumber } from "ethers";
@@ -60,6 +61,7 @@ const poolInfo: PoolInfo = {
 
 function StakingPools(): JSX.Element {
     const [data, setData] = useState<Array<any> | null>();
+    const [currentViewIndex, setCurrentViewIndex] = useState<number>(0);
 
     const getPool = (id: string): PoolDetails => {
         console.log(id);
@@ -124,84 +126,93 @@ function StakingPools(): JSX.Element {
     });
 
     useEffect(() => {
-        console.log(data);
+        if (data) {
+            console.log(data, "fetchedd", typeof data, data[0]);
+        }
     }, [data]);
 
     return (
-        <section>
-            <div className="wrapper">
-                <div className="bodyWrapper">
-                    <div className="left">
-                        <button className="button button_left">
-                            <Image
-                                src={`/static/images/chevron-left.png`}
-                                alt="chevron"
-                                width="50"
-                                height="50"
-                            />
-                        </button>
-                    </div>
-                    <div className="center">
-                        <div className="tileHeader">
-                            <span className="tileHeader">GLTR STAKING</span>
-                        </div>
-
-                        <div className="dataContainerv2">
-                            {data?.map((e, i) => (
-                                <div key={i}>
-                                    <div>
-                                        totalSupply tokens: {e.totalSupply}
-                                    </div>
-                                    <div>staked tokens: {e.balance}</div>
-                                    <div>
-                                        percentage staked: {e.amountStaked}
-                                    </div>
-                                    <div>pool name: {e.name}</div>
-                                    <div>pool url: {e.url}</div>
-                                </div>
-                            ))}
-                            <div className="mainDatav2">
-                                <div className="heading">
-                                    <span className="heading_Name">
-                                        TOTAL STAKED:
-                                    </span>
-                                </div>
-                                <div className="tileTitle_wrapper">
-                                    <span className="tileTitle">
-                                        GLTR STAKING
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="circularBarWrapperv2">
-                                <CircularProgressbar
-                                    value={65}
-                                    text={"hello world"}
-                                    styles={buildStyles({
-                                        strokeLinecap: "flat",
-                                        pathTransitionDuration: 0.5,
-                                        textSize: "25px",
-                                        textColor: "black",
-                                        pathColor: "#622FEE",
-                                        trailColor: "#858585",
-                                        rotation: 0.25,
-                                    })}
+        <section className="wrapperOverall">
+            {data && (
+                <div className="wrapper">
+                    <div className="bodyWrapper">
+                        <div className="left">
+                            <button
+                                className="button button_left"
+                                onClick={() => {
+                                    setCurrentViewIndex(currentViewIndex - 1);
+                                }}
+                                disabled={currentViewIndex === 0}
+                            >
+                                <Image
+                                    src={`/static/images/chevron-left.png`}
+                                    alt="chevron"
+                                    width="50"
+                                    height="50"
                                 />
+                            </button>
+                        </div>
+                        <div className="center">
+                            <div className="tileHeader">
+                                <span className="tileHeader">GLTR STAKING</span>
+                            </div>
+
+                            <div className="dataContainerv2">
+                                <div className="circularBarWrapperv2">
+                                    <a
+                                        target="_blank"
+                                        href={data[currentViewIndex].url}
+                                    >
+                                        <CircularProgressbar
+                                            value={
+                                                data[currentViewIndex]
+                                                    .amountStaked
+                                            }
+                                            text={`${data[currentViewIndex].amountStaked} %`}
+                                            styles={buildStyles({
+                                                strokeLinecap: "flat",
+                                                pathTransitionDuration: 0.5,
+                                                textSize: "30px",
+                                                textColor: "black",
+                                                pathColor: "#FA34F3",
+                                                trailColor: "#858585",
+                                                rotation: 0.25,
+                                            })}
+                                        />
+                                    </a>
+                                </div>
+                                <div className="mainDatav2">
+                                    <div className="heading">
+                                        <span className="heading_Name">
+                                            TOTAL STAKED:
+                                        </span>
+                                    </div>
+
+                                    <div className="tileTitle">
+                                        {data[currentViewIndex].name}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div></div>
-                    </div>
-                    <div className="right">
-                        <button className="button button_right">
-                            <Image
-                                src={`/static/images/chevron-right.png`}
-                                alt="chevron"
-                                width="50"
-                                height="50"
-                            />
-                        </button>
+                        <div className="arrows right">
+                            <button
+                                className="button button_right"
+                                onClick={() => {
+                                    setCurrentViewIndex(currentViewIndex + 1);
+                                }}
+                                disabled={currentViewIndex >= data.length - 1}
+                            >
+                                <Image
+                                    src={`/static/images/chevron-right.png`}
+                                    alt="chevron"
+                                    width="50"
+                                    height="50"
+                                />
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             <style jsx>
                 {`
@@ -209,12 +220,23 @@ function StakingPools(): JSX.Element {
                         height: 100%;
                         display: flex;
                         flex-direction: column;
-
                         flex: 4;
                     }
 
                     .heading {
                         margin-bottom: 15px;
+                    }
+
+                    .wrapperOverall {
+                        height: 100%;
+                    }
+
+                    .left {
+                        transform: translateX(-20%);
+                    }
+
+                    .right {
+                        transform: translateX(20%);
                     }
 
                     .tileHeader {
@@ -224,17 +246,6 @@ function StakingPools(): JSX.Element {
                         text-transform: uppercase;
                     }
 
-                    .left {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    .right {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
                     .bodyWrapper {
                         display: flex;
 
@@ -249,12 +260,13 @@ function StakingPools(): JSX.Element {
                         display: flex;
                         justify-content: space-around;
                         align-items: center;
+                        flex-direction: column;
                     }
 
                     .heading_Name {
-                        font-size: 22px;
+                        font-size: 35px;
                         line-height: 29px;
-                        font-weight: 400;
+                        font-weight: 800;
                     }
 
                     .tileHeader {
@@ -267,7 +279,7 @@ function StakingPools(): JSX.Element {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        justify-content: center;
+                        padding-top: 40px;
                         width: 100%;
                         padding-bottom: 10px;
                     }
@@ -276,25 +288,20 @@ function StakingPools(): JSX.Element {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        width: 150px;
-                        height: 199px;
+                        text-align: center;
+                        width: 180px;
+                        padding-top: 20px;
                     }
                     .wrapper {
                         display: flex;
                         color: black;
                         background: white;
                         width: 100%;
+                        height: 100%;
+
                         border: 1px solid black;
-                        height: 250px;
-                    }
 
-                    .circularBarWrapper {
-                        width: 110px;
-                        position: relative;
-                        bottom: 10px;
-                        left: 10px;
-
-                        flex: 1;
+                        overflow: hidden;
                     }
 
                     .bodyItem {
@@ -304,8 +311,9 @@ function StakingPools(): JSX.Element {
 
                         cursor: pointer;
                     }
+
                     .tileTitle {
-                        font-size: 22px;
+                        font-size: 40px;
                         font-weight: 400;
                         line-height: 29px;
                         text-align: center;
@@ -341,21 +349,6 @@ function StakingPools(): JSX.Element {
                         margin-left: 20px;
                     }
 
-                    .negative {
-                        color: #c23685;
-                    }
-                    .buttons {
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    .bottomLeft {
-                        flex: 4;
-                        display: flex;
-                    }
-                    .bottomRight {
-                        flex: 4;
-                    }
-
                     .button {
                         width: 70px;
                         margin: 2px;
@@ -375,13 +368,6 @@ function StakingPools(): JSX.Element {
                     .button_right:hover {
                         transform: translateX(-10px);
                         transition: 0.5s ease-in-out;
-                    }
-
-                    .graph {
-                        margin-left: 20px;
-                    }
-                    .time {
-                        width: 35px;
                     }
                 `}
             </style>
