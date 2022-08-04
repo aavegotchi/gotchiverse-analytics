@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import { useState, useEffect } from "react";
+import TimeLineButtons from "./Time_Line_Buttons/TimeLineButtons";
 
 interface SmallDataCardEditedV2Props {
     title: string;
     data: number[];
 }
 
-const buttons: number[] = [24, 7, 30, 100];
 
 function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
     const [trend, setTrend] = useState<number>(0);
@@ -17,7 +17,6 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
     useEffect(() => {
         function calculateAndSetTrend() {
             let className: string = "body_trend_";
-            console.log(data, "data here");
             const changes: number =
                 (data[timeLine] / (data[3] - data[timeLine])) * 100;
 
@@ -66,28 +65,11 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                         </div>
                     </div>
                 </div>
-
                 <div className="footer">
-                    <div className="buttons">
-                        {buttons.map((buttonTimeLine, index) => {
-                            return (
-                                <button
-                                    className="footer_button"
-                                    disabled={timeLine === index}
-                                    onClick={() => {
-                                        setTimeLine(index);
-                                    }}
-                                    key={index}
-                                >
-                                    {index === 3
-                                        ? "total"
-                                        : index === 0
-                                        ? `${buttonTimeLine} h`
-                                        : `${buttonTimeLine} d`}
-                                </button>
-                            );
-                        })}
-                    </div>
+                    <TimeLineButtons
+                        timeLine={timeLine}
+                        setTimeLine={setTimeLine}
+                    />
                 </div>
             </div>
 
@@ -195,39 +177,8 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        flex: 1;
                         margin-top: 20px;
-                    }
-
-                    .buttons {
-                        display: flex;
-                        justify-content: space-around;
-                        align-items: center;
-                        width: 95%;
-                    }
-
-                    .footer_button {
-                        height: 40px;
-                        flex: 1;
-                        background: #b8b8b8;
-                        border: none;
-                        border-bottom: 3px solid #d9d9d9;
-                        background: transparent;
-                        text-align: center;
-                        color: #666666;
-                        font-size: 22px;
-                        font-weight: 800;
-                        line-height: 20.44px;
-                        width: 50px;
-                        transition: 0.5s;
-                        padding: 2px;
-                    }
-
-                    .footer_button:disabled {
-                        border: none;
-                        border-bottom: 3px solid #fa34f3;
-                        color: #fa34f3;
-                        pointer-events: none;
+                        padding: 0;
                     }
                 `}
             </style>
