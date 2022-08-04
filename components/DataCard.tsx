@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
+import TimeLineButtons from "./Time_Line_Buttons/TimeLineButtons";
 
 interface DataCardProps {
     title: string;
@@ -53,44 +54,10 @@ function DataCard({ title, dataField }: DataCardProps) {
         });
     }
 
-    // const retrieveData = () => {
-    //     let gotchiverseStats7dResponse = useSWR(
-    //         "/api/gotchiverse/stats/7",
-    //         Fetcher
-    //     );
-
-    //     let gotchiverseStats1dResponse = useSWR(
-    //         "/api/gotchiverse/stats/1",
-    //         Fetcher
-    //     );
-
-    //     let gotchiverseStats30dResponse = useSWR(
-    //         "/api/gotchiverse/stats/30",
-    //         Fetcher
-    //     );
-
-    //     let gotchivereStatsResponse = useSWR(
-    //         "/api/gotchiverse/stats",
-    //         Fetcher
-    //     );
-
-    //     if (gotchivereStatsResponse.data && gotchiverseStats30dResponse.data && gotchiverseStats1dResponse.data && gotchiverseStats7dResponse.data) {
-    //         console.log(gotchivereStatsResponse.data, "collected");
-    //         dataArray = [gotchiverseStats1dResponse.data[dataField], gotchiverseStats7dResponse.data[dataField], gotchiverseStats30dResponse.data[dataField], gotchivereStatsResponse.data[dataField]];
-    //         dataArray.forEach((element, index) => {
-    //             dataArray[index] = element.toString();
-    //         })
-    //     }
-
-    // }
-
-    // retrieveData();
-
     useEffect(() => {
         function calculateAndSetTrend() {
             let className: string = "body_trend_";
-            // const amountTotal : number = parseInt(dataArray[3], 10);
-            // now - the amount at that time period ago
+
             const changes: number =
                 parseInt(dataArray[timeLine], 10) /
                 (parseInt(dataArray[3], 10) -
@@ -144,7 +111,7 @@ function DataCard({ title, dataField }: DataCardProps) {
                     </div>
                 </div>
                 <div className="footer">
-                    <div className="buttons">
+                    {/* <div className="buttons">
                         {buttons.map((buttonTimeLine, index) => {
                             return (
                                 <button
@@ -152,20 +119,6 @@ function DataCard({ title, dataField }: DataCardProps) {
                                     key={index}
                                     onClick={() => {
                                         setTimeLine(index);
-                                        // let dataFetchURL : string = "/api/gotchiverse/stats";
-                                        // if (index == 0) {
-                                        //     dataFetchURL = dataFetchURL + "/30";
-                                        // } else if (index == 1) {
-                                        //     dataFetchURL = dataFetchURL + "/7";
-                                        // } else if (index === 2) {
-                                        //     dataFetchURL = dataFetchURL + "/1";
-                                        // }
-
-                                        // let gotchiverseResponse = useSWR(dataFetchURL, Fetcher);
-
-                                        // if (gotchiverseResponse.data) {
-                                        //     setDisplayData(parseInt(gotchiverseResponse.data[dataField]));
-                                        // }
                                     }}
                                     disabled={timeLine === index}
                                 >
@@ -177,28 +130,11 @@ function DataCard({ title, dataField }: DataCardProps) {
                                 </button>
                             );
                         })}
-
-                        {/* <button className = "footer_button" onClick = {() => {
-                            setTimeLine(0);
-                        }}
-                        disabled = {timeLine === 0}
-                        >30 d</button>
-                        <button className = "footer_button" onClick ={ () => {
-                            setTimeLine(1);
-                        }}
-                        disabled = {timeLine === 1}
-                        >7 d</button>
-                        <button className = "footer_button" onClick = { () => {
-                            setTimeLine(2);
-                        }}
-                        disabled = {timeLine === 2}
-                        >24 h </button>
-                        <button className = "footer_button" onClick = { () => {
-                            setTimeLine(3);
-                        }}
-                        disabled = {timeLine === 3}
-                        >total</button> */}
-                    </div>
+                    </div> */}
+                    <TimeLineButtons
+                        timeLine={timeLine}
+                        setTimeLine={setTimeLine}
+                    />
                 </div>
 
                 <style jsx>
