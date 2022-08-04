@@ -188,7 +188,7 @@ const Home: NextPage = () => {
                 <GotchisStats />
                 <h2 className="title">Grass and Rugs</h2>
                 <GrassRugCombinedRow />
-                <h2 className="title">Fake Gotchis Owner Graph</h2>
+                <h2 className="title">test </h2>
                 <Row>
                     <FakeGotchisDonutChart />
                 </Row>
