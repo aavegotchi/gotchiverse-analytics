@@ -8,6 +8,7 @@ interface SmallDataCardEditedV2Props {
     data: number[];
 }
 
+
 function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
     const [trend, setTrend] = useState<number>(0);
     const [timeLine, setTimeLine] = useState<number>(3);
