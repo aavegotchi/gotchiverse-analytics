@@ -1,24 +1,14 @@
 // export default Home
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 // components here
-import UnflippedTile from "../components/unflipped";
-import AlchemicaCardData from "../components/AlchemicaCardData";
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
-import DataCardLazyLoad from "../components/DataCardLazyLoad";
-import GrassRugData from "../components/GrassRugData";
 import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
 import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
 import GotchisStats from "../components/GotchisStats";
-
-import PoolsUnflippedV2 from "../components/poolsUnflipped2";
 import StakingPools from "../components/StakingPools";
-import TotalSupply from "../components/totalSupply";
-import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
-import useSWR from "swr";
-import Fetcher from "../fetcher";
 import DataCard from "../components/DataCard";
 import AlchemicaBarChart from "../components/AlchemicaBarChart";
 
