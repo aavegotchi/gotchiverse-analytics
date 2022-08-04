@@ -43,9 +43,9 @@ function GotchisStats() {
     const appendData = () => {
         gotchisObjects.forEach((gotchiObject, index) => {
             gotchiObject.data = [
-                gotchisRes30d.data[gotchiObject.dataField],
-                gotchisRes7d.data[gotchiObject.dataField],
                 gotchisRes24h.data[gotchiObject.dataField],
+                gotchisRes7d.data[gotchiObject.dataField],
+                gotchisRes30d.data[gotchiObject.dataField],
                 parseInt(gotchisRes.data[gotchiObject.dataField]),
             ];
         });
