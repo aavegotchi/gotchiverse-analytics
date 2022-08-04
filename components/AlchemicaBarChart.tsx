@@ -106,7 +106,7 @@ function AlchemicaBarChart() {
                         color: black;
                         border: 1px solid #000000;
                         background: white;
-                        height: 515px;
+                        height: 410px;
                         width: 100%;
                         overflow: hidden;
                         display: flex;
