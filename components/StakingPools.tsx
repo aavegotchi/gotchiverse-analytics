@@ -147,8 +147,8 @@ function StakingPools(): JSX.Element {
                         </div>
 
                         <div className="dataContainerv2">
-                            {data?.map((e) => (
-                                <div>
+                            {data?.map((e, i) => (
+                                <div key={i}>
                                     <div>
                                         totalSupply tokens: {e.totalSupply}
                                     </div>
