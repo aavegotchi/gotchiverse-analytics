@@ -21,32 +21,7 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
             <div className="wrapper">
                 <div className="title">
                     <div className="title_name">{title}</div>
-                </div>
-                <div className="body">
                     <div className="body_data">{data ? data : "Loading"}</div>
-                    <Tippy content="Unavailable">
-                        <div className="trend_data">--%</div>
-                    </Tippy>
-                </div>
-                <div className="footer">
-                    <div className="buttons">
-                        {buttons.map((buttonTimeLine, index) => {
-                            return (
-                                <Tippy content="Unavailable" key={index}>
-                                    <button
-                                        className="footer_button"
-                                        disabled={timeLine === index}
-                                    >
-                                        {index === 3
-                                            ? "total"
-                                            : index === 2
-                                            ? `${buttonTimeLine} h`
-                                            : `${buttonTimeLine} d`}
-                                    </button>
-                                </Tippy>
-                            );
-                        })}
-                    </div>
                 </div>
             </div>
             <style jsx>
@@ -61,16 +36,16 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
                     .title {
                         display: flex;
                         justify-content: space-around;
-                        padding-top: 15px;
-                        padding-left: 10px;
+                        align-items: center;
+                        flex-direction: column;
+                        text-align: center;
+                        height: 100%;
                     }
 
                     .title_name {
                         font-size: 32px;
                         font-weight: 800;
-                        padding-left: 15px;
                         line-height: 100%;
-                        padding-right: 60px;
                     }
 
                     .title_trend {
@@ -82,15 +57,19 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
                         padding-top: 10px;
                         display: flex;
                         flex-direction: column;
-                        padding-left: 25px;
+                        align-items: center;
+                        text-align: center;
                     }
 
                     .body_data {
                         font-size: 50px;
                         font-weight: 800;
-                        vertical-align: top;
                         line-height: 100%;
                         margin-bottom: 15px;
+                        padding-bottom: 20px;
+                        text-align; center;
+
+                        
                     }
 
                     .trend_data {
