@@ -20,20 +20,35 @@ function GrassRugData({ queryURL }: GrassRugDataProps) {
     if (response.data) {
         dataArray = response.data;
     }
+    console.log("grass rugs dataa");
 
     return (
         <Row>
             {dataArray &&
                 dataArray.map((responseItem, index) => {
+                    let imageURL = "PurpleGrass.png";
+                    console.log(responseItem.name, "names hello mount");
+
+                    if (responseItem.name == "LE Purple Grass") {
+                        imageURL = "PurpleGrass.png";
+                    } else if (responseItem.name == "LE Cyan Grass") {
+                        imageURL = "CyanGrass.png";
+                    } else if (responseItem.name == "LE Godlike Rofl") {
+                        imageURL = "LeGodLikeRug.png";
+                    } else {
+                        imageURL = "LeMythicalRug.png";
+                    }
                     return (
                         <Col md={6} key={index}>
                             <GrassRugDataCard
                                 title={responseItem.name}
                                 data={responseItem.amount}
+                                imageURL={imageURL}
                             />
                         </Col>
                     );
                 })}
+            <style jsx>{``}</style>
         </Row>
     );
 }
