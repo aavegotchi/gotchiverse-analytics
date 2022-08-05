@@ -94,7 +94,7 @@ function DonutChartGotchis({ title, label, values }: DonutChartGotchisProps) {
     return (
         <section>
             <div className="wrapper">
-                <div>
+                <div className="doughnut">
                     <Doughnut
                         data={{
                             labels: label,
@@ -106,32 +106,30 @@ function DonutChartGotchis({ title, label, values }: DonutChartGotchisProps) {
                                         "#FA34F3",
                                         "#622FEE",
                                         "#FFC36B",
-                                        "#51FFA8",
                                     ],
                                     borderColor: [
                                         "#FA34F3",
                                         "#622FEE",
                                         "#FFC36B",
-                                        "#51FFA8",
                                     ],
                                     borderWidth: 1,
                                 },
                             ],
                         }}
-                        height={500}
-                        width={500}
+                        height={300}
+                        width={300}
                         options={{
+                            maintainAspectRatio: false,
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: title,
+                                    text: "title here",
                                     align: "center",
                                     padding: {
-                                        top: 40,
                                         bottom: 40,
                                     },
                                     font: {
-                                        size: 15,
+                                        size: 16,
                                         weight: "900",
                                     },
                                 },
@@ -142,11 +140,25 @@ function DonutChartGotchis({ title, label, values }: DonutChartGotchisProps) {
                         }}
                     />
                 </div>
+                <div>Some body</div>
             </div>
             <style jsx>
                 {`
                     .wrapper {
                         border: 1px solid black;
+                        display: flex;
+                        flex-direction: column;
+
+                        align-items: center;
+                        position: relative;
+                        height: 410px;
+                    }
+
+                    .doughnut {
+                        padding-top: 0;
+                        height: 300px;
+                        width: 300px;
+                        border: 2px solid yellow;
                     }
                 `}
             </style>

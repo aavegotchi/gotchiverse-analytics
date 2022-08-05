@@ -19,6 +19,11 @@
 
 }
 
+::webkit-scrollbar {
+  width: 20px;
+  background-color: black;
+}
+
 .footer {
   width: 100%;
   height: 100px;

@@ -76,12 +76,13 @@ function FakeGotchisDonutChart() {
             <style jsx>
                 {`
                     .wrapper {
+                        background-color: white;
                     }
 
                     .fakeGotchisListWrapper {
                         border: 1px solid black;
                         overflow-y: scroll;
-                        height: 350px;
+                        height: 410px;
                     }
                 `}
             </style>

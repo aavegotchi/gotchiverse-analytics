@@ -192,6 +192,8 @@ const Home: NextPage = () => {
                 <Row>
                     <FakeGotchisDonutChart />
                 </Row>
+
+                <div className="footerSpace">Hello world</div>
             </div>
             <style jsx>
                 {`
@@ -223,6 +225,18 @@ const Home: NextPage = () => {
                         display: flex;
                         justify-content: space-around;
                         gap: 22px;
+                    }
+
+                    .footerSpace {
+                        width: 100%;
+                        margin-top: 100px;
+                        height: 40px;
+                        background-color: #200449;
+                    }
+
+                    .scrollbar::-webkit-scrollbar {
+                        width: 20px;
+                        background-color: black;
                     }
 
                     @media (max-width: 600px) {
