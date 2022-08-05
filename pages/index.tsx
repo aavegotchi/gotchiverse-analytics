@@ -2,6 +2,7 @@
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import Image from "next/image";
 
 // components here
 import AlchemicaCardData from "../components/AlchemicaCardData";
@@ -143,7 +144,29 @@ const Home: NextPage = () => {
     return (
         <>
             <div className="mainWrapper">
-                <h2 className="title mainTitle">State of the Gotchiverse</h2>
+                <div className="headerSection">
+                    <h2 className="title mainTitle">
+                        State of the Gotchiverse
+                    </h2>
+                    <div className="welcome_gotchi_container">
+                        <div className="gotchi">
+                            <Image
+                                src={`/static/images/aavegotchiWelcome.png`}
+                                alt="gotchiWelcome"
+                                width="100"
+                                height="100"
+                            />
+                        </div>
+                        <div className="message">
+                            <Image
+                                src={`/static/images/HelloMessage.png`}
+                                alt="hellmoMessage"
+                                width="100"
+                                height="80"
+                            />
+                        </div>
+                    </div>
+                </div>
                 <Row>
                     {alchemicaObjects.map((alchemica, index) => {
                         return (
@@ -185,15 +208,18 @@ const Home: NextPage = () => {
                 <GotchisStats />
                 <h2 className="title">Grass and Rugs</h2>
                 <GrassRugCombinedRow />
-                <h2 className="title">test </h2>
-                <Row>
+                {/* <h2 className="title">test </h2> */}
+                {/* <Row>
                     <FakeGotchisDonutChart />
-                </Row>
+                </Row> */}
 
                 <div className="footerSpace">Hello world</div>
             </div>
             <style jsx>
                 {`
+                    .headerSection {
+                        display: flex;
+                    }
                     .title {
                         width: 100%;
                         text-align: left;
@@ -202,6 +228,23 @@ const Home: NextPage = () => {
                         line-height: 42.73px;
                         color: black;
                         margin-top: 20px;
+                    }
+
+                    .welcome_gotchi_container {
+                        position: relative;
+                        padding-top: 10px;
+
+                        width: 90px;
+                    }
+
+                    .gotchi {
+                        position: absolute;
+                    }
+
+                    .message {
+                        position: absolute;
+                        right: -80%;
+                        top: -60%;
                     }
 
                     .mainTitle {
