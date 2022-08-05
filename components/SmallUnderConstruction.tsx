@@ -10,6 +10,7 @@ function SmallUnderConstruction({ title }: SmallUnderConstruction) {
     return (
         <section>
             <div className="wrapper">
+                <div className="construction_title">UNDER CONSTRUCTION</div>
                 <div className="blur_wrapper">
                     <div className="title">
                         <div className="title_name">{title}</div>
@@ -56,10 +57,23 @@ function SmallUnderConstruction({ title }: SmallUnderConstruction) {
                         border: 1px solid black;
                         height: 300px;
                         background-color: white;
+                        position: relative;
+                    }
+
+                    .construction_title {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        z-index: 2;
+                        font-weight: 800;
+                        font-size: 25px;
+                        width: 100%;
+                        text-align: center;
                     }
 
                     .blur_wrapper {
-                        filter: blur(2px);
+                        filter: blur(4px);
                     }
 
                     .title {

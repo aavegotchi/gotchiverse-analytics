@@ -8,7 +8,7 @@ function FakeGotchisOwnerList({ id, amountOwned }: FakeGotchisOwnerListProps) {
         <section>
             <div className="wrapper">
                 <div>Wallet: {id}</div>
-                <div>Fake Gotchis Owned: {amountOwned}</div>
+                <div>test {amountOwned}</div>
             </div>
             <style jsx>
                 {`
