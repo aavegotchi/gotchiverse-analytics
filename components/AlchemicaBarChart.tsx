@@ -3,6 +3,7 @@ import { alchemicaSubgraphClient } from "../graph/clients";
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 import BarChart from "./charts/BarChart";
+import axios from "axios";
 
 interface ERC20Contract {
     symbol: string;
@@ -30,11 +31,17 @@ function AlchemicaBarChart() {
     ];
 
     const [totalSupplyAlchemica, setTotalSupplyAlchemica] =
-        useState<Array<BigNumber> | null>(null);
+        useState<Array<number> | null>(null);
 
     const [datasets, setDatasets] = useState<Array<data>>([]);
 
-    let fetchTotalSupply = async () => {
+    const fetchTotalSupply = async () => {
+        const { data } = await axios.get("/api/alchemica");
+        console.log(data);
+        setTotalSupplyAlchemica(data.values);
+    };
+
+    const fetchTotalSupplySubgraph = async () => {
         const result = await alchemicaSubgraphClient.query({
             query: gql`
                 query GetTotalSupply {
@@ -49,10 +56,10 @@ function AlchemicaBarChart() {
         });
 
         let newData = tokens.map((e: string) =>
-            BigNumber.from(
-                result.data.erc20Contracts
-                    .filter((f: ERC20Contract) => e == f.symbol)[0]
-                    .totalSupply.value.split(".")[0]
+            parseFloat(
+                result.data.erc20Contracts.filter(
+                    (f: ERC20Contract) => e == f.symbol
+                )[0].totalSupply.value
             )
         );
 
@@ -78,7 +85,7 @@ function AlchemicaBarChart() {
                 },
                 {
                     label: "Total Supply Of Alchemica",
-                    data: totalSupplyAlchemica.map((e) => e.toNumber()),
+                    data: totalSupplyAlchemica,
                     fill: false,
                     borderColor: "rgb(75, 192, 192)",
                     backgroundColor: "#FA34F3",
@@ -106,7 +113,7 @@ function AlchemicaBarChart() {
                         color: black;
                         border: 1px solid #000000;
                         background: white;
-                        height: 515px;
+                        height: 410px;
                         width: 100%;
                         overflow: hidden;
                         display: flex;

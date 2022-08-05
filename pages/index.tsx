@@ -1,22 +1,14 @@
 // export default Home
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
-import Image from "next/image";
+
+import { Col, Image, Row } from "react-bootstrap";
 
 // components here
-import AlchemicaCardData from "../components/AlchemicaCardData";
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
-import DataCardLazyLoad from "../components/DataCardLazyLoad";
 import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
-import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
 import GotchisStats from "../components/GotchisStats";
-
 import StakingPools from "../components/StakingPools";
-
-import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
-import useSWR from "swr";
-import Fetcher from "../fetcher";
 import DataCard from "../components/DataCard";
 import AlchemicaBarChart from "../components/AlchemicaBarChart";
 
@@ -26,62 +18,6 @@ interface dataObject {
 }
 
 const Home: NextPage = () => {
-    let alchemicaTotalResponse = useSWR("/api/alchemica/supply", Fetcher);
-    let alchemicaTotal = alchemicaTotalResponse.data;
-
-    let alchemica7dResponse = useSWR("/api/alchemica/supply/7", Fetcher);
-    let alchemica7d = alchemica7dResponse.data;
-
-    let alchemica7dSeriesResponse = useSWR(
-        "/api/alchemica/supply/7/series",
-        Fetcher
-    );
-    let alchemica7dSeries = alchemica7dSeriesResponse.data;
-    let gotchivereStatsResponse = useSWR("/api/gotchiverse/stats", Fetcher);
-    let gotchiverseStats = gotchivereStatsResponse.data;
-
-    let gotchiverseStats7dResponse = useSWR(
-        "/api/gotchiverse/stats/7",
-        Fetcher
-    );
-    let gotchiverseStats1dResponse = useSWR(
-        "/api/gotchiverse/stats/1",
-        Fetcher
-    );
-    let gotchiverseStats30dResponse = useSWR(
-        "/api/gotchiverse/stats/30",
-        Fetcher
-    );
-
-    console.log(gotchiverseStats, "gotchiStats");
-
-    let gotchisResponse = useSWR("/api/gotchis/stats", Fetcher);
-    let grassResponse = useSWR("/api/grass", Fetcher);
-    let rugResponse = useSWR("/api/rugs", Fetcher);
-    let gotchiStats = gotchisResponse.data;
-    let gotchiverseStats7d = gotchiverseStats7dResponse.data;
-    let gotchiverseStats1d = gotchiverseStats1dResponse.data;
-    let gotchiverseStats30d = gotchiverseStats30dResponse.data;
-
-    let fakeGotchisResponse = useSWR("/api/fakeGotchis", Fetcher);
-    console.log(fakeGotchisResponse, "Fake Gotchi");
-
-    let gotchiverseStats7dSeriesResponse = useSWR(
-        "/api/gotchiverse/stats/7/series",
-        Fetcher
-    );
-
-    let gotchiverseStates30dSeriesResponse = useSWR(
-        "/api/gotchiverse/stats/30/series",
-        Fetcher
-    );
-
-    let gotchiverseStats7dSeries = gotchiverseStats7dSeriesResponse.data; // gotchiverseStats 7 days data
-
-    let gotchiverseStats30dSeries = gotchiverseStates30dSeriesResponse.data; // gotchiverseStats 30 days data
-
-    let activeWallets = useSWR("/api/alchemica/");
-
     // ============================ graph below =====================
 
     const [dataToBeDisplayed, setDataToBeDisplayed] = useState<string>("");
@@ -184,10 +120,7 @@ const Home: NextPage = () => {
                         <AlchemicaBarChart />
                     </Col>
                     <Col md="4">
-                        <div className="pools_wrapper">
-                            <StakingPools />
-                            <StakingPools />
-                        </div>
+                        <StakingPools />
                     </Col>
                 </Row>
 
@@ -249,6 +182,10 @@ const Home: NextPage = () => {
                         text-align: center;
                         font-weight: 800;
                         font-size: 50px;
+                    }
+
+                    .debug {
+                        height: 100%;
                     }
 
                     .pools_wrapper {
