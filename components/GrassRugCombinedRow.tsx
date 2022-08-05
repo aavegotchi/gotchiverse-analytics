@@ -21,12 +21,24 @@ function GrassRugCombinedRow() {
     return (
         <Row>
             {dataArray &&
-                dataArray.map((responseItem, index) => {
+                dataArray.map((responseItem: ResponseItem, index: number) => {
+                    let imageURL: string = "";
+
+                    if (responseItem.name == "LE Purple Grass") {
+                        imageURL = "PurpleGrass.png";
+                    } else if (responseItem.name == "LE Cyan Grass") {
+                        imageURL = "CyanGrass.png";
+                    } else if (responseItem.name == "LE Godlike Rofl Rug") {
+                        imageURL = "LeGodLikeRug.png";
+                    } else {
+                        imageURL = "LeMythicalRug.png";
+                    }
                     return (
                         <Col md={3} key={index}>
                             <GrassRugDataCard
                                 title={responseItem.name}
                                 data={responseItem.amount}
+                                imageURL={imageURL}
                             />
                         </Col>
                     );

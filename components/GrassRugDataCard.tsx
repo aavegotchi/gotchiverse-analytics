@@ -1,24 +1,19 @@
-import Image from "next/image";
 import React from "react";
-import { useState, useEffect } from "react";
-import { Card, Col, Row } from "react-bootstrap";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
 
 interface GrassRugDataCardProps {
     title: string;
     data: string;
+    imageURL: string;
 }
 
 const buttons: number[] = [30, 7, 24, 100];
 
-function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
-    const [trend, setTrend] = useState<number>(0);
-
-    const [timeLine, setTimeLine] = useState(3);
+function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
+    console.log(title, data, imageURL, "grassrugs");
     return (
         <section>
             <div className="wrapper">
+                <div className="background"></div>
                 <div className="title">
                     <div className="title_name">{title}</div>
                     <div className="body_data">{data ? data : "Loading"}</div>
@@ -30,7 +25,21 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
                         border: 1px solid black;
                         width: 100%;
                         height: 300px;
-                        background-color: white;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        position: relative;
+                    }
+
+                    .background {
+                        background-image: url("/static/images/${imageURL}");
+                        background-position: center;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.6;
+
                     }
 
                     .title {
@@ -39,7 +48,8 @@ function GrassRugDataCard({ title, data }: GrassRugDataCardProps) {
                         align-items: center;
                         flex-direction: column;
                         text-align: center;
-                        height: 100%;
+                        position: absolute;
+                        
                     }
 
                     .title_name {
