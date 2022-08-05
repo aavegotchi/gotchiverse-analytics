@@ -6,6 +6,8 @@ import { gltrStakingSubgraphClient } from "../graph/clients";
 import { gql } from "@apollo/client";
 import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css"; // optional
 
 interface GltrPool {
     allocPoint: BigNumber;
@@ -135,8 +137,16 @@ function StakingPools(): JSX.Element {
         <section className="wrapperOverall">
             {data && (
                 <div className="wrapper">
+                    <div className="tileHeader">
+                        <span className="tileHeader">GLTR STAKING</span>
+                    </div>
+                    <div className="mainDatav2">
+                        <div className="tileTitle">
+                            {data[currentViewIndex].name}
+                        </div>
+                    </div>
                     <div className="bodyWrapper">
-                        <div className="left">
+                        <div className="arrows left">
                             <button
                                 className="button button_left"
                                 onClick={() => {
@@ -153,10 +163,6 @@ function StakingPools(): JSX.Element {
                             </button>
                         </div>
                         <div className="center">
-                            <div className="tileHeader">
-                                <span className="tileHeader">GLTR STAKING</span>
-                            </div>
-
                             <div className="dataContainerv2">
                                 <div className="circularBarWrapperv2">
                                     <a
@@ -169,9 +175,10 @@ function StakingPools(): JSX.Element {
                                                 data[currentViewIndex]
                                                     .amountStaked
                                             }
-                                            text={`${data[currentViewIndex].amountStaked} %`}
+                                            text={`${data[currentViewIndex].amountStaked}%`}
+                                            strokeWidth={9}
                                             styles={buildStyles({
-                                                strokeLinecap: "flat",
+                                                strokeLinecap: "butt",
                                                 pathTransitionDuration: 0.5,
                                                 textSize: "30px",
                                                 textColor: "black",
@@ -181,17 +188,6 @@ function StakingPools(): JSX.Element {
                                             })}
                                         />
                                     </a>
-                                </div>
-                                <div className="mainDatav2">
-                                    <div className="heading">
-                                        <span className="heading_Name">
-                                            TOTAL STAKED:
-                                        </span>
-                                    </div>
-
-                                    <div className="tileTitle">
-                                        {data[currentViewIndex].name}
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -210,6 +206,16 @@ function StakingPools(): JSX.Element {
                                     height="50"
                                 />
                             </button>
+                        </div>
+                    </div>
+                    <div className="numericalDataWrapper">
+                        <div className="numericalData">
+                            LP tokens staked:{" "}
+                            {`${data[currentViewIndex].balance.toFixed(2)}`}{" "}
+                        </div>
+                        <div className="numericalData">
+                            Total LP tokens:{" "}
+                            {`${data[currentViewIndex].totalSupply.toFixed(2)}`}
                         </div>
                     </div>
                 </div>
@@ -247,19 +253,22 @@ function StakingPools(): JSX.Element {
                         text-transform: uppercase;
                     }
 
+                    .numericalData {
+                        font-size: 25px;
+                        font-weight: 800;
+                    }
+
                     .bodyWrapper {
                         display: flex;
-
                         align-items: center;
                         justify-content: space-around;
-                        height: 100%;
                         width: 100%;
                     }
 
                     .dataContainerv2 {
                         height: 100%;
                         display: flex;
-                        justify-content: space-around;
+                        justify-content: center;
                         align-items: center;
                         flex-direction: column;
                     }
@@ -275,14 +284,7 @@ function StakingPools(): JSX.Element {
                     }
 
                     .mainDatav2 {
-                        height: 100%;
-
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        padding-top: 40px;
-                        width: 100%;
-                        padding-bottom: 10px;
+                        padding-top: 20px;
                     }
 
                     .circularBarWrapperv2 {
@@ -291,15 +293,16 @@ function StakingPools(): JSX.Element {
                         align-items: center;
                         text-align: center;
                         width: 180px;
-                        padding-top: 20px;
                     }
                     .wrapper {
                         display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-around;
                         color: black;
                         background: white;
                         width: 100%;
                         height: 100%;
-
                         border: 1px solid black;
 
                         overflow: hidden;
@@ -309,7 +312,6 @@ function StakingPools(): JSX.Element {
                         flex: 1;
                         margin: 0px 20px;
                         padding: 30px;
-
                         cursor: pointer;
                     }
 
