@@ -137,7 +137,7 @@ const Home: NextPage = () => {
                     })}
                 </Row>
 
-                <h2 className="title">Gotchi Utiliziation</h2>
+                <h2 className="title">Gotchi Utilization</h2>
                 <GotchisStats />
                 <h2 className="title">Grass and Rugs</h2>
                 <GrassRugCombinedRow />
@@ -196,7 +196,7 @@ const Home: NextPage = () => {
 
                     .mainWrapper {
                         width: 1100px;
-                        padding-top: 60px;
+                        padding: 60px 0;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
