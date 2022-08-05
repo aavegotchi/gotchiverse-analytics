@@ -1,10 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import { useState, useEffect } from "react";
-
-import { Card, Col, Row } from "react-bootstrap";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
 
 interface GrassRugDataCardProps {
     title: string;
@@ -19,6 +13,7 @@ function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
     return (
         <section>
             <div className="wrapper">
+                <div className="background"></div>
                 <div className="title">
                     <div className="title_name">{title}</div>
                     <div className="body_data">{data ? data : "Loading"}</div>
@@ -30,9 +25,21 @@ function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
                         border: 1px solid black;
                         width: 100%;
                         height: 300px;
-                        background-color: white;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        position: relative;
+                    }
+
+                    .background {
                         background-image: url("/static/images/${imageURL}");
                         background-position: center;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.6;
+
                     }
 
                     .title {
@@ -41,6 +48,8 @@ function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
                         align-items: center;
                         flex-direction: column;
                         text-align: center;
+                        position: absolute;
+                        
                     }
 
                     .title_name {

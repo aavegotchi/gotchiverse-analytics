@@ -158,7 +158,6 @@ function DonutChartGotchis({ title, label, values }: DonutChartGotchisProps) {
                         padding-top: 0;
                         height: 300px;
                         width: 300px;
-                        border: 2px solid yellow;
                     }
                 `}
             </style>

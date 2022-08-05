@@ -4,18 +4,15 @@ import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 
 // components here
-import UnflippedTile from "../components/unflipped";
 import AlchemicaCardData from "../components/AlchemicaCardData";
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
 import DataCardLazyLoad from "../components/DataCardLazyLoad";
-import GrassRugData from "../components/GrassRugData";
 import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
 import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
 import GotchisStats from "../components/GotchisStats";
 
-import PoolsUnflippedV2 from "../components/poolsUnflipped2";
 import StakingPools from "../components/StakingPools";
-import TotalSupply from "../components/totalSupply";
+
 import GotchiverseStatsChart from "../components/GotchiverseStatsChart";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
@@ -146,7 +143,7 @@ const Home: NextPage = () => {
     return (
         <>
             <div className="mainWrapper">
-                <h2 className="title">Gotchiverse Economy</h2>
+                <h2 className="title mainTitle">State of the Gotchiverse</h2>
                 <Row>
                     {alchemicaObjects.map((alchemica, index) => {
                         return (
@@ -198,12 +195,19 @@ const Home: NextPage = () => {
             <style jsx>
                 {`
                     .title {
-                        width: 85%;
+                        width: 100%;
                         text-align: left;
                         font-size: 46px;
                         font-weight: 400;
                         line-height: 42.73px;
                         color: black;
+                        margin-top: 20px;
+                    }
+
+                    .mainTitle {
+                        text-align: center;
+                        font-weight: 800;
+                        font-size: 50px;
                     }
 
                     .pools_wrapper {
