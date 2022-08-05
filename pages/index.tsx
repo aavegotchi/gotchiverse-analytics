@@ -212,8 +212,6 @@ const Home: NextPage = () => {
                 {/* <Row>
                     <FakeGotchisDonutChart />
                 </Row> */}
-
-                <div className="footerSpace">Hello world</div>
             </div>
             <style jsx>
                 {`
@@ -261,7 +259,7 @@ const Home: NextPage = () => {
 
                     .mainWrapper {
                         width: 1100px;
-
+                        padding-top: 60px;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
