@@ -6,7 +6,7 @@ type Data = {
     values: string[];
 };
 
-export default async function handler(
+export default async function (
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
@@ -14,10 +14,10 @@ export default async function handler(
     const instance = axios.create({
         baseURL: "https://data.aavegotchi.com",
     });
-    let values = (
-        await Promise.all(
-            tokens.map((e) => instance.get(`/api/alchemica/${e.toLowerCase()}`))
-        )
-    ).map((e) => e.data.totalSupply);
-    res.status(200).json({ values });
+
+    return await Promise.all(
+        tokens.map((e) => instance.get(`/api/alchemica/${e.toLowerCase()}`))
+    )
+        .then((promisses) => promisses.map((e) => e.data.totalSupply))
+        .then((values: Array<string>) => res.status(200).json({ values }));
 }
