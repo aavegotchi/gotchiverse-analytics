@@ -4,7 +4,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
 import TimeLineButtons from "./Time_Line_Buttons/TimeLineButtons";
-
+import numeral from "numeral";
 interface DataCardProps {
     title: string;
     dataField: string;
@@ -105,7 +105,9 @@ function DataCard({ title, dataField }: DataCardProps) {
                 </div>
                 <div className="body">
                     {/* <div className = "body_data">{dataArray[timeLine]}</div> */}
-                    <div className="body_data">{dataArray[timeLine]}</div>
+                    <div className="body_data">
+                        {numeral(dataArray[timeLine]).format("0,0")}
+                    </div>
                     <div className="body_changeOverTime">
                         <div className={trendClass}>+{trend.toFixed(2)}%</div>
                     </div>

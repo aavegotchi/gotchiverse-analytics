@@ -1,5 +1,5 @@
 import React from "react";
-
+import numeral from "numeral";
 interface GrassRugDataCardProps {
     title: string;
     data: string;
@@ -9,14 +9,15 @@ interface GrassRugDataCardProps {
 const buttons: number[] = [30, 7, 24, 100];
 
 function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
-    console.log(title, data, imageURL, "grassrugs");
     return (
         <section>
             <div className="wrapper">
                 <div className="background"></div>
                 <div className="title">
                     <div className="title_name">{title}</div>
-                    <div className="body_data">{data ? data : "Loading"}</div>
+                    <div className="body_data">
+                        {data ? numeral(data).format("0,0") : "Loading"}
+                    </div>
                 </div>
             </div>
             <style jsx>

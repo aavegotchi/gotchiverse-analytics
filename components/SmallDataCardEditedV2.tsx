@@ -2,12 +2,11 @@ import Image from "next/image";
 import React from "react";
 import { useState, useEffect } from "react";
 import TimeLineButtons from "./Time_Line_Buttons/TimeLineButtons";
-
+import numeral from "numeral";
 interface SmallDataCardEditedV2Props {
     title: string;
     data: number[];
 }
-
 
 function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
     const [trend, setTrend] = useState<number>(0);
@@ -48,7 +47,9 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                     {/* <div className="question">?</div> */}
                 </div>
                 <div className="body">
-                    <div className="body_data">{data && data[timeLine]}</div>
+                    <div className="body_data">
+                        {data && numeral(data[timeLine]).format("0,0")}
+                    </div>
                     <div className="body_trend_changes">
                         <div className={trendClass}>{trend}%</div>
                         <div className="title_trend">
