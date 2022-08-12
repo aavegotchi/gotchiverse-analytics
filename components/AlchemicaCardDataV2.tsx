@@ -3,26 +3,19 @@ import Fetcher from "../fetcher";
 import Image from "next/image";
 import SuffixShortener from "./helperFunctions/SuffixShortener";
 import { ethers, BigNumber } from "ethers";
-
+import numeral from "numeral";
+import { formatEther } from "ethers/lib/utils";
 
 interface AlchemicaCardProps {
     title: string;
     dataField: string;
 }
 
+const coins: string[] = ["FUD", "FOMO", "ALPHA", "KEK"];
 
-
-
-const coins : string[] = [
-    "FUD", "FOMO", "ALPHA", "KEK"
-];
-
-
-function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
-
-    let data : string[] = [];
+function AlchemicaCardDataV2({ title, dataField }: AlchemicaCardProps) {
+    let data: string[] = [];
     let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
-
 
     if (gotchisResponse.data) {
         data = gotchisResponse.data[dataField];
@@ -31,126 +24,94 @@ function AlchemicaCardDataV2({title, dataField} : AlchemicaCardProps) {
     // const setData = () => {
     //     let gotchisResponse = useSWR("/api/gotchiverse/stats", Fetcher);
 
-
     //     if (gotchisResponse.data) {
     //         data = gotchisResponse.data[dataField];
     //     }
-
 
     // };
     // setData();
 
     return (
-
         <section>
-            <div className = "wrapper">
-                <div className = "title">
-                    {title}
-                    
-
-                </div>
-                <div className = "body">
-                    {
-                        coins.map((coin, index) => {
-                            return (
-                                <div className = "body_data" key = {index}>
-                                    <div className = "coin_wrapper">
-                                        <Image
-                                        src={ `/static/images/${coin}.png`}
+            <div className="wrapper">
+                <div className="title">{title}</div>
+                <div className="body">
+                    {coins.map((coin, index) => {
+                        return (
+                            <div className="body_data" key={index}>
+                                <div className="coin_wrapper">
+                                    <Image
+                                        src={`/static/images/${coin}.png`}
                                         alt="trending"
                                         width="28"
                                         height="28"
-                                        />
-                                        <div className = "coinName">
-                                            {coin}
-                                        </div>
-                                    </div>
-                                    <div className = "body_numeric_data">
-                                        {data.length > 0 && data[index].slice(0, -18)}
-                                        
-
-                                    </div>
+                                    />
+                                    <div className="coinName">{coin}</div>
                                 </div>
-                            )
-                        })
-                    }
-
+                                <div className="body_numeric_data">
+                                    {data.length > 0 &&
+                                        numeral(
+                                            formatEther(
+                                                BigNumber.from(data[index])
+                                            )
+                                        ).format("0,0")}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-
             </div>
             <style jsx>
                 {`
+                    .wrapper {
+                        color: black;
+                        border: 1px solid #000000;
+                        background: white;
 
-                .wrapper {
-                                        
-                    color: black;
-                    border: 1px solid #000000;
-                    background: white;
+                        width: 100%;
+                        position: relative;
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                    }
 
-                    width: 100%;
-                    position: relative;
-                    overflow: hidden;
-                    display: flex;
-                    flex-direction: column;
-                    
-                    
-                }
+                    .title {
+                        height: 100px;
+                        font-size: 30px;
+                        width: 80%;
+                        padding-top: 15px;
+                        padding-left: 20px;
+                        line-height: 100%;
+                        font-weight: 800;
+                    }
 
-                .title {
-                    height: 100px;
-                    font-size: 30px;
-                    width: 80%;
-                    padding-top: 15px;
-                    padding-left: 20px;
-                    line-height: 100%;
-                    font-weight: 800;
-                }
+                    .body {
+                        display: flex;
+                        flex-direction: column;
+                    }
 
-                .body {
-                    
-                    display: flex;
-                    flex-direction: column;
-                    
-                }
+                    .body_data {
+                        display: flex;
+                    }
 
-                .body_data {
+                    .coin_wrapper {
+                        margin-left: 20px;
+                    }
 
-                    display: flex;
+                    .coinName {
+                        text-align: center;
+                        font-weight: 800;
+                        transform: translateY(-40%);
+                    }
 
-                }
-
-                .coin_wrapper {
-                    margin-left: 20px;
-                    
-                }
-
-                .coinName {
-
-                    text-align: center;
-                    font-weight: 800;
-                    transform: translateY(-40%);
-                }
-
-                .body_numeric_data {
-                    
-                    margin-left: 20px;
-                    font-size: 32px;
-                }
-
-
+                    .body_numeric_data {
+                        margin-left: 20px;
+                        font-size: 32px;
+                    }
                 `}
             </style>
-
-
-
         </section>
-    )
-
-
-
-
-};
-
-
+    );
+}
 
 export default AlchemicaCardDataV2;

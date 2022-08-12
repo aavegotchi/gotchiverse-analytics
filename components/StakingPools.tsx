@@ -8,7 +8,7 @@ import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
-
+import numeral from "numeral";
 interface GltrPool {
     allocPoint: BigNumber;
     userBalance: BigNumber;
@@ -111,9 +111,11 @@ function StakingPools(): JSX.Element {
                 let balanceFormatted = formatEther(balance);
                 let pool = getPool(e.contract.id);
                 return {
-                    totalSupply: parseFloat(totalSupplyFormatted),
-                    balance: parseFloat(balanceFormatted),
-                    amountStaked: parseFloat(amountStaked.toString()),
+                    totalSupply: numeral(totalSupplyFormatted).format("0,0.00"),
+                    balance: numeral(balanceFormatted).format("0,0.00"),
+                    amountStaked: numeral(amountStaked.toString()).format(
+                        "0,0.00"
+                    ),
                     name: pool.name,
                     url: pool.url,
                 };
@@ -211,11 +213,11 @@ function StakingPools(): JSX.Element {
                     <div className="numericalDataWrapper">
                         <div className="numericalData">
                             LP tokens staked:{" "}
-                            {`${data[currentViewIndex].balance.toFixed(2)}`}{" "}
+                            {`${data[currentViewIndex].balance}`}{" "}
                         </div>
                         <div className="numericalData">
                             Total LP tokens:{" "}
-                            {`${data[currentViewIndex].totalSupply.toFixed(2)}`}
+                            {`${data[currentViewIndex].totalSupply}`}
                         </div>
                     </div>
                 </div>
