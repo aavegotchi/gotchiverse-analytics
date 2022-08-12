@@ -12,7 +12,7 @@ export default async function handler(
 ) {
     const tokens = ["FUD", "FOMO", "ALPHA", "KEK"];
     const instance = axios.create({
-        baseURL: "https://aavegotchi-data-api.vercel.app",
+        baseURL: "https://data.aavegotchi.com",
     });
     let values = (
         await Promise.all(
