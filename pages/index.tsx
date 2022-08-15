@@ -11,7 +11,6 @@ import GotchisStats from "../components/GotchisStats";
 import StakingPools from "../components/StakingPools";
 import DataCard from "../components/DataCard";
 import AlchemicaBarChart from "../components/AlchemicaBarChart";
-import axios from "axios";
 
 interface dataObject {
     title: string;
@@ -20,12 +19,6 @@ interface dataObject {
 
 const Home: NextPage = () => {
     // ============================ graph below =====================
-    axios
-        .get("/api/alchemica/kek/total")
-        .then((res) => console.log("total: ", res.data));
-    axios
-        .get("/api/alchemica/kek/1")
-        .then((res) => console.log("1d: ", res.data));
     const [dataToBeDisplayed, setDataToBeDisplayed] = useState<string>("");
 
     const [graphTitle, setGraphTitle] = useState<string>("");
