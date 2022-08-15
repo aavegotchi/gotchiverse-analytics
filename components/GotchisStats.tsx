@@ -39,7 +39,6 @@ function GotchisStats() {
     let gotchisRes24h = useSWR("/api/gotchis/stats/1", Fetcher);
     let gotchisRes7d = useSWR("/api/gotchis/stats/7", Fetcher);
     let gotchisRes30d = useSWR("/api/gotchis/stats/30", Fetcher);
-    console.log(gotchisRes24h, "gotchis24h");
 
     const appendData = () => {
         gotchisObjects.forEach((gotchiObject, index) => {
@@ -50,7 +49,6 @@ function GotchisStats() {
                 parseInt(gotchisRes.data[gotchiObject.dataField]),
             ];
         });
-        console.log(gotchisObjects, "gotchisObject");
     };
 
     if (

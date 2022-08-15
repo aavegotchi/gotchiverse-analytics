@@ -19,7 +19,6 @@ interface dataObject {
 
 const Home: NextPage = () => {
     // ============================ graph below =====================
-
     const [dataToBeDisplayed, setDataToBeDisplayed] = useState<string>("");
 
     const [graphTitle, setGraphTitle] = useState<string>("");
