@@ -40,7 +40,7 @@ export default function AlchemicaTotalSupply() {
             let query24h = `/api/alchemica/${tokenData.token}/1`;
             let query7d = `/api/alchemica/${tokenData.token}/7`;
             let query30d = `/api/alchemica/${tokenData.token}/30`;
-            let queryTotal = `/api/alchemica/${tokenData.token}/30`; //@todo  add total supply of token here
+            let queryTotal = `/api/alchemica/${tokenData.token}/total`; //@todo  add total supply of token here
 
             const [response24h, response7d, response30d, responseTotal] =
                 await Promise.all([
