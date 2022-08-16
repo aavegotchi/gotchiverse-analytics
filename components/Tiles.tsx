@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import Fetcher from "../fetcher";
 import { Card, Col, Row } from "react-bootstrap";
-import GrassRugDataCard from "./GrassRugDataCard";
+import TileCard from "./TileCard";
 
 interface ResponseItem {
     name: string;
     amount: string;
 }
 
-function GrassRugCombinedRow() {
+function Tiles(): JSX.Element {
     let dataArray: ResponseItem[] = [];
 
     let grassResponse = useSWR("/api/grass", Fetcher);
@@ -35,7 +35,7 @@ function GrassRugCombinedRow() {
                     }
                     return (
                         <Col md={3} key={index}>
-                            <GrassRugDataCard
+                            <TileCard
                                 title={responseItem.name}
                                 data={responseItem.amount}
                                 imageURL={imageURL}
@@ -47,4 +47,4 @@ function GrassRugCombinedRow() {
     );
 }
 
-export default GrassRugCombinedRow;
+export default Tiles;
