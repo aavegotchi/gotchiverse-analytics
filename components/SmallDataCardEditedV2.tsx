@@ -126,7 +126,7 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
                     }
 
                     .body_data {
-                        font-size: 50px;
+                        font-size: 39px;
                         font-weight: 800;
                         vertical-align: top;
                         line-height: 100%;
