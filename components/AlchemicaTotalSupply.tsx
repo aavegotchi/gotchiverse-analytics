@@ -75,13 +75,13 @@ export default function AlchemicaTotalSupply() {
     return (
         <Row>
             {tokens.map((tokenData: tokenData, index: number) => {
-                console.log("tokenData", tokenData.data);
+                let title: string = `TOTAL SUPPLY  ${tokenData.token}`;
                 return (
                     tokenData.data && (
                         <Col key={index}>
                             <SmallDataCardEditedV2
                                 data={tokenData.data}
-                                title={tokenData.token}
+                                title={title}
                             />
                         </Col>
                     )
