@@ -6,7 +6,7 @@ import { Col, Image, Row } from "react-bootstrap";
 
 // components here
 import AlchemicaCardDataV2 from "../components/AlchemicaCardDataV2";
-import GrassRugCombinedRow from "../components/GrassRugCombinedRow";
+import Tiles from "../components/Tiles";
 import GotchisStats from "../components/GotchisStats";
 import StakingPools from "../components/StakingPools";
 import DataCard from "../components/DataCard";
@@ -138,8 +138,8 @@ const Home: NextPage = () => {
 
                 <h2 className="title">Gotchi Utilization</h2>
                 <GotchisStats />
-                <h2 className="title">Grass and Rugs</h2>
-                <GrassRugCombinedRow />
+                <h2 className="title">Tiles</h2>
+                <Tiles />
                 {/* <h2 className="title">test </h2> */}
                 {/* <Row>
                     <FakeGotchisDonutChart />
