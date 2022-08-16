@@ -84,9 +84,10 @@ function SmallDataCardEditedV2({ title, data }: SmallDataCardEditedV2Props) {
 
                     .title {
                         display: flex;
-                        justify-content: space-around;
+
                         padding-top: 15px;
                         padding-left: 10px;
+                        height: 80px;
                     }
 
                     .title_name {
