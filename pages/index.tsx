@@ -11,6 +11,8 @@ import GotchisStats from "../components/GotchisStats";
 import StakingPools from "../components/StakingPools";
 import DataCard from "../components/DataCard";
 import AlchemicaBarChart from "../components/AlchemicaBarChart";
+import axios from "axios";
+import AlchemicaTotalSupply from "../components/AlchemicaTotalSupply";
 
 interface dataObject {
     title: string;
@@ -135,6 +137,8 @@ const Home: NextPage = () => {
                         );
                     })}
                 </Row>
+                <h2 className="title">Total Supply of Alchemica</h2>
+                <AlchemicaTotalSupply />
 
                 <h2 className="title">Gotchi Utilization</h2>
                 <GotchisStats />
