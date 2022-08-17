@@ -7,6 +7,7 @@ import axios from "axios";
 interface Tile {
     name: string;
     amount: string;
+    uri: string;
 }
 
 function Tiles(): JSX.Element {
@@ -14,7 +15,7 @@ function Tiles(): JSX.Element {
 
     useEffect(() => {
         axios.get("/api/tiles").then((res) => setTiles(res.data));
-    });
+    }, []);
 
     return (
         <Row>
@@ -22,15 +23,24 @@ function Tiles(): JSX.Element {
                 tiles.map((tile: Tile, index: number) => {
                     let imageURL: string = "";
 
-                    if (tile.name == "LE Purple Grass") {
-                        imageURL = "PurpleGrass.png";
-                    } else if (tile.name == "LE Cyan Grass") {
-                        imageURL = "CyanGrass.png";
-                    } else if (tile.name == "LE Godlike Rofl Rug") {
-                        imageURL = "LeGodLikeRug.png";
+                    // if (tile.name == "LE Purple Grass") {
+                    //     imageURL = "PurpleGrass.png";
+                    // } else if (tile.name == "LE Cyan Grass") {
+                    //     imageURL = "CyanGrass.png";
+                    // } else if (tile.name == "LE Godlike Rofl Rug") {
+                    //     imageURL = "LeGodLikeRug.png";
+                    // } else {
+                    //     imageURL = "LeMythicalRug.png";
+                    // }
+
+                    if (tile.uri == null || tile.name === "The Void") {
+                        imageURL = "";
                     } else {
-                        imageURL = "LeMythicalRug.png";
+                        imageURL = tile.uri;
                     }
+
+                    console.log(tile, tile.name);
+
                     return (
                         <Col md={3} key={index}>
                             <TileCard
@@ -41,6 +51,13 @@ function Tiles(): JSX.Element {
                         </Col>
                     );
                 })}
+            <style jsx>
+                {`
+                    .section_wrapper {
+                        display: flex;
+                    }
+                `}
+            </style>
         </Row>
     );
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import numeral from "numeral";
+import { useState, useEffect } from "react";
+import axios from "axios";
 interface GrassRugDataCardProps {
     title: string;
     data: string;
@@ -9,6 +11,23 @@ interface GrassRugDataCardProps {
 const buttons: number[] = [30, 7, 24, 100];
 
 function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
+    const [image, setImage] = useState<string>(
+        "/static/images/aavegotchi-dark.gif"
+    );
+
+    useEffect(() => {
+        const fetchImage = async function () {
+            const response = await axios.get(imageURL);
+            console.log(response, "response");
+            console.log(response.data.image, "image here");
+            setImage(response.data.image);
+        };
+
+        if (imageURL != "") {
+            fetchImage();
+        }
+    }, []);
+
     return (
         <section>
             <div className="wrapper">
@@ -16,7 +35,7 @@ function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
                 <div className="title">
                     <div className="title_name">{title}</div>
                     <div className="body_data">
-                        {data ? numeral(data).format("0,0") : "Loading"}
+                        {data != null ? numeral(data).format("0,0") : "Loading"}
                     </div>
                 </div>
             </div>
@@ -32,10 +51,12 @@ function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
                         align-items: center;
 
                         position: relative;
+                        margin-bottom: 20px;
+                        
                     }
 
                     .background {
-                        background-image: url("/static/images/${imageURL}");
+                        background-image: url(${image});
                         background-position: center;
                         width: 100%;
                         height: 100%;
