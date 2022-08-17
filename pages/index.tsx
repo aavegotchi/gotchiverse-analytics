@@ -34,12 +34,6 @@ const Home: NextPage = () => {
         dataField: "installationsMintedTotal",
     });
 
-    const [test, setTest] = useState(null);
-
-    useEffect(() => {
-        axios.get(`/api/alchemica/fud/30`).then(console.log);
-    }, []);
-
     useEffect(() => {
         function setData() {
             setDataToBeDisplayed("installationsMintedTotal");
