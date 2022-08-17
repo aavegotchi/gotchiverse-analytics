@@ -3,32 +3,30 @@ import useSWR from "swr";
 import Fetcher from "../fetcher";
 import { Card, Col, Row } from "react-bootstrap";
 import TileCard from "./TileCard";
-
-interface ResponseItem {
+import axios from "axios";
+interface Tile {
     name: string;
     amount: string;
 }
 
 function Tiles(): JSX.Element {
-    let dataArray: ResponseItem[] = [];
+    const [tiles, setTiles] = useState<Tile[]>([]);
 
-    let grassResponse = useSWR("/api/grass", Fetcher);
-    let rugsResponse = useSWR("/api/rugs", Fetcher);
-    if (grassResponse.data && rugsResponse.data) {
-        dataArray = grassResponse.data.concat(rugsResponse.data);
-    }
+    useEffect(() => {
+        axios.get("/api/tiles").then((res) => setTiles(res.data));
+    });
 
     return (
         <Row>
-            {dataArray &&
-                dataArray.map((responseItem: ResponseItem, index: number) => {
+            {tiles.length > 0 &&
+                tiles.map((tile: Tile, index: number) => {
                     let imageURL: string = "";
 
-                    if (responseItem.name == "LE Purple Grass") {
+                    if (tile.name == "LE Purple Grass") {
                         imageURL = "PurpleGrass.png";
-                    } else if (responseItem.name == "LE Cyan Grass") {
+                    } else if (tile.name == "LE Cyan Grass") {
                         imageURL = "CyanGrass.png";
-                    } else if (responseItem.name == "LE Godlike Rofl Rug") {
+                    } else if (tile.name == "LE Godlike Rofl Rug") {
                         imageURL = "LeGodLikeRug.png";
                     } else {
                         imageURL = "LeMythicalRug.png";
@@ -36,8 +34,8 @@ function Tiles(): JSX.Element {
                     return (
                         <Col md={3} key={index}>
                             <TileCard
-                                title={responseItem.name}
-                                data={responseItem.amount}
+                                title={tile.name}
+                                data={tile.amount}
                                 imageURL={imageURL}
                             />
                         </Col>
