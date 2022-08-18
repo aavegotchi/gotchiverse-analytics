@@ -9,10 +9,10 @@ type Data = {
     supply: Number;
 };
 
-export default async function (
+export const handler = async (
     req: NextApiRequest,
     res: NextApiResponse<Data>
-) {
+) => {
     const tokens = ["FUD", "FOMO", "ALPHA", "KEK"];
     const instance = axios.create({
         baseURL: "https://data.aavegotchi.com",
@@ -77,4 +77,6 @@ export default async function (
         symbol: (req.query.symbol as string).toUpperCase(),
         supply: diffSupply,
     });
-}
+};
+
+export default handler;

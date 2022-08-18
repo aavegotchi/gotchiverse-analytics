@@ -1,6 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { gql } from "@apollo/client";
-import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { gotchiverseSubgraphClient } from "../../../graph/clients";
 
@@ -14,10 +13,10 @@ type Data = {
     tileTypes: string[];
 };
 
-export default async function (
+export const handler = async (
     req: NextApiRequest,
     res: NextApiResponse<Data>
-) {
+) => {
     const result = await gotchiverseSubgraphClient.query({
         query: gql`
             query fetchAllTiles {
@@ -36,4 +35,6 @@ export default async function (
             amount: parseInt(e.amount),
         }))
     );
-}
+};
+
+export default handler;
