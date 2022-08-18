@@ -11,15 +11,12 @@ interface GrassRugDataCardProps {
 const buttons: number[] = [30, 7, 24, 100];
 
 function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
-    const [image, setImage] = useState<string>(
-        "/static/images/aavegotchi-dark.gif"
-    );
+    const [image, setImage] = useState<string>("");
 
     useEffect(() => {
         const fetchImage = async function () {
             const response = await axios.get(imageURL);
-            console.log(response, "response");
-            console.log(response.data.image, "image here");
+
             setImage(response.data.image);
         };
 

@@ -23,23 +23,11 @@ function Tiles(): JSX.Element {
                 tiles.map((tile: Tile, index: number) => {
                     let imageURL: string = "";
 
-                    // if (tile.name == "LE Purple Grass") {
-                    //     imageURL = "PurpleGrass.png";
-                    // } else if (tile.name == "LE Cyan Grass") {
-                    //     imageURL = "CyanGrass.png";
-                    // } else if (tile.name == "LE Godlike Rofl Rug") {
-                    //     imageURL = "LeGodLikeRug.png";
-                    // } else {
-                    //     imageURL = "LeMythicalRug.png";
-                    // }
-
                     if (tile.uri == null || tile.name === "The Void") {
                         imageURL = "";
                     } else {
                         imageURL = tile.uri;
                     }
-
-                    console.log(tile, tile.name);
 
                     return (
                         <Col md={3} key={index}>
