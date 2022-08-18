@@ -6,10 +6,10 @@ type Data = {
     values: string[];
 };
 
-export default async function (
+export const handler = async (
     req: NextApiRequest,
     res: NextApiResponse<Data>
-) {
+) => {
     const tokens = ["FUD", "FOMO", "ALPHA", "KEK"];
     const instance = axios.create({
         baseURL: "https://data.aavegotchi.com",
@@ -20,4 +20,6 @@ export default async function (
     )
         .then((promisses) => promisses.map((e) => e.data.totalSupply))
         .then((values: Array<string>) => res.status(200).json({ values }));
-}
+};
+
+export default handler;

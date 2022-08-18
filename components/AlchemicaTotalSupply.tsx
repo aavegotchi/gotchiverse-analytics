@@ -37,10 +37,10 @@ export default function AlchemicaTotalSupply() {
 
     useEffect(() => {
         const getData = async function (tokenData: tokenData) {
-            let query24h = `/api/alchemica/${tokenData.token}/1`;
-            let query7d = `/api/alchemica/${tokenData.token}/7`;
-            let query30d = `/api/alchemica/${tokenData.token}/30`;
-            let queryTotal = `/api/alchemica/${tokenData.token}/total`; //@todo  add total supply of token here
+            let query24h = `/api/alchemica/${tokenData.token.toLocaleLowerCase()}/1`;
+            let query7d = `/api/alchemica/${tokenData.token.toLocaleLowerCase()}/7`;
+            let query30d = `/api/alchemica/${tokenData.token.toLocaleLowerCase()}/30`;
+            let queryTotal = `/api/alchemica/${tokenData.token.toLocaleLowerCase()}/total`; //@todo  add total supply of token here
 
             const [response24h, response7d, response30d, responseTotal] =
                 await Promise.all([
