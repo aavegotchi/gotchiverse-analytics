@@ -21,6 +21,47 @@ interface data {
     tension: number;
 }
 
+const chartOptions: any = {
+    layout: {
+        padding: 5,
+    },
+    scales: {
+        x: {
+            grid: {
+                display: false,
+            },
+        },
+
+        y: {
+            grid: {
+                borderDash: [2, 2],
+            },
+        },
+    },
+    barPercentage: 0.5,
+    responsive: true,
+    plugins: {
+        legend: {
+            position: "top",
+            data: {
+                font: {
+                    size: 15,
+                    weight: 800,
+                },
+            },
+            labels: {
+                boxHeight: 15,
+            },
+        },
+        title: {
+            display: true,
+            text: "",
+        },
+    },
+    maintainAspectRatio: true,
+    indexAxis: "x",
+};
+
 function AlchemicaBarChart() {
     const tokens = ["FUD", "FOMO", "ALPHA", "KEK"];
     const mintedAlchemica = [
@@ -102,7 +143,11 @@ function AlchemicaBarChart() {
                 <div className="body">
                     <div className="body_graph_wrapper">
                         {datasets && mintedAlchemica && (
-                            <BarChart labels={tokens} dataSets={datasets} />
+                            <BarChart
+                                labels={tokens}
+                                dataSets={datasets}
+                                customChartOptions={chartOptions}
+                            />
                         )}
                     </div>
                 </div>

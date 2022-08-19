@@ -6,6 +6,7 @@ import { Bar } from "react-chartjs-2";
 interface ChartProps {
     labels: string[];
     dataSets: data[];
+    customChartOptions: any;
 }
 
 interface graphData {
@@ -22,7 +23,11 @@ interface data {
     tension: number;
 }
 
-export default function AlchemicaChart({ labels, dataSets }: ChartProps) {
+export default function AlchemicaChart({
+    labels,
+    dataSets,
+    customChartOptions,
+}: ChartProps) {
     const [chartOptions, setChartOptions] = useState<object>({
         responsive: true,
         plugins: {
@@ -34,6 +39,7 @@ export default function AlchemicaChart({ labels, dataSets }: ChartProps) {
                 text: "",
             },
         },
+        indexAxis: "y",
     });
     const [chartData, setChartData] = useState<graphData>({
         labels: [],
@@ -55,49 +61,12 @@ export default function AlchemicaChart({ labels, dataSets }: ChartProps) {
                 labels: labels,
                 datasets: dataSets,
             });
-            setChartOptions({
-                layout: {
-                    padding: 5,
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false,
-                        },
-                    },
 
-                    y: {
-                        grid: {
-                            borderDash: [2, 2],
-                        },
-                    },
-                },
-                barPercentage: 0.5,
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: "top",
-                        data: {
-                            font: {
-                                size: 15,
-                                weight: 800,
-                            },
-                        },
-                        labels: {
-                            boxHeight: 15,
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: "",
-                    },
-                },
-                maintainAspectRatio: true,
-            });
+            setChartOptions(customChartOptions);
         }
 
         createData();
-    }, [labels, dataSets]);
+    }, [labels, dataSets, customChartOptions]);
 
     return (
         <section>

@@ -42,15 +42,50 @@ export default function TilesBarChart({
         },
     ]);
 
+    const [barGraphOptions, setBarGraphOptions] = useState({
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+            },
+            title: {
+                display: true,
+            },
+        },
+        indexAxis: "y",
+    });
+
+    useEffect(() => {
+        setBarGraphData([
+            {
+                label: "Total Alchemica Minted",
+                data: dataArray
+                    .map((dataObject, index) => {
+                        return dataObject.amount;
+                    })
+                    .sort((a, b) => {
+                        return a - b;
+                    }),
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "#622FEE",
+                tension: 0.1,
+            },
+        ]);
+    }, [dataArray]);
+
     return (
         <>
             <div className="barChartWrapper">
-                <BarChart
-                    labels={dataArray.map((dataObject, index) => {
-                        return dataObject.name;
-                    })}
-                    dataSets={barGraphData}
-                />
+                {dataArray.length > 0 && (
+                    <BarChart
+                        labels={dataArray.map((dataObject, index) => {
+                            return dataObject.name;
+                        })}
+                        dataSets={barGraphData}
+                        customChartOptions={barGraphOptions}
+                    />
+                )}
             </div>
             <style jsx>
                 {`
