@@ -1,13 +1,13 @@
 import {
     getAlchemicaTotalSupplyDiff,
     getAlchemicaTotalSupplyFromBlock,
-} from "./api/alchemica";
-import { getGotchis, getGotchisDiff } from "./api/gochis";
-import { getGrass } from "./api/grass";
-import { getFakeGotchis } from "./api/fakegotchis";
-import { INTERVAL_ALL, INTERVAL_DAY } from "./api/helper/constats";
-import { getRugs } from "./api/rugs";
-import { getStatsDiff } from "./api/stats";
+} from "./fetcher/alchemica";
+import { getGotchis, getGotchisDiff } from "./fetcher/gochis";
+import { getGrass } from "./fetcher/grass";
+import { getFakeGotchis } from "./fetcher/fakegotchis";
+import { INTERVAL_ALL, INTERVAL_DAY } from "./fetcher/helper/constats";
+import { getRugs } from "./fetcher/rugs";
+import { getStatsDiff } from "./fetcher/stats";
 
 export default async function Fetcher(url) {
     let urlParts = url.split("/");
