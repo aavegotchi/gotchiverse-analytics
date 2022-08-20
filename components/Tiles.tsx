@@ -15,7 +15,13 @@ function Tiles(): JSX.Element {
     const [tiles, setTiles] = useState<Tile[]>([]);
 
     useEffect(() => {
-        axios.get("/api/tiles").then((res) => setTiles(res.data));
+        axios.get("/api/tiles").then((res) => {
+            const sortedTiles = res.data.sort((a: Tile, b: Tile) => {
+                return parseInt(a.id) < parseInt(b.id) ? -1 : 1;
+            });
+
+            setTiles(sortedTiles);
+        });
     }, []);
 
     return (
