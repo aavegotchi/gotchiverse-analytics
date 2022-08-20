@@ -24,7 +24,6 @@ export const handler = async (
                     id
                     name
                     amount
-                    uri
                 }
             }
         `,
@@ -33,6 +32,7 @@ export const handler = async (
     res.status(200).json(
         result.data.tileTypes.map((e: Tile) => ({
             ...e,
+            uri: null,
             amount: parseInt(e.amount),
         }))
     );

@@ -16,6 +16,6 @@ export const gltrStakingSubgraphClient = new ApolloClient({
 });
 
 export const gotchiverseSubgraphClient = new ApolloClient({
-    uri: "https://api.thegraph.com/subgraphs/id/QmRZvLBaWK1EX339TsxFPmhUuskNA3YAghonwR8grWZVXx",
+    uri: "https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic",
     cache: new InMemoryCache(),
 });
