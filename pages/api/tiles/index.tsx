@@ -21,6 +21,7 @@ export const handler = async (
         query: gql`
             query fetchAllTiles {
                 tileTypes {
+                    id
                     name
                     amount
                     uri

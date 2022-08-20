@@ -3,6 +3,7 @@ import numeral from "numeral";
 import { useState, useEffect } from "react";
 import axios from "axios";
 interface GrassRugDataCardProps {
+    id: string;
     title: string;
     data: string;
     imageURL: string;
@@ -10,18 +11,25 @@ interface GrassRugDataCardProps {
 
 const buttons: number[] = [30, 7, 24, 100];
 
-function GrassRugDataCard({ title, data, imageURL }: GrassRugDataCardProps) {
+function GrassRugDataCard({
+    id,
+    title,
+    data,
+    imageURL,
+}: GrassRugDataCardProps) {
     const [image, setImage] = useState<string>("");
 
     useEffect(() => {
-        const fetchImage = async function () {
-            const response = await axios.get(imageURL);
+        const fetchImage = async function (url: string) {
+            const response = await axios.get(url);
 
             setImage(response.data.image);
         };
 
         if (imageURL != "") {
-            fetchImage();
+            fetchImage(imageURL);
+        } else {
+            fetchImage(`https://app.aavegotchi.com/metadata/tile/${id}`);
         }
     }, []);
 

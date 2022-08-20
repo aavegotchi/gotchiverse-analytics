@@ -5,6 +5,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import TileCard from "./TileCard";
 import axios from "axios";
 interface Tile {
+    id: string;
     name: string;
     amount: string;
     uri: string;
@@ -32,6 +33,7 @@ function Tiles(): JSX.Element {
                     return (
                         <Col md={3} key={index}>
                             <TileCard
+                                id={tile.id}
                                 title={tile.name}
                                 data={tile.amount}
                                 imageURL={imageURL}
