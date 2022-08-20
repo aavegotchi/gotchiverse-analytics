@@ -149,6 +149,14 @@ const Home: NextPage = () => {
                     <FakeGotchisDonutChart />
                 </Row> */}
             </div>
+            <div>
+                <a
+                    href="https://github.com/aavegotchi/gotchiverse-analytics"
+                    target="_blank"
+                >
+                    GitHub
+                </a>
+            </div>
             <style jsx>
                 {`
                     .headerSection {
