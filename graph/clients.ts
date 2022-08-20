@@ -16,6 +16,6 @@ export const gltrStakingSubgraphClient = new ApolloClient({
 });
 
 export const gotchiverseSubgraphClient = new ApolloClient({
-    uri: "http://157.90.182.138:8000/subgraphs/id/QmPATkPBEeFtEiaGhTsarrzn8oBAfsgbXVi9uKhUUrTKzC",
+    uri: "https://api.thegraph.com/subgraphs/id/QmRZvLBaWK1EX339TsxFPmhUuskNA3YAghonwR8grWZVXx",
     cache: new InMemoryCache(),
 });
