@@ -108,7 +108,7 @@ const Home: NextPage = () => {
                         <a
                             className="GitLink"
                             href="https://github.com/aavegotchi/gotchiverse-analytics"
-                            target="_Blank"
+                            rel="noreferrer"
                         >
                             GitHub
                         </a>
