@@ -1,7 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 import BarChart from "./charts/BarChart";
 import { useState, useEffect } from "react";
-import { defaultDataIdFromObject } from "@apollo/client";
 
 interface TilesBarChartProps {
     dataArray: dataObject[];
