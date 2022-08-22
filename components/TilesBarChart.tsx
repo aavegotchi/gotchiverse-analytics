@@ -27,19 +27,15 @@ export default function TilesBarChart({
     const [barGraphData, setBarGraphData] = useState<data[]>([
         {
             label: "Total Alchemica Minted",
-            data: dataArray
-                .map((dataObject, index) => {
-                    return dataObject.amount;
-                })
-                .sort((a, b) => {
-                    return a - b;
-                }),
+            data: [],
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             backgroundColor: "#622FEE",
             tension: 0.1,
         },
     ]);
+    const [isAscending, setIsAscending] = useState<boolean>(true);
+    const [savedDataArray, setSavedDataArray] = useState<dataObject[]>();
 
     const [barGraphOptions, setBarGraphOptions] = useState({
         responsive: true,
@@ -55,36 +51,60 @@ export default function TilesBarChart({
     });
 
     useEffect(() => {
-        setBarGraphData([
-            {
-                label: "Total Alchemica Minted",
-                data: dataArray
-                    .map((dataObject, index) => {
-                        return dataObject.amount;
-                    })
-                    .sort((a, b) => {
-                        return a - b;
-                    }),
-                fill: false,
-                borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "#622FEE",
-                tension: 0.1,
-            },
-        ]);
+        setSavedDataArray(
+            dataArray.sort((a, b) => {
+                return a.amount - b.amount;
+            })
+        );
     }, [dataArray]);
 
     return (
         <>
             <div className="barChartWrapper">
-                {dataArray.length > 0 && (
+                {savedDataArray && (
                     <BarChart
-                        labels={dataArray.map((dataObject, index) => {
+                        labels={savedDataArray.map((dataObject, index) => {
                             return dataObject.name;
                         })}
-                        dataSets={barGraphData}
+                        dataSets={[
+                            {
+                                label: "Total Alchemica Minted",
+                                data: savedDataArray.map(
+                                    (dataObject, index) => {
+                                        return dataObject.amount;
+                                    }
+                                ),
+                                fill: false,
+                                borderColor: "rgb(75, 192, 192)",
+                                backgroundColor: "#622FEE",
+                                tension: 0.1,
+                            },
+                        ]}
                         customChartOptions={barGraphOptions}
                     />
                 )}
+                <div
+                    className="toggle_button"
+                    onClick={() => {
+                        if (isAscending === true) {
+                            setIsAscending(false);
+                            setSavedDataArray(
+                                dataArray.sort((a, b) => {
+                                    return b.amount - a.amount;
+                                })
+                            );
+                        } else {
+                            setIsAscending(true);
+                            setSavedDataArray(
+                                dataArray.sort((a, b) => {
+                                    return a.amount - b.amount;
+                                })
+                            );
+                        }
+                    }}
+                >
+                    Toggle
+                </div>
             </div>
             <style jsx>
                 {`
@@ -98,6 +118,29 @@ export default function TilesBarChart({
                         display: flex;
                         flex-direction: column;
                         position: relative;
+                    }
+
+                    .toggle_button {
+                        border: 1px solid black;
+                        width: 100px;
+                        height: 40px;
+                        display: flex;
+                        font-size: 20px;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #301b69;
+                        color: white;
+                        cursor: pointer;
+                        position: absolute;
+                        right: 10%;
+                        top: 12%;
+                        border-radius: 10px;
+                        transition: 0.5s ease-in-out;
+                    }
+
+                    .toggle_button:hover {
+                        background: white;
+                        color: #301b69;
                     }
                 `}
             </style>
