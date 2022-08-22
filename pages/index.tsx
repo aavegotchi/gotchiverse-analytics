@@ -103,6 +103,16 @@ const Home: NextPage = () => {
                             />
                         </div>
                     </div>
+                    <div className="github_Link">
+                        <Image src="/static/images/git.svg" />
+                        <a
+                            className="GitLink"
+                            href="https://github.com/aavegotchi/gotchiverse-analytics"
+                            rel="noreferrer"
+                        >
+                            GitHub
+                        </a>
+                    </div>
                 </div>
                 <Row>
                     {alchemicaObjects.map((alchemica, index) => {
@@ -149,18 +159,13 @@ const Home: NextPage = () => {
                     <FakeGotchisDonutChart />
                 </Row> */}
             </div>
-            <div>
-                <a
-                    href="https://github.com/aavegotchi/gotchiverse-analytics"
-                    target="_blank"
-                >
-                    GitHub
-                </a>
-            </div>
+
             <style jsx>
                 {`
                     .headerSection {
                         display: flex;
+
+                        width: 100%;
                     }
                     .title {
                         width: 100%;
@@ -175,8 +180,33 @@ const Home: NextPage = () => {
                     .welcome_gotchi_container {
                         position: relative;
                         padding-top: 10px;
+                        right: 16%;
 
                         width: 90px;
+                    }
+
+                    .github_Link {
+                        align-self: end;
+                        width: 100px;
+                        height: 50px;
+                        background-color: #301b69;
+                        color: white;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 20px;
+                        padding: 20px;
+                        border-radius: 5px;
+                        transform: translateY(10px);
+                        gap: 10px;
+                        font-size: 22px;
+                        transition: 0.5s ease-in-out;
+                        cursor: pointer;
+                    }
+
+                    .github_Link:hover {
+                        background-color: white;
+                        color: #301b69;
                     }
 
                     .gotchi {
