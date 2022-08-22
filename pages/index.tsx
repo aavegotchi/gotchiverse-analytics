@@ -103,16 +103,16 @@ const Home: NextPage = () => {
                             />
                         </div>
                     </div>
-                    <div className="github_Link">
-                        <Image src="/static/images/git.svg" />
-                        <a
-                            className="GitLink"
-                            href="https://github.com/aavegotchi/gotchiverse-analytics"
-                            rel="noreferrer"
-                        >
+                    <a
+                        className="GitLink"
+                        href="https://github.com/aavegotchi/gotchiverse-analytics"
+                        rel="noreferrer"
+                    >
+                        <div className="github_Link">
+                            <Image src="/static/images/git.svg" />
                             GitHub
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
                 <Row>
                     {alchemicaObjects.map((alchemica, index) => {
