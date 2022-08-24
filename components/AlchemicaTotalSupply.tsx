@@ -51,10 +51,10 @@ export default function AlchemicaTotalSupply() {
                 ]);
 
             const data: number[] = [
-                response24h.data.supply,
-                response7d.data.supply,
-                response30d.data.supply,
-                responseTotal.data.supply,
+                response24h.data.circulatingSupply,
+                response7d.data.circulatingSupply,
+                response30d.data.circulatingSupply,
+                responseTotal.data.circulatingSupply,
             ];
 
             tokenData.data = data;
@@ -75,7 +75,7 @@ export default function AlchemicaTotalSupply() {
     return (
         <Row>
             {tokens.map((tokenData: tokenData, index: number) => {
-                let title: string = `TOTAL SUPPLY  ${tokenData.token}`;
+                let title: string = `CIRCULATING SUPPLY  ${tokenData.token}`;
                 return (
                     tokenData.data && (
                         <Col key={index}>
