@@ -54,80 +54,101 @@ export const handler = async (
         "0x1fe64677ab1397e20a1211afae2758570fea1b8c",
     ];
 
-    const supplyResult = await alchemicaSubgraphClient.query({
-        query: gql`
-            query getSupplyDiff(
-                $prevBlockNumber: Int
-                $symbol: String
-                $accounts: [String]
-            ) {
-                prev: erc20Contracts(
-                    block: { number: $prevBlockNumber }
-                    where: { symbol: $symbol }
+    const diffs = await Promise.all([
+        alchemicaSubgraphClient.query({
+            query: gql`
+                query getSupplyDiff(
+                    $prevBlockNumber: Int
+                    $symbol: String
+                    $accounts: [String]
                 ) {
-                    symbol
-                    totalSupply {
-                        value
-                    }
-                }
-                prevBalances: erc20Balances(where: { account_in: $accounts }) {
-                    contract {
+                    current: erc20Contracts(where: { symbol: $symbol }) {
                         symbol
+                        totalSupply {
+                            value
+                            valueExact
+                        }
                     }
-                    account {
-                        id
-                    }
-                    value
-                    valueExact
-                }
-                current: erc20Contracts(where: { symbol: $symbol }) {
-                    symbol
-                    totalSupply {
+                    currentBalances: erc20Balances(
+                        where: { account_in: $accounts }
+                    ) {
+                        contract {
+                            symbol
+                        }
+                        account {
+                            id
+                        }
                         value
+                        valueExact
                     }
                 }
-                currentBalances: erc20Balances(
-                    where: { account_in: $accounts }
-                ) {
-                    contract {
-                        symbol
-                    }
-                    account {
-                        id
-                    }
-                    value
-                    valueExact
-                }
-            }
-        `,
-        variables: {
-            prevBlockNumber: prevBlockNumber,
-            symbol: (req.query.symbol as string).toUpperCase(),
-            accounts: burnAddress
-                .map((e) => e.toLowerCase())
-                .concat(incentiveWallets.map((e) => e.toLowerCase())),
-        },
-    });
+            `,
+            variables: {
+                prevBlockNumber: prevBlockNumber,
+                symbol: (req.query.symbol as string).toUpperCase(),
+                accounts: burnAddress
+                    .map((e) => e.toLowerCase())
+                    .concat(incentiveWallets.map((e) => e.toLowerCase())),
+            },
+        }),
 
-    let prevSupply = parseFloat(supplyResult.data.prev[0].totalSupply.value);
-    let currentSupply = parseFloat(
-        supplyResult.data.current[0].totalSupply.value
-    );
+        alchemicaSubgraphClient.query({
+            query: gql`
+                query getSupplyDiff(
+                    $prevBlockNumber: Int
+                    $symbol: String
+                    $accounts: [String]
+                ) {
+                    prev: erc20Contracts(
+                        block: { number: $prevBlockNumber }
+                        where: { symbol: $symbol }
+                    ) {
+                        symbol
+                        totalSupply {
+                            value
+                            valueExact
+                        }
+                    }
+                    prevBalances: erc20Balances(
+                        block: { number: $prevBlockNumber }
+                        where: { account_in: $accounts }
+                    ) {
+                        contract {
+                            symbol
+                        }
+                        account {
+                            id
+                        }
+                        value
+                        valueExact
+                    }
+                }
+            `,
+            variables: {
+                prevBlockNumber: prevBlockNumber,
+                symbol: (req.query.symbol as string).toUpperCase(),
+                accounts: burnAddress
+                    .map((e) => e.toLowerCase())
+                    .concat(incentiveWallets.map((e) => e.toLowerCase())),
+            },
+        }),
+    ]);
+
+    let prevSupply = parseFloat(diffs[1].data.prev[0].totalSupply.value);
+    let currentSupply = parseFloat(diffs[0].data.current[0].totalSupply.value);
 
     // calculate circulating supply
     let totalSupplyPrev = BigNumber.from(
-        supplyResult.data.prev[0].totalSupply.valueExact
+        diffs[1].data.prev[0].totalSupply.valueExact
     );
     let totalSupplyCurrent = BigNumber.from(
-        supplyResult.data.current[0].totalSupply.valueExact
+        diffs[0].data.current[0].totalSupply.valueExact
     );
 
-    let circulatingSupplyPrev = BigNumber.from(totalSupplyPrev);
-    let circulatingSupplyCurrent = BigNumber.from(totalSupplyCurrent);
+    let circulatingSupplyPrev = totalSupplyPrev;
+    let circulatingSupplyCurrent = totalSupplyCurrent;
 
-    // subtract incentivez from circulation
-    let incentivez = BigNumber.from("0");
-    supplyResult.data.prevBalances
+    diffs[1].data.prevBalances
         .filter((b: any) => {
             return (
                 b.contract.symbol ===
@@ -137,10 +158,9 @@ export const handler = async (
         })
         .forEach((b: any) => {
             circulatingSupplyPrev = circulatingSupplyPrev.sub(b.valueExact);
-            incentivez = incentivez.add(b.valueExact);
         });
 
-    supplyResult.data.currentBalances
+    diffs[0].data.currentBalances
         .filter((b: any) => {
             return (
                 b.contract.symbol ===
@@ -152,7 +172,6 @@ export const handler = async (
             circulatingSupplyCurrent = circulatingSupplyCurrent.sub(
                 b.valueExact
             );
-            incentivez = incentivez.add(b.valueExact);
         });
 
     let diffCirculating = formatEther(circulatingSupplyCurrent.toString());
