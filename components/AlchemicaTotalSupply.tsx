@@ -51,10 +51,10 @@ export default function AlchemicaTotalSupply() {
                 ]);
 
             const data: number[] = [
-                response24h.data.circulatingSupply,
-                response7d.data.circulatingSupply,
-                response30d.data.circulatingSupply,
-                responseTotal.data.circulatingSupply,
+                response24h.data.circulating,
+                response7d.data.circulating,
+                response30d.data.circulating,
+                responseTotal.data.circulating,
             ];
 
             tokenData.data = data;
