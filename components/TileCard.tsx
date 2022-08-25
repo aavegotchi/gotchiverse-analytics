@@ -48,6 +48,7 @@ function GrassRugDataCard({
                 {`
                     .wrapper {
                         border: 1px solid black;
+                        background: white;
                         width: 100%;
                         height: 300px;
 
