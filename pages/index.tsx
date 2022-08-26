@@ -13,6 +13,7 @@ import DataCard from "../components/DataCard";
 import AlchemicaBarChart from "../components/AlchemicaBarChart";
 import axios from "axios";
 import AlchemicaTotalSupply from "../components/AlchemicaTotalSupply";
+import FakeGotchisDonutChart from "../components/FakeGotchisDonutChart";
 
 interface dataObject {
     title: string;
@@ -155,9 +156,9 @@ const Home: NextPage = () => {
                 <h2 className="title">Tiles</h2>
                 <Tiles />
                 {/* <h2 className="title">test </h2> */}
-                {/* <Row>
+                <Row>
                     <FakeGotchisDonutChart />
-                </Row> */}
+                </Row>
             </div>
 
             <style jsx>

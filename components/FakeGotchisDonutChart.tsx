@@ -22,7 +22,6 @@ function FakeGotchisDonutChart() {
     let arrayWalletID: string[] = [];
     let arrayOwnerAmount: string[] = [];
     let fakeGotchisResponse = useSWR("/api/fakeGotchis");
-    console.log(fakeGotchisResponse, "hello worlds");
     if (fakeGotchisResponse.data) {
         // fakeGotchisResponse.map(() => {});
 
