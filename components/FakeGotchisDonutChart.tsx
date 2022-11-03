@@ -26,12 +26,10 @@ function FakeGotchisDonutChart({ cards }: FakeGotchisDonutChartProps) {
   let arrayWalletID: string[] = [];
   let arrayOwnerAmount: Number[] = [];
 
-  let fakeGotchisResponse;
-  if (!cards) {
-    fakeGotchisResponse = useSWR("/api/fakeGotchis", Fetcher);
-  } else {
-    fakeGotchisResponse = useSWR("/api/fakeGotchis/cards", Fetcher);
-  }
+  let fakeGotchisResponse = useSWR(
+    `/api/fakeGotchis/${cards ? "/cards" : ""}`,
+    Fetcher
+  );
 
   if (fakeGotchisResponse.data) {
     // fakeGotchisResponse.map(() => {});
