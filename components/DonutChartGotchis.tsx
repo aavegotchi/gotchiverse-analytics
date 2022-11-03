@@ -1,60 +1,60 @@
 import React from "react";
 import {
-    Chart,
-    ArcElement,
-    LineElement,
-    BarElement,
-    PointElement,
-    BarController,
-    BubbleController,
-    DoughnutController,
-    LineController,
-    PieController,
-    PolarAreaController,
-    RadarController,
-    ScatterController,
-    CategoryScale,
-    LinearScale,
-    LogarithmicScale,
-    RadialLinearScale,
-    TimeScale,
-    TimeSeriesScale,
-    Decimation,
-    Filler,
-    Legend,
-    Title,
-    Tooltip,
-    SubTitle,
+  Chart,
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle,
 } from "chart.js";
 
 import { Doughnut } from "react-chartjs-2";
 import { start } from "repl";
 
 Chart.register(
-    ArcElement,
-    LineElement,
-    BarElement,
-    PointElement,
-    BarController,
-    BubbleController,
-    DoughnutController,
-    LineController,
-    PieController,
-    PolarAreaController,
-    RadarController,
-    ScatterController,
-    CategoryScale,
-    LinearScale,
-    LogarithmicScale,
-    RadialLinearScale,
-    TimeScale,
-    TimeSeriesScale,
-    Decimation,
-    Filler,
-    Legend,
-    Title,
-    Tooltip,
-    SubTitle
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
 );
 
 // export const data = {
@@ -85,84 +85,75 @@ Chart.register(
 // };
 
 interface DonutChartGotchisProps {
-    title: string;
-    label: string[];
-    values: string[];
+  title: string;
+  label: string[];
+  values: Number[];
 }
 
 function DonutChartGotchis({ title, label, values }: DonutChartGotchisProps) {
-    return (
-        <section>
-            <div className="wrapper">
-                <div className="doughnut">
-                    <Doughnut
-                        data={{
-                            labels: label,
-                            datasets: [
-                                {
-                                    label: " ",
-                                    data: values,
-                                    backgroundColor: [
-                                        "#FA34F3",
-                                        "#622FEE",
-                                        "#FFC36B",
-                                    ],
-                                    borderColor: [
-                                        "#FA34F3",
-                                        "#622FEE",
-                                        "#FFC36B",
-                                    ],
-                                    borderWidth: 1,
-                                },
-                            ],
-                        }}
-                        height={300}
-                        width={300}
-                        options={{
-                            maintainAspectRatio: false,
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: "title here",
-                                    align: "center",
-                                    padding: {
-                                        bottom: 40,
-                                    },
-                                    font: {
-                                        size: 16,
-                                        weight: "900",
-                                    },
-                                },
-                                legend: {
-                                    display: false,
-                                },
-                            },
-                        }}
-                    />
-                </div>
-                <div>Some body</div>
-            </div>
-            <style jsx>
-                {`
-                    .wrapper {
-                        border: 1px solid black;
-                        display: flex;
-                        flex-direction: column;
+  return (
+    <section>
+      <div className="wrapper">
+        <div className="doughnut">
+          <Doughnut
+            data={{
+              labels: label,
+              datasets: [
+                {
+                  label: " ",
+                  data: values,
+                  backgroundColor: ["#FA34F3", "#622FEE", "#FFC36B"],
+                  borderColor: ["#FA34F3", "#622FEE", "#FFC36B"],
+                  borderWidth: 1,
+                },
+              ],
+            }}
+            height={300}
+            width={300}
+            options={{
+              maintainAspectRatio: false,
+              plugins: {
+                title: {
+                  display: true,
+                  text: "",
+                  align: "center",
+                  padding: {
+                    bottom: 40,
+                  },
+                  font: {
+                    size: 16,
+                    weight: "900",
+                  },
+                },
+                legend: {
+                  display: false,
+                },
+              },
+            }}
+          />
+        </div>
+      </div>
+      <style jsx>
+        {`
+          .wrapper {
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
 
-                        align-items: center;
-                        position: relative;
-                        height: 410px;
-                    }
+            align-items: center;
+            position: relative;
+            height: 410px;
+          }
 
-                    .doughnut {
-                        padding-top: 0;
-                        height: 300px;
-                        width: 300px;
-                    }
-                `}
-            </style>
-        </section>
-    );
+          .doughnut {
+            padding-top: 0;
+            height: 300px;
+            width: 300px;
+          }
+        `}
+      </style>
+    </section>
+  );
 }
 
 export default DonutChartGotchis;
