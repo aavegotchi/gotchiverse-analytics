@@ -25,9 +25,8 @@ interface FakeGotchisDonutChartProps {
 function FakeGotchisDonutChart({ cards }: FakeGotchisDonutChartProps) {
   let arrayWalletID: string[] = [];
   let arrayOwnerAmount: Number[] = [];
-
   let fakeGotchisResponse = useSWR(
-    `/api/fakeGotchis/${cards ? "/cards" : ""}`,
+    `/api/fakeGotchis${cards ? "/cards" : ""}`,
     Fetcher
   );
 
@@ -41,8 +40,6 @@ function FakeGotchisDonutChart({ cards }: FakeGotchisDonutChartProps) {
       arrayWalletID.push(data.id);
       arrayOwnerAmount.push(data.amountTokens);
     });
-
-    console.log(arrayWalletID);
   }
 
   return (
